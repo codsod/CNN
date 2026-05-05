@@ -1,0 +1,14 @@
+#-----------------------------------------------------------
+# Vivado v2023.2 (64-bit)
+# SW Build 4029153 on Fri Oct 13 20:14:34 MDT 2023
+# IP Build 4028589 on Sat Oct 14 00:45:43 MDT 2023
+# SharedData Build 4025554 on Tue Oct 10 17:18:54 MDT 2023
+# Start of session at: Tue Mar 10 08:49:19 2026
+# Process ID: 26168
+# Current directory: D:/wyp/uart_test/uart_test.runs/synth_1
+# Command line: vivado.exe -log uart_test.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source uart_test.tcl
+# Log file: D:/wyp/uart_test/uart_test.runs/synth_1/uart_test.vds
+# Journal file: D:/wyp/uart_test/uart_test.runs/synth_1\vivado.jou
+# Running On: ypwang, OS: Windows, CPU Frequency: 3793 MHz, CPU Physical cores: 16, Host memory: 29734 MB
+#-----------------------------------------------------------
+source uart_test.tcl -notrace

@@ -1,0 +1,4 @@
+Input_Scale: 0.035856030881
+Input_ZP: 5
+Output_Scale: 0.059495572001
+Output_ZP: 132
