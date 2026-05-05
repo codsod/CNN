@@ -1,6 +1,22 @@
 /instances_tp8_sim
-/instances_tp8_syn_kv260
+!/instances_tp8_syn_kv260/proj_*/
+/instances_tp8_syn_kv260/proj_*/**
+!/instances_tp8_syn_kv260/proj_*/vitis_hls.log
 /quant
 /__pycache__
 /chris_src
 /color_cross_subjects_data_code
+# 忽略整个目录下所有内容
+# /instances_tp8_syn_kv260
+
+# 允许进入根目录
+# !/instances_tp8_syn_kv260/
+
+# 允许进入 proj_* 目录
+# !/instances_tp8_syn_kv260/proj_*/
+
+# 仍然忽略 proj_* 目录里的所有内容
+# /instances_tp8_syn_kv260/proj_*/**
+
+# 只放行 vitis_hls.log
+# !/instances_tp8_syn_kv260/proj_*/vitis_hls.log

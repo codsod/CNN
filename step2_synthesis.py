@@ -9,7 +9,7 @@ INSTANCE_DIR = os.path.join(ROOT_DIR, "instances_tp8_syn_kv260")
 # compile all
 configs = [
     # ("LOG",  "flp", "2022.1"),  # PLEASE use 2022.1
-    # ("POOL",  "flp", "2022.1"),   # pass, two questions are found
+    ("POOL",  "flp", "2022.1"),   # pass, two questions are found
     # ("SQUARE", "flp", "2022.1"),   # psss 
     # ("LINEAR", "flp", "2022.1"),   # pass, requantization is needed
     # ("GELU", "flp", "2022.1"),     # pass
@@ -17,7 +17,7 @@ configs = [
     # ("CONV_SPATIAL", "flp", "2022.1"),  # no pass
     # ("CONCAT", "flp", "2022.1"),   # pass
     # ("QUANT_INPUT", "flp", "2022.1"), # pass
-    ("CNN_top",           "flp",      "2022.1"),  # stp for performance
+    # ("CNN_top",           "flp",      "2022.1"),  # stp for performance
 ]
 case_names, pipeline_styles, versions = zip(*configs)
 create_subprojects(INSTANCE_DIR, case_names=case_names, overwrite=True)

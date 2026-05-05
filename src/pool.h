@@ -32,7 +32,7 @@ public:
                     outdim_loop:for (int outdim = 0 ;outdim < OUTDIM ;outdim++){
                         uint16_t sum=0;
                         k_loop:for(int k = 0; k < K ; k++){
-                            #pragma HLS UNROLL
+                            #pragma HLS UNROLL factor=4
                             sum += in[dim1 * DIM2 + outdim * S + k];
                         }
                         // 取整方式须与量化 trace 一致。当前 ref（quant/acc0304.ipynb VerificationProbe）
