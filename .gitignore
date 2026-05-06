@@ -6,6 +6,8 @@
 /__pycache__
 /chris_src
 /color_cross_subjects_data_code
+/step1_stimulation.py
+/step2_synthesis.py
 # 忽略整个目录下所有内容
 /instances_tp8_syn_kv260
 
