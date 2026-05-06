@@ -1097,6 +1097,25 @@ void i_stream_load(hls::stream<hls::vector<data_t, DIM1 * DIM2>>& i_stream , con
     }
 }
 
+template<typename data_t , int N , int CHANNELS , int DIM1 , int DIM2, int VEC>
+void i_stream_load_chunks(hls::stream<hls::vector<data_t, VEC>>& i_stream , const data_t arr[N][CHANNELS][DIM1][DIM2]){
+    constexpr int CHUNKS = (DIM2 + VEC - 1) / VEC;
+    for(int n=0; n<N; n++){
+        for(int channels=0; channels<CHANNELS; channels++){
+            for (int dim1 = 0; dim1 < DIM1; dim1++) {
+                for(int ck = 0; ck<CHUNKS; ck++){
+                    hls::vector<data_t, VEC> vec_data;
+                    for(int k = 0; k<VEC; k++){
+                        int dim2 = ck * VEC + k;
+                        vec_data[k] = (dim2 < DIM2) ? arr[n][channels][dim1][dim2] : (data_t)0;
+                    }
+                    i_stream.write(vec_data);
+                }
+            }
+        }
+    }
+}
+
 template<typename data_t , int N , int CHANNELS , int DIM1 , int DIM2>
 void o_stream_compare(hls::stream<hls::vector<data_t, DIM1 * DIM2>>& o_stream , const data_t arr[N][CHANNELS][DIM1][DIM2]){
     int num_match = 0;
@@ -1113,6 +1132,36 @@ void o_stream_compare(hls::stream<hls::vector<data_t, DIM1 * DIM2>>& o_stream , 
                     }
                     else{
                         num_match ++;
+                    }
+                }
+            }
+        }
+    }
+    printf("match numbers :%5d\n",num_match);
+}
+
+template<typename data_t , int N , int CHANNELS , int DIM1 , int DIM2, int VEC>
+void o_stream_compare_chunks(hls::stream<hls::vector<data_t, VEC>>& o_stream , const data_t arr[N][CHANNELS][DIM1][DIM2]){
+    constexpr int CHUNKS = (DIM2 + VEC - 1) / VEC;
+    int num_match = 0;
+    for(int n=0; n<N; n++){
+        for(int channels=0; channels<CHANNELS; channels++){
+            for (int dim1 = 0; dim1 < DIM1; dim1++) {
+                for(int ck = 0; ck<CHUNKS; ck++){
+                    hls::vector<data_t, VEC> vec_data = o_stream.read();
+                    for(int k = 0; k<VEC; k++){
+                        int dim2 = ck * VEC + k;
+                        if (dim2 >= DIM2)
+                            continue;
+                        int idx = dim2 + dim1 * DIM2 + channels * DIM1 * DIM2 + n * CHANNELS * DIM1 * DIM2;
+                        int hls_data = vec_data[k];
+                        int ref_data = arr[n][channels][dim1][dim2];
+                        if(hls_data != ref_data){
+                            printf("mismatch at [%5d]:(hls vs ref) %5d vs %5d\n",idx, hls_data, ref_data);
+                        }
+                        else{
+                            num_match ++;
+                        }
                     }
                 }
             }

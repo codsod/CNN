@@ -26,24 +26,31 @@ template<
 class SquareLUT {
 public:
     SquareLUT() = default;
+    static constexpr int VEC = SPATIAL_VEC;
+    static constexpr int CHUNKS = (DIM2 + VEC - 1) / VEC;
 
     void do_lut_func(
-        hls::stream<hls::vector<if_t, DIM1 * DIM2>>& i_stream,
-        hls::stream<hls::vector<of_t, DIM1 * DIM2>>& o_stream)
+        hls::stream<hls::vector<if_t, VEC>>& i_stream,
+        hls::stream<hls::vector<of_t, VEC>>& o_stream)
     {
 #pragma HLS INLINE off
         n_loop: for (int n = 0; n < N; n++) {
             channels_loop: for (int c = 0; c < CHANNELS; c++) {
-#pragma HLS PIPELINE II=1
-                hls::vector<if_t, DIM1 * DIM2> in = i_stream.read();
-                hls::vector<of_t, DIM1 * DIM2> out;
+                dim1_loop: for (int d1 = 0; d1 < DIM1; d1++) {
+                    chunks_loop: for (int ck = 0; ck < CHUNKS; ck++) {
+                        hls::vector<if_t, VEC> in = i_stream.read();
+                        hls::vector<of_t, VEC> out;
 
-                elem_loop: for (int k = 0; k < DIM1 * DIM2; k++) {
-#pragma HLS UNROLL
-                    ap_uint<8> idx = in[k];
-                    out[k] = square_lut[idx];
+                        elem_loop: for (int k = 0; k < VEC; k++) {
+#pragma HLS PIPELINE II = 1
+#pragma HLS UNROLL factor=8
+                            int t = ck * VEC + k;
+                            ap_uint<8> idx = in[k];
+                            out[k] = (t < DIM2) ? square_lut[idx] : (of_t)0;
+                        }
+                        o_stream.write(out);
+                    }
                 }
-                o_stream.write(out);
             }
         }
     }

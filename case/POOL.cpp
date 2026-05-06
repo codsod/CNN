@@ -6,7 +6,7 @@
 
 POOL<X_T, X_T, N, CONCAT_CHANNELS, LV_DIM1, BR_DIM2, T_pool, K_POOL, S_POOL> pool_inst;
 
-void top(hls::stream<hls::vector<X_T, LV_DIM1 * BR_DIM2>>& i_stream,
+void top(hls::stream<hls::vector<X_T, SPATIAL_VEC>>& i_stream,
          hls::stream<hls::vector<X_T, LV_DIM1 * T_pool>>& o_stream)
 {
 #pragma HLS interface ap_ctrl_chain port=return
@@ -28,10 +28,10 @@ void test_layer()
 #include "../src/ref/trace/trace_pool1.txt"
     };
 
-    hls::stream<hls::vector<X_T, LV_DIM1 * BR_DIM2>> i_stream;
+    hls::stream<hls::vector<X_T, SPATIAL_VEC>> i_stream;
     hls::stream<hls::vector<X_T, LV_DIM1 * T_pool>> o_stream;
 
-    i_stream_load<X_T, N, CONCAT_CHANNELS, LV_DIM1, BR_DIM2>(i_stream, POOL_INPUT);
+    i_stream_load_chunks<X_T, N, CONCAT_CHANNELS, LV_DIM1, BR_DIM2, SPATIAL_VEC>(i_stream, POOL_INPUT);
     top(i_stream, o_stream);
 
     std::cout << "====================== pool_test ======================" << std::endl;

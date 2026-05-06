@@ -63,6 +63,15 @@ constexpr B_T CONV_SPATIAL_BIAS[CONCAT_CHANNELS] = {
 constexpr SCALE_T CONV_SPATIAL_OUTPUT_SCALE = 0.059495572001;
 constexpr ZP_T CONV_SPATIAL_OUTPUT_ZP = 132;
 
+static constexpr int CONV_SPATIAL_R_SHIFT = 26;
+static constexpr int64_t CONV_SPATIAL_R_ONE = 1LL << CONV_SPATIAL_R_SHIFT;
+static constexpr int64_t CONV_SPATIAL_R_MULT =
+    (int64_t)((double)CONV_SPATIAL_INPUT_SCALE * (double)CONV_SPATIAL_WEIGHT_SCALES /
+                  (double)CONV_SPATIAL_OUTPUT_SCALE * (double)CONV_SPATIAL_R_ONE +
+              0.5);
+static constexpr int CONV_SPATIAL_ROW_TILE = 5;
+static_assert(SPATIAL_KERNAL % CONV_SPATIAL_ROW_TILE == 0, "SPATIAL_KERNAL must be divisible by tile");
+
 // 银行家舍入
 inline int round_to_even(float x)
 {
@@ -84,6 +93,23 @@ inline int round_to_even(float x)
     return (base & 1) ? (base + 1) : base;
 }
 
+static int conv_spatial_requant_fixed(int32_t acc)
+{
+#pragma HLS INLINE
+    int64_t prod = (int64_t)acc * CONV_SPATIAL_R_MULT;
+    bool neg = prod < 0;
+    uint64_t mag = neg ? (uint64_t)(-prod) : (uint64_t)prod;
+    uint64_t q = mag >> CONV_SPATIAL_R_SHIFT;
+    uint64_t rem = mag & (CONV_SPATIAL_R_ONE - 1);
+    uint64_t half = (uint64_t)1 << (CONV_SPATIAL_R_SHIFT - 1);
+
+    if (rem > half || (rem == half && (q & 1)))
+        q++;
+
+    int64_t signed_q = neg ? -(int64_t)q : (int64_t)q;
+    return (int)(signed_q + (int64_t)CONV_SPATIAL_OUTPUT_ZP);
+}
+
 // =============================================================================
 // 空间卷积 ConvSpatial：输入 (N, CONCAT_CHANNELS, IN_DIM, BR_DIM2)，核 (SPATIAL_KERNAL,1)
 // 输出 (N, CONCAT_CHANNELS, 1, BR_DIM2)，即每通道每时刻一个标量
@@ -95,7 +121,7 @@ public:
     static constexpr int IN_D = IN_DIM;
     static constexpr int BR_D = BR_DIM2;
     static constexpr int IN_VEC = SPATIAL_VEC; // 32 per chunk
-    static constexpr int OUT_VEC = BR_D;       // 410 每通道
+    static constexpr int OUT_VEC = SPATIAL_VEC;
     static constexpr int OUT_TT = SPATIAL_CHUNKS;
 
     void do_conv_spatial(
@@ -104,11 +130,7 @@ public:
     {
         if_t buf[CONCAT_CHANNELS][IN_D][BR_D];
 #pragma HLS BIND_STORAGE variable = buf type = ram_2p impl = bram
-
-        const float r =
-            (float)CONV_SPATIAL_INPUT_SCALE *
-            (float)CONV_SPATIAL_WEIGHT_SCALES /
-            (float)CONV_SPATIAL_OUTPUT_SCALE;
+#pragma HLS ARRAY_PARTITION variable = buf cyclic factor=5 dim=2
 
         for (int n = 0; n < N; n++)
         {
@@ -132,25 +154,40 @@ public:
 
             for (int oc = 0; oc < CONCAT_CHANNELS; oc++)
             {
-                hls::vector<of_t, OUT_VEC> out_vec;
-                for (int t = 0; t < BR_D; t++)
+                for (int ck = 0; ck < OUT_TT; ck++)
                 {
-#pragma HLS PIPELINE
-                    int32_t acc = CONV_SPATIAL_BIAS[oc];
-                    for (int ic = 0; ic < CONCAT_CHANNELS; ic++)
+                    hls::vector<of_t, OUT_VEC> out_vec;
+                    for (int k = 0; k < OUT_VEC; k++)
                     {
-                        for (int row = 0; row < SPATIAL_KERNAL; row++)
+                        int t = ck * OUT_VEC + k;
+                        int32_t acc = CONV_SPATIAL_BIAS[oc];
+                        if (t < BR_D)
                         {
-                            int16_t x = (int16_t)buf[ic][row][t] - (int16_t)CONV_SPATIAL_INPUT_ZP;
-                            int8_t w = CONV_SPATIAL_WEIGHT[oc][ic][row][0];
-                            acc += (int32_t)x * (int32_t)w;
+                            for (int ic = 0; ic < CONCAT_CHANNELS; ic++)
+                            {
+                                for (int row0 = 0; row0 < SPATIAL_KERNAL; row0 += CONV_SPATIAL_ROW_TILE)
+                                {
+#pragma HLS PIPELINE II = 1
+                                    for (int rt = 0; rt < CONV_SPATIAL_ROW_TILE; rt++)
+                                    {
+#pragma HLS UNROLL
+                                        int row = row0 + rt;
+                                        int16_t x = (int16_t)buf[ic][row][t] - (int16_t)CONV_SPATIAL_INPUT_ZP;
+                                        int8_t w = CONV_SPATIAL_WEIGHT[oc][ic][row][0];
+                                        acc += (int32_t)x * (int32_t)w;
+                                    }
+                                }
+                            }
+                            int v = conv_spatial_requant_fixed(acc);
+                            out_vec[k] = (of_t)clamp(v, 0, 255);
+                        }
+                        else
+                        {
+                            out_vec[k] = (of_t)0;
                         }
                     }
-                    float scaled = (float)acc * r + (float)CONV_SPATIAL_OUTPUT_ZP;
-                    int v = round_to_even(scaled);
-                    out_vec[t] = (of_t)clamp(v, 0, 255);
+                    o_stream.write(out_vec);
                 }
-                o_stream.write(out_vec);
             }
         }
     }

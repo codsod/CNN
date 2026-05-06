@@ -65,8 +65,8 @@ void top(hls::stream<hls::vector<float, IN_DIM>>& i_stream,
     hls::stream<hls::vector<X_T, IN_DIM>> concat_i1;
     hls::stream<hls::vector<X_T, IN_DIM>> concat_i2;
     hls::stream<hls::vector<X_T, SPATIAL_VEC>> conv_spatial_i;
-    hls::stream<hls::vector<X_T, BR_DIM2>> conv_spatial_o;
-    hls::stream<hls::vector<X_T, LV_DIM1 * BR_DIM2>> square_o;
+    hls::stream<hls::vector<X_T, SPATIAL_VEC>> conv_spatial_o;
+    hls::stream<hls::vector<X_T, SPATIAL_VEC>> square_o;
     hls::stream<hls::vector<X_T, LV_DIM1 * T_pool>> pool_o;
     hls::stream<hls::vector<X_T, LV_DIM1 * T_pool>> log_o;
     hls::stream<hls::vector<X_T, LV_DIM1 * T_pool>> linear_cls_i, linear_hue_i;

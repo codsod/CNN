@@ -9,7 +9,7 @@
 ConvSpatial<X_T, X_T> conv_spatial_inst;
 
 void top(hls::stream<hls::vector<X_T, SPATIAL_VEC>> &i_stream,
-         hls::stream<hls::vector<X_T, BR_DIM2>> &o_stream)
+         hls::stream<hls::vector<X_T, SPATIAL_VEC>> &o_stream)
 {
 #pragma HLS interface ap_ctrl_chain port = return
 #pragma HLS interface axis port = i_stream
@@ -82,13 +82,13 @@ void test_layer()
     };
 
     hls::stream<hls::vector<X_T, SPATIAL_VEC>> i_stream;
-    hls::stream<hls::vector<X_T, BR_DIM2>> o_stream;
+    hls::stream<hls::vector<X_T, SPATIAL_VEC>> o_stream;
 
     load_conv_spatial_input(i_stream, CONV_INPUT);
     top(i_stream, o_stream);
 
     std::cout << "====================== conv_spatial_test ======================" << std::endl;
-    o_stream_compare<X_T, N, CONCAT_CHANNELS, LV_DIM1, BR_DIM2>(o_stream, CONV_REF);
+    o_stream_compare_chunks<X_T, N, CONCAT_CHANNELS, LV_DIM1, BR_DIM2, SPATIAL_VEC>(o_stream, CONV_REF);
 }
 
 int main()

@@ -51,12 +51,12 @@ void compare_row_stream(
     printf("match numbers :%5d\n", num_match);
 }
 
-void top(hls::stream<hls::vector<X_T, BR_DIM2>>& i_stream_0,
-         hls::stream<hls::vector<X_T, BR_DIM2>>& i_stream_1,
-         hls::stream<hls::vector<X_T, BR_DIM2>>& i_stream_2,
-         hls::stream<hls::vector<X_T, BR_DIM2>>& o_stream_0,
-         hls::stream<hls::vector<X_T, BR_DIM2>>& o_stream_1,
-         hls::stream<hls::vector<X_T, BR_DIM2>>& o_stream_2)
+void top(hls::stream<hls::vector<X_T, SPATIAL_VEC>>& i_stream_0,
+         hls::stream<hls::vector<X_T, SPATIAL_VEC>>& i_stream_1,
+         hls::stream<hls::vector<X_T, SPATIAL_VEC>>& i_stream_2,
+         hls::stream<hls::vector<X_T, SPATIAL_VEC>>& o_stream_0,
+         hls::stream<hls::vector<X_T, SPATIAL_VEC>>& o_stream_1,
+         hls::stream<hls::vector<X_T, SPATIAL_VEC>>& o_stream_2)
 {
 #pragma HLS interface ap_ctrl_chain port=return
 #pragma HLS interface axis port=i_stream_0
@@ -99,21 +99,21 @@ void test_layer()
 #include "../src/ref/trace/trace_ms_conv1_branches_2_3.txt"
     };
 
-    hls::stream<hls::vector<X_T, BR_DIM2>> i_stream_0, i_stream_1, i_stream_2;
-    hls::stream<hls::vector<X_T, BR_DIM2>> o_stream_0, o_stream_1, o_stream_2;
+    hls::stream<hls::vector<X_T, SPATIAL_VEC>> i_stream_0, i_stream_1, i_stream_2;
+    hls::stream<hls::vector<X_T, SPATIAL_VEC>> o_stream_0, o_stream_1, o_stream_2;
 
-    load_row_stream<X_T, N, BR0_CHANNELS, IN_DIM, BR_DIM2>(i_stream_0, BR0_INPUT);
-    load_row_stream<X_T, N, BR1_CHANNELS, IN_DIM, BR_DIM2>(i_stream_1, BR1_INPUT);
-    load_row_stream<X_T, N, BR2_CHANNELS, IN_DIM, BR_DIM2>(i_stream_2, BR2_INPUT);
+    i_stream_load_chunks<X_T, N, BR0_CHANNELS, IN_DIM, BR_DIM2, SPATIAL_VEC>(i_stream_0, BR0_INPUT);
+    i_stream_load_chunks<X_T, N, BR1_CHANNELS, IN_DIM, BR_DIM2, SPATIAL_VEC>(i_stream_1, BR1_INPUT);
+    i_stream_load_chunks<X_T, N, BR2_CHANNELS, IN_DIM, BR_DIM2, SPATIAL_VEC>(i_stream_2, BR2_INPUT);
 
     top(i_stream_0, i_stream_1, i_stream_2, o_stream_0, o_stream_1, o_stream_2);
 
     std::cout << "====================== gelu_br0_out ======================" << std::endl;
-    compare_row_stream<X_T, N, BR0_CHANNELS, IN_DIM, BR_DIM2>(o_stream_0, BR0_OUTPUT);
+    o_stream_compare_chunks<X_T, N, BR0_CHANNELS, IN_DIM, BR_DIM2, SPATIAL_VEC>(o_stream_0, BR0_OUTPUT);
     std::cout << "====================== gelu_br1_out ======================" << std::endl;
-    compare_row_stream<X_T, N, BR1_CHANNELS, IN_DIM, BR_DIM2>(o_stream_1, BR1_OUTPUT);
+    o_stream_compare_chunks<X_T, N, BR1_CHANNELS, IN_DIM, BR_DIM2, SPATIAL_VEC>(o_stream_1, BR1_OUTPUT);
     std::cout << "====================== gelu_br2_out ======================" << std::endl;
-    compare_row_stream<X_T, N, BR2_CHANNELS, IN_DIM, BR_DIM2>(o_stream_2, BR2_OUTPUT);
+    o_stream_compare_chunks<X_T, N, BR2_CHANNELS, IN_DIM, BR_DIM2, SPATIAL_VEC>(o_stream_2, BR2_OUTPUT);
 }
 
 int main()
