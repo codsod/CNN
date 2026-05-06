@@ -52,7 +52,7 @@ public:
     {
         X_T line_buf[IN_D][BR0_KERNAL];  // 环形窗口，避免每拍整体移位
 #pragma HLS ARRAY_PARTITION variable = line_buf complete dim = 1
-#pragma HLS ARRAY_PARTITION variable = line_buf cyclic factor = 2 dim = 2
+#pragma HLS ARRAY_PARTITION variable = line_buf complete dim = 2
 
         const ZP_T out_zp = CONV_BR0_OUTPUT_ZP;
 
@@ -123,7 +123,7 @@ public:
     {
         X_T line_buf[IN_D][BR1_KERNAL];  // 环形窗口，避免每拍整体移位
 #pragma HLS ARRAY_PARTITION variable = line_buf complete dim = 1
-#pragma HLS ARRAY_PARTITION variable = line_buf cyclic factor = 4 dim = 2
+#pragma HLS ARRAY_PARTITION variable = line_buf complete dim = 2
         const ZP_T out_zp = CONV_BR1_OUTPUT_ZP;
 
         for (int n = 0; n < N; n++) {
@@ -195,7 +195,7 @@ public:
     {
         X_T line_buf[IN_D][BR2_KERNAL];  // 环形窗口，避免每拍整体移位
 #pragma HLS ARRAY_PARTITION variable = line_buf complete dim = 1
-#pragma HLS ARRAY_PARTITION variable = line_buf cyclic factor = 8 dim = 2
+#pragma HLS ARRAY_PARTITION variable = line_buf complete dim = 2
         const ZP_T out_zp = CONV_BR2_OUTPUT_ZP;
 
         for (int n = 0; n < N; n++) {
