@@ -20,6 +20,7 @@ void top(hls::stream<hls::vector<float, IN_DIM>>& i_stream,
     quant_input_inst.do_quantize(i_stream, o_stream);
 }
 
+#ifndef __SYNTHESIS__
 void test_layer()
 {
     const X_T QUANT_REF[N][IN_CHANNELS][IN_DIM][T] = {
@@ -92,3 +93,4 @@ int main()
     test_layer();
     return 0;
 }
+#endif

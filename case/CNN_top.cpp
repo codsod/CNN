@@ -87,6 +87,7 @@ void top(hls::stream<hls::vector<float, IN_DIM>>& i_stream,
     linear_hue_inst.do_linear_func(linear_hue_i, hue_stream);
 }
 
+#ifndef __SYNTHESIS__
 void test_layer()
 {
     const X_T CLS_REF[N][1][1][FC_CLS_OUT] = {
@@ -152,3 +153,4 @@ int main()
     test_layer();
     return 0;
 }
+#endif

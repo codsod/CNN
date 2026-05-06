@@ -8,6 +8,7 @@ GeluLUT<X_T, X_T, N, BR0_CHANNELS, IN_DIM, BR_DIM2, 0> gelu_br0_inst;
 GeluLUT<X_T, X_T, N, BR1_CHANNELS, IN_DIM, BR_DIM2, 1> gelu_br1_inst;
 GeluLUT<X_T, X_T, N, BR2_CHANNELS, IN_DIM, BR_DIM2, 2> gelu_br2_inst;
 
+#ifndef __SYNTHESIS__
 template<typename data_t, int NN, int CHANNELS, int DIM1, int DIM2>
 void load_row_stream(
     hls::stream<hls::vector<data_t, DIM2>>& s,
@@ -50,6 +51,7 @@ void compare_row_stream(
     }
     printf("match numbers :%5d\n", num_match);
 }
+#endif
 
 void top(hls::stream<hls::vector<X_T, SPATIAL_VEC>>& i_stream_0,
          hls::stream<hls::vector<X_T, SPATIAL_VEC>>& i_stream_1,
@@ -78,6 +80,7 @@ void top(hls::stream<hls::vector<X_T, SPATIAL_VEC>>& i_stream_0,
     gelu_br2_inst.do_lut_func(i_stream_2, o_stream_2);
 }
 
+#ifndef __SYNTHESIS__
 void test_layer()
 {
     const X_T BR0_INPUT[N][BR0_CHANNELS][IN_DIM][BR_DIM2] = {
@@ -121,3 +124,4 @@ int main()
     test_layer();
     return 0;
 }
+#endif

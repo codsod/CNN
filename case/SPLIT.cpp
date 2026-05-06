@@ -22,6 +22,7 @@ void top(hls::stream<hls::vector<X_T, LV_DIM1 * T_pool>>& i_stream,
     split_inst.do_split_func(i_stream, o_stream_0, o_stream_1);
 }
 
+#ifndef __SYNTHESIS__
 void test_layer()
 {
     const X_T SPLIT_INPUT[N][CONCAT_CHANNELS][LV_DIM1][T_pool] = {
@@ -49,3 +50,4 @@ int main()
     test_layer();
     return 0;
 }
+#endif

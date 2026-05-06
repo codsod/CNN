@@ -27,6 +27,7 @@ void top(hls::stream<hls::vector<X_T, LV_DIM1 * T_pool>>& i_stream,
     linear_hue_inst.do_linear_func(i_stream_hue, hue_stream);
 }
 
+#ifndef __SYNTHESIS__
 void test_layer(){
     
     //仿真测试使用
@@ -58,3 +59,4 @@ int main(){
     test_layer();
     return 0;
 }
+#endif

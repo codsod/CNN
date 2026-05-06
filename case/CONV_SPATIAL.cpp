@@ -20,6 +20,7 @@ void top(hls::stream<hls::vector<X_T, SPATIAL_VEC>> &i_stream,
     conv_spatial_inst.do_conv_spatial(i_stream, o_stream);
 }
 
+#ifndef __SYNTHESIS__
 static void load_conv_spatial_input(
     hls::stream<hls::vector<X_T, SPATIAL_VEC>> &i_stream,
     const X_T arr[N][CONCAT_CHANNELS][IN_DIM][BR_DIM2])
@@ -96,3 +97,4 @@ int main()
     test_layer();
     return 0;
 }
+#endif

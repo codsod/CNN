@@ -13,6 +13,7 @@ ConvBrBranch0 conv_br0_inst;
 ConvBrBranch1 conv_br1_inst;
 ConvBrBranch2 conv_br2_inst;
 
+#ifndef __SYNTHESIS__
 // 将 (N, IN_CHANNELS, IN_DIM, T) 按时间维写入 stream：每时刻一个 vector<X_T, IN_DIM>
 template<typename data_t, int NN, int C, int D, int TT>
 void load_conv_br_input(
@@ -115,6 +116,7 @@ void compare_conv_br_out(
         printf("  ... %zu more pass ranges omitted\n", match_ranges.size() - MAX_MATCH_RANGE_PRINT);
     }
 }
+#endif
 
 void top(hls::stream<hls::vector<X_T, IN_DIM>>& i_stream_0,
          hls::stream<hls::vector<X_T, IN_DIM>>& i_stream_1,
@@ -143,6 +145,7 @@ void top(hls::stream<hls::vector<X_T, IN_DIM>>& i_stream_0,
     conv_br2_inst.do_conv_br(i_stream_2, o_stream_2);
 }
 
+#ifndef __SYNTHESIS__
 void test_layer()
 {
     const X_T INPUT[N][IN_CHANNELS][IN_DIM][T] = {
@@ -179,3 +182,4 @@ int main()
     test_layer();
     return 0;
 }
+#endif

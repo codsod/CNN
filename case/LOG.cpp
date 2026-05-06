@@ -19,6 +19,7 @@ void top(hls::stream<hls::vector<X_T, LV_DIM1 * T_pool>>& i_stream,
     log_inst.do_lut_func(i_stream, o_stream);
 }
 
+#ifndef __SYNTHESIS__
 void test_layer()
 {
     const X_T LOG_INPUT[N][CONCAT_CHANNELS][LV_DIM1][T_pool] = {
@@ -43,3 +44,4 @@ int main()
     test_layer();
     return 0;
 }
+#endif

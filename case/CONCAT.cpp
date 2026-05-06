@@ -7,6 +7,7 @@
 
 Concat<X_T> concat_inst;
 
+#ifndef __SYNTHESIS__
 // 按 CONV_BR 输出顺序：每时刻每通道一个 vector (in_dim)，共 BR_DIM2*CH 个向量
 template<typename data_t, int NN, int CH, int IN_D, int BR_D>
 void load_conv_br_out_stream(
@@ -63,6 +64,7 @@ void compare_concat_row_stream(
     }
     printf("match numbers :%5d\n", num_match);
 }
+#endif
 
 void top(hls::stream<hls::vector<X_T, IN_DIM>>& i_stream_0,
          hls::stream<hls::vector<X_T, IN_DIM>>& i_stream_1,
@@ -82,6 +84,7 @@ void top(hls::stream<hls::vector<X_T, IN_DIM>>& i_stream_0,
     concat_inst.do_concat(i_stream_0, i_stream_1, i_stream_2, o_stream);
 }
 
+#ifndef __SYNTHESIS__
 void test_layer()
 {
     const X_T BR0_OUT[N][BR0_CHANNELS][IN_DIM][BR_DIM2] = {
@@ -130,3 +133,4 @@ int main()
     test_layer();
     return 0;
 }
+#endif

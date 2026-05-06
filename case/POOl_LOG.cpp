@@ -52,6 +52,8 @@ void top(hls::stream<hls::vector<X_T, SPATIAL_VEC> >& i_stream,hls::stream<hls::
 
 
 }
+
+#ifndef __SYNTHESIS__
 void test_layer(){
     // 仿真测试使用
     // 此处需要连同pool一起测试
@@ -78,3 +80,4 @@ int main(){
     test_layer();
     return 0;
 }
+#endif
