@@ -113,7 +113,7 @@ void test_layer()
     hls::stream<hls::vector<X_T, IN_DIM>> i_0;
     hls::stream<hls::vector<X_T, IN_DIM>> i_1;
     hls::stream<hls::vector<X_T, IN_DIM>> i_2;
-    hls::stream<hls::vector<X_T, BR_DIM2>> o_stream;
+    hls::stream<hls::vector<X_T, SPATIAL_VEC>> o_stream;
 
     load_conv_br_out_stream<X_T, N, BR0_CHANNELS, IN_DIM, BR_DIM2>(i_0, BR0_OUT);
     load_conv_br_out_stream<X_T, N, BR1_CHANNELS, IN_DIM, BR_DIM2>(i_1, BR1_OUT);
