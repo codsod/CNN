@@ -94,8 +94,9 @@ class ConvSpatial
 public:
     static constexpr int IN_D = IN_DIM;
     static constexpr int BR_D = BR_DIM2;
-    static constexpr int IN_VEC = BR_D;        // 410 每拍一行
+    static constexpr int IN_VEC = SPATIAL_VEC; // 32 per chunk
     static constexpr int OUT_VEC = BR_D;       // 410 每通道
+    static constexpr int OUT_TT = SPATIAL_CHUNKS;
 
     void do_conv_spatial(
         hls::stream<hls::vector<if_t, IN_VEC>> &i_stream,
@@ -115,11 +116,16 @@ public:
             {
                 for (int row = 0; row < IN_D; row++)
                 {
-                    hls::vector<if_t, IN_VEC> v = i_stream.read();
-                    for (int t = 0; t < BR_D; t++)
+                    for (int ck = 0; ck < OUT_TT; ck++)
                     {
+                        hls::vector<if_t, IN_VEC> v = i_stream.read();
+                        for (int k = 0; k < IN_VEC; k++)
+                        {
 #pragma HLS PIPELINE II = 1
-                        buf[ic][row][t] = v[t];
+                            int t_idx = ck * IN_VEC + k;
+                            if (t_idx < BR_D)
+                                buf[ic][row][t_idx] = v[k];
+                        }
                     }
                 }
             }

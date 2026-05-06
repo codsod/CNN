@@ -25,24 +25,37 @@ void load_conv_br_out_stream(
     }
 }
 
-template<typename data_t, int NN, int CHANNELS, int IN_D, int BR_D>
+template <typename data_t, int NN, int CHANNELS, int IN_D, int BR_D>
 void compare_concat_row_stream(
-    hls::stream<hls::vector<data_t, BR_D>>& s,
+    hls::stream<hls::vector<data_t, SPATIAL_VEC>> &s,
     const data_t arr[NN][CHANNELS][IN_D][BR_D])
 {
     int num_match = 0;
-    for (int n = 0; n < NN; n++) {
-        for (int ch = 0; ch < CHANNELS; ch++) {
-            for (int row = 0; row < IN_D; row++) {
-                hls::vector<data_t, BR_D> vec = s.read();
-                for (int t = 0; t < BR_D; t++) {
-                    int idx = t + row * BR_D + ch * IN_D * BR_D + n * CHANNELS * IN_D * BR_D;
-                    int hls_data = vec[t];
-                    int ref_data = arr[n][ch][row][t];
-                    if (hls_data != ref_data) {
-                        printf("mismatch at [%5d]:(hls vs ref) %5d vs %5d\n", idx, hls_data, ref_data);
-                    } else {
-                        num_match++;
+    for (int n = 0; n < NN; n++)
+    {
+        for (int ch = 0; ch < CHANNELS; ch++)
+        {
+            for (int row = 0; row < IN_D; row++)
+            {
+                for (int ck = 0; ck < SPATIAL_CHUNKS; ck++)
+                {
+                    hls::vector<data_t, SPATIAL_VEC> vec = s.read();
+                    for (int k = 0; k < SPATIAL_VEC; k++)
+                    {
+                        int t = ck * SPATIAL_VEC + k;
+                        if (t >= BR_D)
+                            continue;
+                        int idx = t + row * BR_D + ch * IN_D * BR_D + n * CHANNELS * IN_D * BR_D;
+                        int hls_data = vec[k];
+                        int ref_data = arr[n][ch][row][t];
+                        if (hls_data != ref_data)
+                        {
+                            printf("mismatch at [%5d]:(hls vs ref) %5d vs %5d\n", idx, hls_data, ref_data);
+                        }
+                        else
+                        {
+                            num_match++;
+                        }
                     }
                 }
             }
@@ -54,7 +67,7 @@ void compare_concat_row_stream(
 void top(hls::stream<hls::vector<X_T, IN_DIM>>& i_stream_0,
          hls::stream<hls::vector<X_T, IN_DIM>>& i_stream_1,
          hls::stream<hls::vector<X_T, IN_DIM>>& i_stream_2,
-         hls::stream<hls::vector<X_T, BR_DIM2>>& o_stream)
+         hls::stream<hls::vector<X_T, SPATIAL_VEC>>& o_stream)
 {
 #pragma HLS interface ap_ctrl_chain port=return
 #pragma HLS interface axis port=i_stream_0

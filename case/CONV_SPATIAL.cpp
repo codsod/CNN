@@ -1,4 +1,5 @@
 #include "src/conv2d.h"
+#include "src/concat.h"
 
 //===========================================================================================================================//
 // 仅测试空间卷积 ConvSpatial：输入 (N,40,15,411) -> 输出 (N,40,1,411)，与 trace_conv2 对比
@@ -7,7 +8,7 @@
 
 ConvSpatial<X_T, X_T> conv_spatial_inst;
 
-void top(hls::stream<hls::vector<X_T, BR_DIM2>> &i_stream,
+void top(hls::stream<hls::vector<X_T, SPATIAL_VEC>> &i_stream,
          hls::stream<hls::vector<X_T, BR_DIM2>> &o_stream)
 {
 #pragma HLS interface ap_ctrl_chain port = return
@@ -20,7 +21,7 @@ void top(hls::stream<hls::vector<X_T, BR_DIM2>> &i_stream,
 }
 
 static void load_conv_spatial_input(
-    hls::stream<hls::vector<X_T, BR_DIM2>> &i_stream,
+    hls::stream<hls::vector<X_T, SPATIAL_VEC>> &i_stream,
     const X_T arr[N][CONCAT_CHANNELS][IN_DIM][BR_DIM2])
 {
     for (int n = 0; n < N; n++)
@@ -29,10 +30,16 @@ static void load_conv_spatial_input(
         {
             for (int row = 0; row < IN_DIM; row++)
             {
-                hls::vector<X_T, BR_DIM2> vec;
-                for (int t = 0; t < BR_DIM2; t++)
-                    vec[t] = arr[n][ic][row][t];
-                i_stream.write(vec);
+                for (int ck = 0; ck < SPATIAL_CHUNKS; ck++)
+                {
+                    hls::vector<X_T, SPATIAL_VEC> vec;
+                    for (int k = 0; k < SPATIAL_VEC; k++)
+                    {
+                        int t = ck * SPATIAL_VEC + k;
+                        vec[k] = (t < BR_DIM2) ? arr[n][ic][row][t] : (X_T)0;
+                    }
+                    i_stream.write(vec);
+                }
             }
         }
     }
@@ -60,11 +67,11 @@ void test_layer()
                 for (int t = 0; t < BR_DIM2; t++)
                 {
                     if (ic < BR0_CHANNELS)
-                        CONV_INPUT[n][ic][r][t] = BR0_OUT[n][ic][r][t];
+                        CONV_INPUT[n][ic][r][t] = concat_lut0[(ap_uint<8>)BR0_OUT[n][ic][r][t]];
                     else if (ic < BR0_CHANNELS + BR1_CHANNELS)
-                        CONV_INPUT[n][ic][r][t] = BR1_OUT[n][ic - BR0_CHANNELS][r][t];
+                        CONV_INPUT[n][ic][r][t] = concat_lut1[(ap_uint<8>)BR1_OUT[n][ic - BR0_CHANNELS][r][t]];
                     else
-                        CONV_INPUT[n][ic][r][t] = BR2_OUT[n][ic - BR0_CHANNELS - BR1_CHANNELS][r][t];
+                        CONV_INPUT[n][ic][r][t] = concat_lut2[(ap_uint<8>)BR2_OUT[n][ic - BR0_CHANNELS - BR1_CHANNELS][r][t]];
                 }
             }
         }
@@ -74,7 +81,7 @@ void test_layer()
 #include "../src/ref/trace/trace_conv2.txt"
     };
 
-    hls::stream<hls::vector<X_T, BR_DIM2>> i_stream;
+    hls::stream<hls::vector<X_T, SPATIAL_VEC>> i_stream;
     hls::stream<hls::vector<X_T, BR_DIM2>> o_stream;
 
     load_conv_spatial_input(i_stream, CONV_INPUT);

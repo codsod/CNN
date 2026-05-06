@@ -38,12 +38,14 @@ public:
     static constexpr int BR_D = BR_DIM2;
     static constexpr int CH_OUT = CONCAT_CHANNELS;
     static constexpr int OUT_VEC_LEN = BR_D;
+    static constexpr int OUT_TP = SPATIAL_VEC;
+    static constexpr int OUT_TT = SPATIAL_CHUNKS;
 
     void do_concat(
         hls::stream<hls::vector<data_t, IN_D>> &i_stream_0,
         hls::stream<hls::vector<data_t, IN_D>> &i_stream_1,
         hls::stream<hls::vector<data_t, IN_D>> &i_stream_2,
-        hls::stream<hls::vector<data_t, OUT_VEC_LEN>> &o_stream)
+        hls::stream<hls::vector<data_t, OUT_TP>> &o_stream)
     {
 #pragma HLS INLINE off
         data_t buf0[BR0_CHANNELS][IN_D][BR_D];
@@ -84,33 +86,51 @@ public:
             {
                 for (int r = 0; r < IN_D; r++)
                 {
-                    hls::vector<data_t, OUT_VEC_LEN> out_vec;
-                    for (int t = 0; t < BR_D; t++)
+                    for (int ck = 0; ck < OUT_TT; ck++)
+                    {
+                        hls::vector<data_t, OUT_TP> out_vec;
+                        for (int t = 0; t < OUT_TP; t++)
+                        {
 #pragma HLS PIPELINE II = 1
-                        out_vec[t] = buf0[ch][r][t];
-                    o_stream.write(out_vec);
+                            int t_idx = ck * OUT_TP + t;
+                            out_vec[t] = (t_idx < BR_D) ? buf0[ch][r][t_idx] : (data_t)0;
+                        }
+                        o_stream.write(out_vec);
+                    }
                 }
             }
             for (int ch = 0; ch < BR1_CHANNELS; ch++)
             {
                 for (int r = 0; r < IN_D; r++)
                 {
-                    hls::vector<data_t, OUT_VEC_LEN> out_vec;
-                    for (int t = 0; t < BR_D; t++)
+                    for (int ck = 0; ck < OUT_TT; ck++)
+                    {
+                        hls::vector<data_t, OUT_TP> out_vec;
+                        for (int t = 0; t < OUT_TP; t++)
+                        {
 #pragma HLS PIPELINE II = 1
-                        out_vec[t] = buf1[ch][r][t];
-                    o_stream.write(out_vec);
+                            int t_idx = ck * OUT_TP + t;
+                            out_vec[t] = (t_idx < BR_D) ? buf1[ch][r][t_idx] : (data_t)0;
+                        }
+                        o_stream.write(out_vec);
+                    }
                 }
             }
             for (int ch = 0; ch < BR2_CHANNELS; ch++)
             {
                 for (int r = 0; r < IN_D; r++)
                 {
-                    hls::vector<data_t, OUT_VEC_LEN> out_vec;
-                    for (int t = 0; t < BR_D; t++)
+                    for (int ck = 0; ck < OUT_TT; ck++)
+                    {
+                        hls::vector<data_t, OUT_TP> out_vec;
+                        for (int t = 0; t < OUT_TP; t++)
+                        {
 #pragma HLS PIPELINE II = 1
-                        out_vec[t] = buf2[ch][r][t];
-                    o_stream.write(out_vec);
+                            int t_idx = ck * OUT_TP + t;
+                            out_vec[t] = (t_idx < BR_D) ? buf2[ch][r][t_idx] : (data_t)0;
+                        }
+                        o_stream.write(out_vec);
+                    }
                 }
             }
         }
