@@ -61,9 +61,9 @@ void top(hls::stream<hls::vector<float, IN_DIM>>& i_stream,
 
     hls::stream<hls::vector<X_T, IN_DIM>> quant_out;
     hls::stream<hls::vector<X_T, IN_DIM>> conv_br_i0, conv_br_i1, conv_br_i2;
-    hls::stream<hls::vector<X_T, BR0_CHANNELS * IN_DIM>> concat_i0;
-    hls::stream<hls::vector<X_T, BR1_CHANNELS * IN_DIM>> concat_i1;
-    hls::stream<hls::vector<X_T, BR2_CHANNELS * IN_DIM>> concat_i2;
+    hls::stream<hls::vector<X_T, IN_DIM>> concat_i0;
+    hls::stream<hls::vector<X_T, IN_DIM>> concat_i1;
+    hls::stream<hls::vector<X_T, IN_DIM>> concat_i2;
     hls::stream<hls::vector<X_T, BR_DIM2>> conv_spatial_i;
     hls::stream<hls::vector<X_T, BR_DIM2>> conv_spatial_o;
     hls::stream<hls::vector<X_T, LV_DIM1 * BR_DIM2>> square_o;

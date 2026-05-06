@@ -7,7 +7,7 @@
 
 // =============================================================================
 // 三路时序卷积分支 (Conv1d + 重量化 + GELU LUT)，每路独立权重/scale，输入共享
-// 输入: N*T 个 vector<X_T, IN_DIM>；输出: N*(T+1) 个 vector<X_T, OUT_CH*IN_DIM>
+// 输入: N*T 个 vector<X_T, IN_DIM>；输出: N*T*OUT_CH 个 vector<X_T, IN_DIM>
 // =============================================================================
 
 class ConvBrBranch0 {
@@ -22,7 +22,7 @@ public:
 
     void do_conv_br(
         hls::stream<hls::vector<X_T, IN_D>>& i_stream,
-        hls::stream<hls::vector<X_T, OUT_CH * IN_D>>& o_stream)
+        hls::stream<hls::vector<X_T, IN_D>>& o_stream)
     {
         X_T line_buf[IN_D][BR0_KERNAL];  // max K=64 for branch0
 #pragma HLS ARRAY_PARTITION variable=line_buf complete dim=2  // line_buf优化
@@ -49,9 +49,8 @@ public:
                 }
 
                 if (t >= PAD ) {
-                    hls::vector<X_T, OUT_CH * IN_D> o_vec;
-
                     for (int oc = 0; oc < OUT_CH; oc++) {
+                        hls::vector<X_T, IN_D> o_vec;
 
                         for (int c = 0; c < IN_D; c++) {
 
@@ -71,10 +70,10 @@ public:
                             int v = (int)(scaled + (scaled >= 0 ? 0.5f : -0.5f));
                             uint8_t idx = (uint8_t)clamp(v, 0, 255);
 
-                            o_vec[oc * IN_D + c] = gelu_lut0[idx];           
+                            o_vec[c] = gelu_lut0[idx];
                         }
+                        o_stream.write(o_vec);
                     }
-                    o_stream.write(o_vec);
                 }
             }
         }
@@ -93,7 +92,7 @@ public:
 
     void do_conv_br(
         hls::stream<hls::vector<X_T, IN_D>>& i_stream,
-        hls::stream<hls::vector<X_T, OUT_CH * IN_D>>& o_stream)
+        hls::stream<hls::vector<X_T, IN_D>>& o_stream)
     {
         X_T line_buf[IN_D][BR1_KERNAL];  // max K=64 for branch1
 #pragma HLS ARRAY_PARTITION variable=line_buf complete dim=1  // line_buf优化
@@ -120,9 +119,8 @@ public:
                 }
 
                 if (t >= PAD ) {
-                    hls::vector<X_T, OUT_CH * IN_D> o_vec;
-
                     for (int oc = 0; oc < OUT_CH; oc++) {
+                        hls::vector<X_T, IN_D> o_vec;
 
                         for (int c = 0; c < IN_D; c++) {
 
@@ -142,11 +140,11 @@ public:
                             int v = (int)(scaled + (scaled >= 0 ? 0.5f : -0.5f));
                             uint8_t idx = (uint8_t)clamp(v, 0, 255);
 
-                            o_vec[oc * IN_D + c] = gelu_lut1[idx];
+                            o_vec[c] = gelu_lut1[idx];
 
                         }
+                        o_stream.write(o_vec);
                     }
-                    o_stream.write(o_vec);
                 }
             }
         }
@@ -165,10 +163,10 @@ public:
 
     void do_conv_br(
         hls::stream<hls::vector<X_T, IN_D>>& i_stream,
-        hls::stream<hls::vector<X_T, OUT_CH * IN_D>>& o_stream)
+        hls::stream<hls::vector<X_T, IN_D>>& o_stream)
     {
         X_T line_buf[IN_D][BR2_KERNAL];  // max K=64 for branch2
-#pragma HLS ARRAY_PARTITION variable=line_buf complete dim=1。  // line_buf优化
+#pragma HLS ARRAY_PARTITION variable=line_buf complete dim=1  // line_buf优化
 
         for (int n = 0; n < N; n++) {
             for (int c = 0; c < IN_D; c++) {
@@ -192,9 +190,8 @@ public:
                 }
 
                 if (t >= PAD ) {
-                    hls::vector<X_T, OUT_CH * IN_D> o_vec;
-
                     for (int oc = 0; oc < OUT_CH; oc++) {
+                        hls::vector<X_T, IN_D> o_vec;
 
                         for (int c = 0; c < IN_D; c++) {
 
@@ -214,11 +211,10 @@ public:
                             int v = (int)(scaled + (scaled >= 0 ? 0.5f : -0.5f));
                             uint8_t idx = (uint8_t)clamp(v, 0, 255);
 
-
-                            o_vec[oc * IN_D + c] = gelu_lut2[idx];
+                            o_vec[c] = gelu_lut2[idx];
                         }
+                        o_stream.write(o_vec);
                     }
-                    o_stream.write(o_vec);
                 }
             }
         }
@@ -226,4 +222,3 @@ public:
 };
 
 #endif
-

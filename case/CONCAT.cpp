@@ -7,19 +7,20 @@
 
 Concat<X_T> concat_inst;
 
-// 按 CONV_BR 输出顺序：每时刻一个 vector (out_ch*in_dim)，共 BR_DIM2 时刻
+// 按 CONV_BR 输出顺序：每时刻每通道一个 vector (in_dim)，共 BR_DIM2*CH 个向量
 template<typename data_t, int NN, int CH, int IN_D, int BR_D>
 void load_conv_br_out_stream(
-    hls::stream<hls::vector<data_t, CH * IN_D>>& s,
+    hls::stream<hls::vector<data_t, IN_D>>& s,
     const data_t arr[NN][CH][IN_D][BR_D])
 {
     for (int n = 0; n < NN; n++) {
         for (int t = 0; t < BR_D; t++) {
-            hls::vector<data_t, CH * IN_D> vec;
-            for (int oc = 0; oc < CH; oc++)
+            for (int oc = 0; oc < CH; oc++) {
+                hls::vector<data_t, IN_D> vec;
                 for (int c = 0; c < IN_D; c++)
-                    vec[oc * IN_D + c] = arr[n][oc][c][t];
-            s.write(vec);
+                    vec[c] = arr[n][oc][c][t];
+                s.write(vec);
+            }
         }
     }
 }
@@ -50,9 +51,9 @@ void compare_concat_row_stream(
     printf("match numbers :%5d\n", num_match);
 }
 
-void top(hls::stream<hls::vector<X_T, BR0_CHANNELS * IN_DIM>>& i_stream_0,
-         hls::stream<hls::vector<X_T, BR1_CHANNELS * IN_DIM>>& i_stream_1,
-         hls::stream<hls::vector<X_T, BR2_CHANNELS * IN_DIM>>& i_stream_2,
+void top(hls::stream<hls::vector<X_T, IN_DIM>>& i_stream_0,
+         hls::stream<hls::vector<X_T, IN_DIM>>& i_stream_1,
+         hls::stream<hls::vector<X_T, IN_DIM>>& i_stream_2,
          hls::stream<hls::vector<X_T, BR_DIM2>>& o_stream)
 {
 #pragma HLS interface ap_ctrl_chain port=return
@@ -96,9 +97,9 @@ void test_layer()
         }
     }
 
-    hls::stream<hls::vector<X_T, BR0_CHANNELS * IN_DIM>> i_0;
-    hls::stream<hls::vector<X_T, BR1_CHANNELS * IN_DIM>> i_1;
-    hls::stream<hls::vector<X_T, BR2_CHANNELS * IN_DIM>> i_2;
+    hls::stream<hls::vector<X_T, IN_DIM>> i_0;
+    hls::stream<hls::vector<X_T, IN_DIM>> i_1;
+    hls::stream<hls::vector<X_T, IN_DIM>> i_2;
     hls::stream<hls::vector<X_T, BR_DIM2>> o_stream;
 
     load_conv_br_out_stream<X_T, N, BR0_CHANNELS, IN_DIM, BR_DIM2>(i_0, BR0_OUT);

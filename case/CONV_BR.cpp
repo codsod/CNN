@@ -36,7 +36,7 @@ void load_conv_br_input(
 // 按分支输出格式读 stream 并与 ref [N][OUT_CH][IN_D][BR_DIM2] 逐元素比较
 template<typename data_t, int NN, int OUT_CH, int IN_D, int TT>
 void compare_conv_br_out(
-    hls::stream<hls::vector<data_t, OUT_CH * IN_D>>& o_stream,
+    hls::stream<hls::vector<data_t, IN_D>>& o_stream,
     const data_t ref[NN][OUT_CH][IN_D][TT],
     const char* name)
 {
@@ -63,10 +63,10 @@ void compare_conv_br_out(
 
     for (int n = 0; n < NN; n++) {
         for (int t = 0; t < TT; t++) {
-            hls::vector<data_t, OUT_CH * IN_D> v = o_stream.read();
             for (int oc = 0; oc < OUT_CH; oc++) {
+                hls::vector<data_t, IN_D> v = o_stream.read();
                 for (int c = 0; c < IN_D; c++) {
-                    data_t hls_v = v[oc * IN_D + c];
+                    data_t hls_v = v[c];
                     data_t ref_v = ref[n][oc][c][t];
                     if (hls_v != ref_v) {
                         if (range_start != -1) {
@@ -119,9 +119,9 @@ void compare_conv_br_out(
 void top(hls::stream<hls::vector<X_T, IN_DIM>>& i_stream_0,
          hls::stream<hls::vector<X_T, IN_DIM>>& i_stream_1,
          hls::stream<hls::vector<X_T, IN_DIM>>& i_stream_2,
-         hls::stream<hls::vector<X_T, BR0_CHANNELS * IN_DIM>>& o_stream_0,
-         hls::stream<hls::vector<X_T, BR1_CHANNELS * IN_DIM>>& o_stream_1,
-         hls::stream<hls::vector<X_T, BR2_CHANNELS * IN_DIM>>& o_stream_2)
+         hls::stream<hls::vector<X_T, IN_DIM>>& o_stream_0,
+         hls::stream<hls::vector<X_T, IN_DIM>>& o_stream_1,
+         hls::stream<hls::vector<X_T, IN_DIM>>& o_stream_2)
 {
 #pragma HLS interface ap_ctrl_chain port=return
 #pragma HLS interface axis port=i_stream_0
@@ -159,9 +159,9 @@ void test_layer()
     };
 
     hls::stream<hls::vector<X_T, IN_DIM>> i_0, i_1, i_2;
-    hls::stream<hls::vector<X_T, BR0_CHANNELS * IN_DIM>> o_0;
-    hls::stream<hls::vector<X_T, BR1_CHANNELS * IN_DIM>> o_1;
-    hls::stream<hls::vector<X_T, BR2_CHANNELS * IN_DIM>> o_2;
+    hls::stream<hls::vector<X_T, IN_DIM>> o_0;
+    hls::stream<hls::vector<X_T, IN_DIM>> o_1;
+    hls::stream<hls::vector<X_T, IN_DIM>> o_2;
 
     load_conv_br_input<X_T, N, IN_CHANNELS, IN_DIM, T>(i_0, i_1, i_2, INPUT);
     top(i_0, i_1, i_2, o_0, o_1, o_2);
