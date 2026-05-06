@@ -40,12 +40,12 @@ public:
     static constexpr int OUT_VEC_LEN = BR_D;
 
     void do_concat(
-#pragma HLS INLINE off
         hls::stream<hls::vector<data_t, BR0_CHANNELS * IN_D>> &i_stream_0,
         hls::stream<hls::vector<data_t, BR1_CHANNELS * IN_D>> &i_stream_1,
         hls::stream<hls::vector<data_t, BR2_CHANNELS * IN_D>> &i_stream_2,
         hls::stream<hls::vector<data_t, OUT_VEC_LEN>> &o_stream)
     {
+#pragma HLS INLINE off
         data_t buf0[BR0_CHANNELS][IN_D][BR_D];
         data_t buf1[BR1_CHANNELS][IN_D][BR_D];
         data_t buf2[BR2_CHANNELS][IN_D][BR_D];

@@ -6,7 +6,7 @@
 
 source /data/home/songqiangxu/Xilinx/2022.1/Vitis_HLS/2022.1/scripts/vitis_hls/hls.tcl -notrace
 INFO: [HLS 200-10] Running '/data/home/songqiangxu/Xilinx/2022.1/Vitis_HLS/2022.1/bin/unwrapped/lnx64.o/vitis_hls'
-INFO: [HLS 200-10] For user 'songqiangxu' on host 'dell-Precision-7920-Tower' (Linux_x86_64 version 5.15.0-139-generic) on Wed May 06 13:52:38 CST 2026
+INFO: [HLS 200-10] For user 'songqiangxu' on host 'dell-Precision-7920-Tower' (Linux_x86_64 version 5.15.0-139-generic) on Wed May 06 14:05:07 CST 2026
 INFO: [HLS 200-10] On os Ubuntu 20.04.6 LTS
 INFO: [HLS 200-10] In directory '/data/home/songqiangxu/project/CNN/instances_tp8_syn_kv260/proj_CONCAT'
 WARNING: [HLS 200-40] Environment variable 'CPLUS_INCLUDE_PATH' is set to /data/home/songqiangxu/project/CNN.
@@ -30,36 +30,41 @@ INFO: [SYN 201-201] Setting up clock 'default' with a period of 2.5ns.
 INFO: [HLS 200-1510] Running: config_export -format ip_catalog -rtl verilog -vivado_clock 2.5 -vivado_phys_opt none 
 INFO: [HLS 200-1510] Running: config_compile -pipeline_style flp 
 INFO: [HLS 200-1510] Running: csynth_design 
-INFO: [HLS 200-111] Finished File checks and directory preparation: CPU user time: 0.01 seconds. CPU system time: 0 seconds. Elapsed time: 0 seconds; current allocated memory: 1.456 GB.
+INFO: [HLS 200-111] Finished File checks and directory preparation: CPU user time: 0.02 seconds. CPU system time: 0 seconds. Elapsed time: 0.01 seconds; current allocated memory: 1.456 GB.
 INFO: [HLS 200-10] Analyzing design file 'case/CONCAT.cpp' ... 
-ERROR: [HLS 207-1276] expected parameter declarator (/data/home/songqiangxu/project/CNN/src/concat.h:43:9)
-ERROR: [HLS 207-7] expected ')' (/data/home/songqiangxu/project/CNN/src/concat.h:43:9)
-INFO: [HLS 207-66] to match this '(' (/data/home/songqiangxu/project/CNN/src/concat.h:42:19)
-ERROR: [HLS 207-1218] expected ';' at end of declaration list (/data/home/songqiangxu/project/CNN/src/concat.h:42:20)
-ERROR: [HLS 207-5503] '#pragma HLS' is only allowed in function scope (/data/home/songqiangxu/project/CNN/src/concat.h:43:9)
-ERROR: [HLS 207-2893] non-friend class member 'stream' cannot have a qualified name (/data/home/songqiangxu/project/CNN/src/concat.h:45:14)
-ERROR: [HLS 207-1218] expected ';' at end of declaration list (/data/home/songqiangxu/project/CNN/src/concat.h:45:62)
-ERROR: [HLS 207-1199] expected member name or ';' after declaration specifiers (/data/home/songqiangxu/project/CNN/src/concat.h:47:64)
-ERROR: [HLS 207-5503] '#pragma HLS' is only allowed in function scope (/data/home/songqiangxu/project/CNN/src/concat.h:52:9)
-ERROR: [HLS 207-5503] '#pragma HLS' is only allowed in function scope (/data/home/songqiangxu/project/CNN/src/concat.h:53:9)
-ERROR: [HLS 207-5503] '#pragma HLS' is only allowed in function scope (/data/home/songqiangxu/project/CNN/src/concat.h:54:9)
-ERROR: [HLS 207-1199] expected member name or ';' after declaration specifiers (/data/home/songqiangxu/project/CNN/src/concat.h:56:2)
-ERROR: [HLS 207-5503] '#pragma HLS' is only allowed in function scope (/data/home/songqiangxu/project/CNN/src/concat.h:68:9)
-ERROR: [HLS 207-3776] use of undeclared identifier 'oc' (/data/home/songqiangxu/project/CNN/src/concat.h:69:7)
-ERROR: [HLS 207-3776] use of undeclared identifier 'c' (/data/home/songqiangxu/project/CNN/src/concat.h:69:11)
-ERROR: [HLS 207-3776] use of undeclared identifier 't' (/data/home/songqiangxu/project/CNN/src/concat.h:69:14)
-ERROR: [HLS 207-2916] C++ requires a type specifier for all declarations (/data/home/songqiangxu/project/CNN/src/concat.h:69:2)
-ERROR: [HLS 207-8] expected ';' after class (/data/home/songqiangxu/project/CNN/src/concat.h:70:18)
-ERROR: [HLS 207-1228] expected unqualified-id (/data/home/songqiangxu/project/CNN/src/concat.h:71:17)
-ERROR: [HLS 207-5503] '#pragma HLS' is only allowed in function scope (/data/home/songqiangxu/project/CNN/src/concat.h:74:9)
-ERROR: [HLS 207-59] too many errors emitted, stopping now
-INFO: [HLS 200-111] Finished Command csynth_design CPU user time: 9.78 seconds. CPU system time: 0.64 seconds. Elapsed time: 9.45 seconds; current allocated memory: -1032.754 MB.
- 
-    while executing
-"source run.tcl"
-    ("uplevel" body line 1)
-    invoked from within
-"uplevel \#0 [list source $arg] "
-
-INFO: [HLS 200-112] Total CPU user time: 12.43 seconds. Total CPU system time: 1.5 seconds. Total elapsed time: 11.5 seconds; peak allocated memory: 1.456 GB.
-INFO: [Common 17-206] Exiting vitis_hls at Wed May  6 13:52:49 2026...
+INFO: [HLS 200-111] Finished Source Code Analysis and Preprocessing: CPU user time: 74.87 seconds. CPU system time: 3.51 seconds. Elapsed time: 77.48 seconds; current allocated memory: 458.414 MB.
+INFO: [HLS 200-777] Using interface defaults for 'Vivado' flow target.
+INFO: [HLS 214-131] Inlining function 'hls::vector<ap_uint<8>, 195ul>::pragma() const' into 'hls::vector<ap_uint<8>, 195ul>::operator[](unsigned long)' (/data/home/songqiangxu/Xilinx/2022.1/Vitis_HLS/2022.1/common/technology/autopilot/hls_vector.h:142:5)
+INFO: [HLS 214-131] Inlining function 'hls::vector<ap_uint<8>, 210ul>::pragma() const' into 'hls::vector<ap_uint<8>, 210ul>::operator[](unsigned long)' (/data/home/songqiangxu/Xilinx/2022.1/Vitis_HLS/2022.1/common/technology/autopilot/hls_vector.h:142:5)
+INFO: [HLS 214-131] Inlining function 'hls::vector<ap_uint<8>, 410ul>::pragma() const' into 'hls::vector<ap_uint<8>, 410ul>::operator[](unsigned long)' (/data/home/songqiangxu/Xilinx/2022.1/Vitis_HLS/2022.1/common/technology/autopilot/hls_vector.h:142:5)
+INFO: [HLS 214-131] Inlining function 'hls::vector<ap_uint<8>, 410ul>::operator[](unsigned long)' into 'Concat<ap_uint<8> >::do_concat(hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 210ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 410ul>, 0>&)' (/data/home/songqiangxu/project/CNN/src/concat.h:114:2)
+INFO: [HLS 214-131] Inlining function 'hls::vector<ap_uint<8>, 410ul>::operator[](unsigned long)' into 'Concat<ap_uint<8> >::do_concat(hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 210ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 410ul>, 0>&)' (/data/home/songqiangxu/project/CNN/src/concat.h:103:2)
+INFO: [HLS 214-131] Inlining function 'hls::vector<ap_uint<8>, 410ul>::operator[](unsigned long)' into 'Concat<ap_uint<8> >::do_concat(hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 210ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 410ul>, 0>&)' (/data/home/songqiangxu/project/CNN/src/concat.h:92:2)
+INFO: [HLS 214-131] Inlining function 'hls::vector<ap_uint<8>, 195ul>::operator[](unsigned long)' into 'Concat<ap_uint<8> >::do_concat(hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 210ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 410ul>, 0>&)' (/data/home/songqiangxu/project/CNN/src/concat.h:69:51)
+INFO: [HLS 214-131] Inlining function 'hls::vector<ap_uint<8>, 210ul>::operator[](unsigned long)' into 'Concat<ap_uint<8> >::do_concat(hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 210ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 410ul>, 0>&)' (/data/home/songqiangxu/project/CNN/src/concat.h:81:51)
+INFO: [HLS 214-131] Inlining function 'hls::vector<ap_uint<8>, 195ul>::operator[](unsigned long)' into 'Concat<ap_uint<8> >::do_concat(hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 210ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 410ul>, 0>&)' (/data/home/songqiangxu/project/CNN/src/concat.h:75:51)
+INFO: [HLS 214-178] Inlining function 'std::__array_traits<ap_uint<8>, 195ul>::_S_ref(ap_uint<8> const (&) [195], unsigned long)' into 'std::array<ap_uint<8>, 195ul>::operator[](unsigned long)' (/data/home/songqiangxu/Xilinx/2022.1/Vitis_HLS/2022.1/tps/lnx64/gcc-8.3.0/lib/gcc/x86_64-pc-linux-gnu/8.3.0/../../../../include/c++/8.3.0/array:186:0)
+INFO: [HLS 214-178] Inlining function 'std::__array_traits<ap_uint<8>, 210ul>::_S_ref(ap_uint<8> const (&) [210], unsigned long)' into 'std::array<ap_uint<8>, 210ul>::operator[](unsigned long)' (/data/home/songqiangxu/Xilinx/2022.1/Vitis_HLS/2022.1/tps/lnx64/gcc-8.3.0/lib/gcc/x86_64-pc-linux-gnu/8.3.0/../../../../include/c++/8.3.0/array:186:0)
+INFO: [HLS 214-178] Inlining function 'std::__array_traits<ap_uint<8>, 410ul>::_S_ref(ap_uint<8> const (&) [410], unsigned long)' into 'std::array<ap_uint<8>, 410ul>::operator[](unsigned long)' (/data/home/songqiangxu/Xilinx/2022.1/Vitis_HLS/2022.1/tps/lnx64/gcc-8.3.0/lib/gcc/x86_64-pc-linux-gnu/8.3.0/../../../../include/c++/8.3.0/array:186:0)
+INFO: [HLS 214-178] Inlining function 'std::array<ap_uint<8>, 195ul>::operator[](unsigned long)' into 'Concat<ap_uint<8> >::do_concat(hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 210ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 410ul>, 0>&)' (/data/home/songqiangxu/project/CNN/src/concat.h:47:0)
+INFO: [HLS 214-178] Inlining function 'std::array<ap_uint<8>, 210ul>::operator[](unsigned long)' into 'Concat<ap_uint<8> >::do_concat(hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 210ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 410ul>, 0>&)' (/data/home/songqiangxu/project/CNN/src/concat.h:47:0)
+INFO: [HLS 214-178] Inlining function 'std::array<ap_uint<8>, 410ul>::operator[](unsigned long)' into 'Concat<ap_uint<8> >::do_concat(hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 210ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 410ul>, 0>&)' (/data/home/songqiangxu/project/CNN/src/concat.h:47:0)
+INFO: [HLS 214-241] Aggregating axis (hls::stream) variable 'i_stream_0' with compact=bit mode in 1560-bits (case/CONCAT.cpp:57:0)
+INFO: [HLS 214-241] Aggregating axis (hls::stream) variable 'i_stream_1' with compact=bit mode in 1560-bits (case/CONCAT.cpp:57:0)
+INFO: [HLS 214-241] Aggregating axis (hls::stream) variable 'i_stream_2' with compact=bit mode in 1680-bits (case/CONCAT.cpp:57:0)
+INFO: [HLS 214-241] Aggregating axis (hls::stream) variable 'o_stream' with compact=bit mode in 3280-bits (case/CONCAT.cpp:57:0)
+INFO: [HLS 214-241] Aggregating scalar variable 'out_vec211' with compact=bit mode in 3280-bits (/data/home/songqiangxu/project/CNN/src/concat.h:111:54)
+INFO: [HLS 214-241] Aggregating scalar variable 'out_vec178' with compact=bit mode in 3280-bits (/data/home/songqiangxu/project/CNN/src/concat.h:100:54)
+INFO: [HLS 214-241] Aggregating scalar variable 'out_vec' with compact=bit mode in 3280-bits (/data/home/songqiangxu/project/CNN/src/concat.h:89:54)
+INFO: [HLS 214-241] Aggregating scalar variable 'v2' with compact=bit mode in 1680-bits
+INFO: [HLS 214-241] Aggregating scalar variable 'v1' with compact=bit mode in 1560-bits
+INFO: [HLS 214-241] Aggregating scalar variable 'v0' with compact=bit mode in 1560-bits
+INFO: [HLS 214-131] Inlining function '_llvm.fpga.pack.none.i1560.a195s_struct.ap_uint<8>s' into '_llvm.fpga.unpack.bits.s_class.hls::vector<ap_uint<8>, 195>s.i1560.1'
+INFO: [HLS 214-131] Inlining function '_llvm.fpga.pack.none.i1680.a210s_struct.ap_uint<8>s' into '_llvm.fpga.unpack.bits.s_class.hls::vector<ap_uint<8>, 210>s.i1680.1'
+INFO: [HLS 214-131] Inlining function '_llvm.fpga.unpack.bits.s_class.hls::vector<ap_uint<8>, 195>s.i1560.1' into 'Concat<ap_uint<8> >::do_concat(hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 210ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 410ul>, 0>&) (.1)' (/data/home/songqiangxu/Xilinx/2022.1/Vitis_HLS/2022.1/common/technology/autopilot/hls_stream_39.h:145:9)
+INFO: [HLS 214-131] Inlining function '_llvm.fpga.pack.bits.i3280.s_class.hls::vector<ap_uint<8>, 410>s.1' into 'Concat<ap_uint<8> >::do_concat(hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 210ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 410ul>, 0>&) (.1)' (/data/home/songqiangxu/Xilinx/2022.1/Vitis_HLS/2022.1/common/technology/autopilot/hls_stream_39.h:174:9)
+INFO: [HLS 214-131] Inlining function '_llvm.fpga.unpack.bits.s_class.hls::vector<ap_uint<8>, 210>s.i1680.1' into 'Concat<ap_uint<8> >::do_concat(hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 210ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 410ul>, 0>&) (.1)' (/data/home/songqiangxu/Xilinx/2022.1/Vitis_HLS/2022.1/common/technology/autopilot/hls_stream_39.h:145:9)
+INFO: [HLS 214-131] Inlining function '_llvm.fpga.pack.none.i3280.s_class.hls::vector<ap_uint<8>, 410>s' into 'Concat<ap_uint<8> >::do_concat(hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 210ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 410ul>, 0>&) (.1)' (/data/home/songqiangxu/Xilinx/2022.1/Vitis_HLS/2022.1/common/technology/autopilot/hls_stream_39.h:174:9)
+INFO: [HLS 200-111] Finished Compiling Optimization and Transform: CPU user time: 59.39 seconds. CPU system time: 1.58 seconds. Elapsed time: 60.97 seconds; current allocated memory: 459.141 MB.
+INFO: [HLS 200-111] Finished Checking Pragmas: CPU user time: 0 seconds. CPU system time: 0 seconds. Elapsed time: 0.01 seconds; current allocated memory: 459.141 MB.
+INFO: [HLS 200-10] Starting code transformations ...
