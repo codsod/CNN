@@ -7,6 +7,8 @@
 
 static constexpr int CONV_BR_R_SHIFT = 26;
 static constexpr int64_t CONV_BR_R_ONE = 1LL << CONV_BR_R_SHIFT;
+static constexpr int CONV_BR_C_TILE = 3;
+static_assert(IN_DIM % CONV_BR_C_TILE == 0, "IN_DIM must be divisible by CONV_BR_C_TILE");
 
 static constexpr int64_t CONV_BR0_R_MULT =
     (int64_t)((double)QUANTSTUB_SCALE * (double)CONV_BR0_WEIGHT_SCALES /
@@ -52,7 +54,7 @@ public:
     {
         X_T line_buf[IN_D][BR0_KERNAL];  // 环形窗口，避免每拍整体移位
 #pragma HLS ARRAY_PARTITION variable = line_buf complete dim = 1
-#pragma HLS ARRAY_PARTITION variable = line_buf complete dim = 2
+#pragma HLS ARRAY_PARTITION variable = line_buf cyclic factor = 2 dim = 2
 
         const ZP_T out_zp = CONV_BR0_OUTPUT_ZP;
 
@@ -78,25 +80,29 @@ public:
 
                 if (t >= PAD ) {
                     for (int oc = 0; oc < OUT_CH; oc++) {
-                        #pragma HLS PIPELINE 
                         hls::vector<X_T, IN_D> o_vec;
                         int32_t bias = CONV_BR0_BIAS[oc];
 
-                        for (int c = 0; c < IN_D; c++) {
+                        for (int c0 = 0; c0 < IN_D; c0 += CONV_BR_C_TILE) {
+#pragma HLS PIPELINE II=1
 
-                            int32_t acc = 0;
-                            for (int k = 0; k < K; k++) {
+                            for (int ct = 0; ct < CONV_BR_C_TILE; ct++) {
+#pragma HLS UNROLL
+                                int c = c0 + ct;
+                                int32_t acc = 0;
+                                for (int k = 0; k < K; k++) {
 #pragma HLS UNROLL factor=2
-                                int idx = (wr + 1 + k) & (K - 1);
-                                int16_t x = (int16_t)(line_buf[c][idx]) - (int16_t)QUANTSTUB_ZP;
-                                int8_t w = CONV_BR0_WEIGHT[oc][0][0][k];
-                                acc += (int32_t)x * (int32_t)w;
+                                    int idx = (wr + 1 + k) & (K - 1);
+                                    int16_t x = (int16_t)(line_buf[c][idx]) - (int16_t)QUANTSTUB_ZP;
+                                    int8_t w = CONV_BR0_WEIGHT[oc][0][0][k];
+                                    acc += (int32_t)x * (int32_t)w;
+                                }
+
+                                int v = conv_br_requant_fixed(acc, bias, CONV_BR0_R_MULT, out_zp);
+                                uint8_t idx = (uint8_t)clamp(v, 0, 255);
+
+                                o_vec[c] = gelu_lut0[idx];
                             }
-
-                            int v = conv_br_requant_fixed(acc, bias, CONV_BR0_R_MULT, out_zp);
-                            uint8_t idx = (uint8_t)clamp(v, 0, 255);
-
-                            o_vec[c] = gelu_lut0[idx];
                         }
                         o_stream.write(o_vec);
                     }
@@ -123,7 +129,7 @@ public:
     {
         X_T line_buf[IN_D][BR1_KERNAL];  // 环形窗口，避免每拍整体移位
 #pragma HLS ARRAY_PARTITION variable = line_buf complete dim = 1
-#pragma HLS ARRAY_PARTITION variable = line_buf complete dim = 2
+#pragma HLS ARRAY_PARTITION variable = line_buf cyclic factor = 2 dim = 2
         const ZP_T out_zp = CONV_BR1_OUTPUT_ZP;
 
         for (int n = 0; n < N; n++) {
@@ -147,27 +153,29 @@ public:
 
                 if (t >= PAD ) {
                     for (int oc = 0; oc < OUT_CH; oc++) {
-                        #pragma HLS PIPELINE 
-
                         hls::vector<X_T, IN_D> o_vec;
                         int32_t bias = CONV_BR1_BIAS[oc];
 
-                        for (int c = 0; c < IN_D; c++) {
+                        for (int c0 = 0; c0 < IN_D; c0 += CONV_BR_C_TILE) {
+#pragma HLS PIPELINE II=1
 
-                            int32_t acc = 0;
-                            for (int k = 0; k < K; k++) {
-#pragma HLS UNROLL factor=4
-                                int idx = (wr + 1 + k) & (K - 1);
-                                int16_t x = (int16_t)(line_buf[c][idx]) - (int16_t)QUANTSTUB_ZP;
-                                int8_t w = CONV_BR1_WEIGHT[oc][0][0][k];
-                                acc += (int32_t)x * (int32_t)w;
+                            for (int ct = 0; ct < CONV_BR_C_TILE; ct++) {
+#pragma HLS UNROLL
+                                int c = c0 + ct;
+                                int32_t acc = 0;
+                                for (int k = 0; k < K; k++) {
+#pragma HLS UNROLL factor=2
+                                    int idx = (wr + 1 + k) & (K - 1);
+                                    int16_t x = (int16_t)(line_buf[c][idx]) - (int16_t)QUANTSTUB_ZP;
+                                    int8_t w = CONV_BR1_WEIGHT[oc][0][0][k];
+                                    acc += (int32_t)x * (int32_t)w;
+                                }
+
+                                int v = conv_br_requant_fixed(acc, bias, CONV_BR1_R_MULT, out_zp);
+                                uint8_t idx = (uint8_t)clamp(v, 0, 255);
+
+                                o_vec[c] = gelu_lut1[idx];
                             }
-                            
-
-                            int v = conv_br_requant_fixed(acc, bias, CONV_BR1_R_MULT, out_zp);
-                            uint8_t idx = (uint8_t)clamp(v, 0, 255);
-
-                            o_vec[c] = gelu_lut1[idx];
 
                         }
                         o_stream.write(o_vec);
@@ -195,7 +203,7 @@ public:
     {
         X_T line_buf[IN_D][BR2_KERNAL];  // 环形窗口，避免每拍整体移位
 #pragma HLS ARRAY_PARTITION variable = line_buf complete dim = 1
-#pragma HLS ARRAY_PARTITION variable = line_buf complete dim = 2
+#pragma HLS ARRAY_PARTITION variable = line_buf cyclic factor = 4 dim = 2
         const ZP_T out_zp = CONV_BR2_OUTPUT_ZP;
 
         for (int n = 0; n < N; n++) {
@@ -220,24 +228,28 @@ public:
 
                 if (t >= PAD ) {
                     for (int oc = 0; oc < OUT_CH; oc++) {
-                        #pragma HLS PIPELINE 
                         hls::vector<X_T, IN_D> o_vec;
                         int32_t bias = CONV_BR2_BIAS[oc];
 
-                        for (int c = 0; c < IN_D; c++) {
+                        for (int c0 = 0; c0 < IN_D; c0 += CONV_BR_C_TILE) {
+#pragma HLS PIPELINE II=1
 
-                            int32_t acc = 0;
-                            for (int k = 0; k < K; k++) {
-#pragma HLS UNROLL factor=8
-                                int idx = (wr + 1 + k) & (K - 1);
-                                int16_t x = (int16_t)(line_buf[c][idx]) - (int16_t)QUANTSTUB_ZP;
-                                int8_t w = CONV_BR2_WEIGHT[oc][0][0][k];
-                                acc += (int32_t)x * (int32_t)w;
-                            }                            
-                            int v = conv_br_requant_fixed(acc, bias, CONV_BR2_R_MULT, out_zp);
-                            uint8_t idx = (uint8_t)clamp(v, 0, 255);
+                            for (int ct = 0; ct < CONV_BR_C_TILE; ct++) {
+#pragma HLS UNROLL
+                                int c = c0 + ct;
+                                int32_t acc = 0;
+                                for (int k = 0; k < K; k++) {
+#pragma HLS UNROLL factor=4
+                                    int idx = (wr + 1 + k) & (K - 1);
+                                    int16_t x = (int16_t)(line_buf[c][idx]) - (int16_t)QUANTSTUB_ZP;
+                                    int8_t w = CONV_BR2_WEIGHT[oc][0][0][k];
+                                    acc += (int32_t)x * (int32_t)w;
+                                }
+                                int v = conv_br_requant_fixed(acc, bias, CONV_BR2_R_MULT, out_zp);
+                                uint8_t idx = (uint8_t)clamp(v, 0, 255);
 
-                            o_vec[c] = gelu_lut2[idx];
+                                o_vec[c] = gelu_lut2[idx];
+                            }
                         }
                         o_stream.write(o_vec);
                     }
