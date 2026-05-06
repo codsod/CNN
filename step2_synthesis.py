@@ -9,13 +9,13 @@ INSTANCE_DIR = os.path.join(ROOT_DIR, "instances_tp8_syn_kv260")
 # compile all
 configs = [
     # ("LOG",  "flp", "2022.1"),  # PLEASE use 2022.1
-    ("POOL",  "flp", "2022.1"),   # pass, two questions are found
+    # ("POOL",  "flp", "2022.1"),   # pass, two questions are found
     # ("SQUARE", "flp", "2022.1"),   # psss 
     # ("LINEAR", "flp", "2022.1"),   # pass, requantization is needed
     # ("GELU", "flp", "2022.1"),     # pass
     # ("CONV_BR", "flp", "2022.1"),    # pass, two questions are found
     # ("CONV_SPATIAL", "flp", "2022.1"),  # no pass
-    # ("CONCAT", "flp", "2022.1"),   # pass
+    ("CONCAT", "flp", "2022.1"),   # pass
     # ("QUANT_INPUT", "flp", "2022.1"), # pass
     # ("CNN_top",           "flp",      "2022.1"),  # stp for performance
 ]

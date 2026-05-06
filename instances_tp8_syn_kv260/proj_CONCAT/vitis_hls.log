@@ -6,7 +6,7 @@
 
 source /data/home/songqiangxu/Xilinx/2022.1/Vitis_HLS/2022.1/scripts/vitis_hls/hls.tcl -notrace
 INFO: [HLS 200-10] Running '/data/home/songqiangxu/Xilinx/2022.1/Vitis_HLS/2022.1/bin/unwrapped/lnx64.o/vitis_hls'
-INFO: [HLS 200-10] For user 'songqiangxu' on host 'dell-Precision-7920-Tower' (Linux_x86_64 version 5.15.0-139-generic) on Tue May 05 16:00:15 CST 2026
+INFO: [HLS 200-10] For user 'songqiangxu' on host 'dell-Precision-7920-Tower' (Linux_x86_64 version 5.15.0-139-generic) on Wed May 06 12:34:20 CST 2026
 INFO: [HLS 200-10] On os Ubuntu 20.04.6 LTS
 INFO: [HLS 200-10] In directory '/data/home/songqiangxu/project/CNN/instances_tp8_syn_kv260/proj_CONCAT'
 WARNING: [HLS 200-40] Environment variable 'CPLUS_INCLUDE_PATH' is set to /data/home/songqiangxu/project/CNN.
@@ -30,168 +30,141 @@ INFO: [SYN 201-201] Setting up clock 'default' with a period of 2.5ns.
 INFO: [HLS 200-1510] Running: config_export -format ip_catalog -rtl verilog -vivado_clock 2.5 -vivado_phys_opt none 
 INFO: [HLS 200-1510] Running: config_compile -pipeline_style flp 
 INFO: [HLS 200-1510] Running: csynth_design 
-INFO: [HLS 200-111] Finished File checks and directory preparation: CPU user time: 0.02 seconds. CPU system time: 0 seconds. Elapsed time: 0.01 seconds; current allocated memory: 1.456 GB.
+INFO: [HLS 200-111] Finished File checks and directory preparation: CPU user time: 0.01 seconds. CPU system time: 0 seconds. Elapsed time: 0 seconds; current allocated memory: 1.459 GB.
 INFO: [HLS 200-10] Analyzing design file 'case/CONCAT.cpp' ... 
-INFO: [HLS 200-111] Finished Source Code Analysis and Preprocessing: CPU user time: 76.13 seconds. CPU system time: 3.02 seconds. Elapsed time: 78.18 seconds; current allocated memory: 458.414 MB.
+INFO: [HLS 200-111] Finished Source Code Analysis and Preprocessing: CPU user time: 73.57 seconds. CPU system time: 3.78 seconds. Elapsed time: 76.41 seconds; current allocated memory: 461.398 MB.
 INFO: [HLS 200-777] Using interface defaults for 'Vivado' flow target.
 INFO: [HLS 214-131] Inlining function 'hls::vector<ap_uint<8>, 195ul>::pragma() const' into 'hls::vector<ap_uint<8>, 195ul>::operator[](unsigned long)' (/data/home/songqiangxu/Xilinx/2022.1/Vitis_HLS/2022.1/common/technology/autopilot/hls_vector.h:142:5)
 INFO: [HLS 214-131] Inlining function 'hls::vector<ap_uint<8>, 210ul>::pragma() const' into 'hls::vector<ap_uint<8>, 210ul>::operator[](unsigned long)' (/data/home/songqiangxu/Xilinx/2022.1/Vitis_HLS/2022.1/common/technology/autopilot/hls_vector.h:142:5)
 INFO: [HLS 214-131] Inlining function 'hls::vector<ap_uint<8>, 410ul>::pragma() const' into 'hls::vector<ap_uint<8>, 410ul>::operator[](unsigned long)' (/data/home/songqiangxu/Xilinx/2022.1/Vitis_HLS/2022.1/common/technology/autopilot/hls_vector.h:142:5)
-INFO: [HLS 214-131] Inlining function 'hls::vector<ap_uint<8>, 410ul>::operator[](unsigned long)' into 'Concat<ap_uint<8> >::do_concat(hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 210ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 410ul>, 0>&)' (/data/home/songqiangxu/project/CNN/src/concat.h:132:2)
-INFO: [HLS 214-131] Inlining function 'hls::vector<ap_uint<8>, 410ul>::operator[](unsigned long)' into 'Concat<ap_uint<8> >::do_concat(hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 210ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 410ul>, 0>&)' (/data/home/songqiangxu/project/CNN/src/concat.h:121:2)
-INFO: [HLS 214-131] Inlining function 'hls::vector<ap_uint<8>, 410ul>::operator[](unsigned long)' into 'Concat<ap_uint<8> >::do_concat(hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 210ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 410ul>, 0>&)' (/data/home/songqiangxu/project/CNN/src/concat.h:110:2)
-INFO: [HLS 214-131] Inlining function 'hls::vector<ap_uint<8>, 195ul>::operator[](unsigned long)' into 'Concat<ap_uint<8> >::do_concat(hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 210ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 410ul>, 0>&)' (/data/home/songqiangxu/project/CNN/src/concat.h:87:29)
-INFO: [HLS 214-131] Inlining function 'hls::vector<ap_uint<8>, 195ul>::operator[](unsigned long)' into 'Concat<ap_uint<8> >::do_concat(hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 210ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 410ul>, 0>&)' (/data/home/songqiangxu/project/CNN/src/concat.h:93:29)
-INFO: [HLS 214-131] Inlining function 'hls::vector<ap_uint<8>, 210ul>::operator[](unsigned long)' into 'Concat<ap_uint<8> >::do_concat(hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 210ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 410ul>, 0>&)' (/data/home/songqiangxu/project/CNN/src/concat.h:99:29)
-INFO: [HLS 214-291] Loop 'anonymous' is marked as complete unroll implied by the pipeline pragma (/data/home/songqiangxu/project/CNN/src/concat.h:83:17)
-INFO: [HLS 214-291] Loop 'anonymous' is marked as complete unroll implied by the pipeline pragma (/data/home/songqiangxu/project/CNN/src/concat.h:85:21)
-INFO: [HLS 214-291] Loop 'anonymous' is marked as complete unroll implied by the pipeline pragma (/data/home/songqiangxu/project/CNN/src/concat.h:89:17)
-INFO: [HLS 214-291] Loop 'anonymous' is marked as complete unroll implied by the pipeline pragma (/data/home/songqiangxu/project/CNN/src/concat.h:91:21)
-INFO: [HLS 214-291] Loop 'anonymous' is marked as complete unroll implied by the pipeline pragma (/data/home/songqiangxu/project/CNN/src/concat.h:95:17)
-INFO: [HLS 214-291] Loop 'anonymous' is marked as complete unroll implied by the pipeline pragma (/data/home/songqiangxu/project/CNN/src/concat.h:97:21)
-INFO: [HLS 214-186] Unrolling loop 'anonymous' (/data/home/songqiangxu/project/CNN/src/concat.h:83:17) in function 'Concat<ap_uint<8> >::do_concat' completely with a factor of 13 (/data/home/songqiangxu/project/CNN/src/concat.h:66:0)
-INFO: [HLS 214-186] Unrolling loop 'anonymous' (/data/home/songqiangxu/project/CNN/src/concat.h:85:21) in function 'Concat<ap_uint<8> >::do_concat' completely with a factor of 15 (/data/home/songqiangxu/project/CNN/src/concat.h:66:0)
-INFO: [HLS 214-186] Unrolling loop 'anonymous' (/data/home/songqiangxu/project/CNN/src/concat.h:89:17) in function 'Concat<ap_uint<8> >::do_concat' completely with a factor of 13 (/data/home/songqiangxu/project/CNN/src/concat.h:66:0)
-INFO: [HLS 214-186] Unrolling loop 'anonymous' (/data/home/songqiangxu/project/CNN/src/concat.h:91:21) in function 'Concat<ap_uint<8> >::do_concat' completely with a factor of 15 (/data/home/songqiangxu/project/CNN/src/concat.h:66:0)
-INFO: [HLS 214-186] Unrolling loop 'anonymous' (/data/home/songqiangxu/project/CNN/src/concat.h:95:17) in function 'Concat<ap_uint<8> >::do_concat' completely with a factor of 14 (/data/home/songqiangxu/project/CNN/src/concat.h:66:0)
-INFO: [HLS 214-186] Unrolling loop 'anonymous' (/data/home/songqiangxu/project/CNN/src/concat.h:97:21) in function 'Concat<ap_uint<8> >::do_concat' completely with a factor of 15 (/data/home/songqiangxu/project/CNN/src/concat.h:66:0)
+INFO: [HLS 214-131] Inlining function 'hls::vector<ap_uint<8>, 410ul>::operator[](unsigned long)' into 'Concat<ap_uint<8> >::do_concat(hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 210ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 410ul>, 0>&)' (/data/home/songqiangxu/project/CNN/src/concat.h:114:2)
+INFO: [HLS 214-131] Inlining function 'hls::vector<ap_uint<8>, 410ul>::operator[](unsigned long)' into 'Concat<ap_uint<8> >::do_concat(hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 210ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 410ul>, 0>&)' (/data/home/songqiangxu/project/CNN/src/concat.h:103:2)
+INFO: [HLS 214-131] Inlining function 'hls::vector<ap_uint<8>, 410ul>::operator[](unsigned long)' into 'Concat<ap_uint<8> >::do_concat(hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 210ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 410ul>, 0>&)' (/data/home/songqiangxu/project/CNN/src/concat.h:92:2)
+INFO: [HLS 214-131] Inlining function 'hls::vector<ap_uint<8>, 195ul>::operator[](unsigned long)' into 'Concat<ap_uint<8> >::do_concat(hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 210ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 410ul>, 0>&)' (/data/home/songqiangxu/project/CNN/src/concat.h:68:74)
+INFO: [HLS 214-131] Inlining function 'hls::vector<ap_uint<8>, 210ul>::operator[](unsigned long)' into 'Concat<ap_uint<8> >::do_concat(hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 210ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 410ul>, 0>&)' (/data/home/songqiangxu/project/CNN/src/concat.h:81:74)
+INFO: [HLS 214-131] Inlining function 'hls::vector<ap_uint<8>, 195ul>::operator[](unsigned long)' into 'Concat<ap_uint<8> >::do_concat(hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 210ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 410ul>, 0>&)' (/data/home/songqiangxu/project/CNN/src/concat.h:75:74)
+INFO: [HLS 214-291] Loop 'anonymous' is marked as complete unroll implied by the pipeline pragma (/data/home/songqiangxu/project/CNN/src/concat.h:67:2)
+INFO: [HLS 214-291] Loop 'anonymous' is marked as complete unroll implied by the pipeline pragma (/data/home/songqiangxu/project/CNN/src/concat.h:74:2)
+INFO: [HLS 214-291] Loop 'anonymous' is marked as complete unroll implied by the pipeline pragma (/data/home/songqiangxu/project/CNN/src/concat.h:80:2)
+INFO: [HLS 214-186] Unrolling loop 'anonymous' (/data/home/songqiangxu/project/CNN/src/concat.h:67:2) in function 'Concat<ap_uint<8> >::do_concat' completely with a factor of 15 (/data/home/songqiangxu/project/CNN/src/concat.h:47:0)
+INFO: [HLS 214-186] Unrolling loop 'anonymous' (/data/home/songqiangxu/project/CNN/src/concat.h:74:2) in function 'Concat<ap_uint<8> >::do_concat' completely with a factor of 15 (/data/home/songqiangxu/project/CNN/src/concat.h:47:0)
+INFO: [HLS 214-186] Unrolling loop 'anonymous' (/data/home/songqiangxu/project/CNN/src/concat.h:80:2) in function 'Concat<ap_uint<8> >::do_concat' completely with a factor of 15 (/data/home/songqiangxu/project/CNN/src/concat.h:47:0)
 INFO: [HLS 214-178] Inlining function 'std::__array_traits<ap_uint<8>, 195ul>::_S_ref(ap_uint<8> const (&) [195], unsigned long)' into 'std::array<ap_uint<8>, 195ul>::operator[](unsigned long)' (/data/home/songqiangxu/Xilinx/2022.1/Vitis_HLS/2022.1/tps/lnx64/gcc-8.3.0/lib/gcc/x86_64-pc-linux-gnu/8.3.0/../../../../include/c++/8.3.0/array:186:0)
 INFO: [HLS 214-178] Inlining function 'std::__array_traits<ap_uint<8>, 210ul>::_S_ref(ap_uint<8> const (&) [210], unsigned long)' into 'std::array<ap_uint<8>, 210ul>::operator[](unsigned long)' (/data/home/songqiangxu/Xilinx/2022.1/Vitis_HLS/2022.1/tps/lnx64/gcc-8.3.0/lib/gcc/x86_64-pc-linux-gnu/8.3.0/../../../../include/c++/8.3.0/array:186:0)
 INFO: [HLS 214-178] Inlining function 'std::__array_traits<ap_uint<8>, 410ul>::_S_ref(ap_uint<8> const (&) [410], unsigned long)' into 'std::array<ap_uint<8>, 410ul>::operator[](unsigned long)' (/data/home/songqiangxu/Xilinx/2022.1/Vitis_HLS/2022.1/tps/lnx64/gcc-8.3.0/lib/gcc/x86_64-pc-linux-gnu/8.3.0/../../../../include/c++/8.3.0/array:186:0)
-INFO: [HLS 214-178] Inlining function 'fp_struct<float>::fp_struct(float)' into 'int generic_cast_IEEE754<int, (ap_q_mode)6, float>(float, bool, hls::enable_if<std::numeric_limits<int>::is_signed, bool>::type)' (/wrk/ci/prod/2022.1/rdi_builds/continuous/2022_04_18_3526262/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_case_IEEE754.h:12:0)
-INFO: [HLS 214-178] Inlining function 'fp_struct<float>::mantissa() const' into 'int generic_cast_IEEE754<int, (ap_q_mode)6, float>(float, bool, hls::enable_if<std::numeric_limits<int>::is_signed, bool>::type)' (/wrk/ci/prod/2022.1/rdi_builds/continuous/2022_04_18_3526262/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_case_IEEE754.h:12:0)
-INFO: [HLS 214-178] Inlining function 'fp_struct<float>::expv() const' into 'int generic_cast_IEEE754<int, (ap_q_mode)6, float>(float, bool, hls::enable_if<std::numeric_limits<int>::is_signed, bool>::type)' (/wrk/ci/prod/2022.1/rdi_builds/continuous/2022_04_18_3526262/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_case_IEEE754.h:12:0)
-INFO: [HLS 214-178] Inlining function 'fp_struct<float>::__signbit() const' into 'int generic_cast_IEEE754<int, (ap_q_mode)6, float>(float, bool, hls::enable_if<std::numeric_limits<int>::is_signed, bool>::type)' (/wrk/ci/prod/2022.1/rdi_builds/continuous/2022_04_18_3526262/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_case_IEEE754.h:12:0)
-INFO: [HLS 214-178] Inlining function 'int generic_cast_IEEE754<int, (ap_q_mode)6, float>(float, bool, hls::enable_if<std::numeric_limits<int>::is_signed, bool>::type)' into 'int generic_cast_IEEE754<int, float>(float, bool)' (/wrk/ci/prod/2022.1/rdi_builds/continuous/2022_04_18_3526262/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_case_IEEE754.h:116:0)
-INFO: [HLS 214-178] Inlining function 'int generic_cast_IEEE754<int, float>(float, bool)' into '__hls_fptosi_float_i32' (/wrk/ci/prod/2022.1/rdi_builds/continuous/2022_04_18_3526262/src/shared/hls/clib/hlsmath/src/lib_floatconversion.cpp:51:0)
-INFO: [HLS 214-178] Inlining function '__hls_fptosi_float_i32' into 'round_to_even_concat(float)' (/data/home/songqiangxu/project/CNN/src/concat.h:20:0)
-INFO: [HLS 214-178] Inlining function 'round_to_even_concat(float)' into 'Concat<ap_uint<8> >::requant_to_concat_domain(ap_uint<8>, float, short)' (/data/home/songqiangxu/project/CNN/src/concat.h:53:0)
-INFO: [HLS 214-178] Inlining function 'int clamp<int, int>(int, int, int)' into 'Concat<ap_uint<8> >::requant_to_concat_domain(ap_uint<8>, float, short)' (/data/home/songqiangxu/project/CNN/src/concat.h:53:0)
-INFO: [HLS 214-178] Inlining function 'std::array<ap_uint<8>, 195ul>::operator[](unsigned long)' into 'Concat<ap_uint<8> >::do_concat(hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 210ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 410ul>, 0>&)' (/data/home/songqiangxu/project/CNN/src/concat.h:66:0)
-INFO: [HLS 214-178] Inlining function 'std::array<ap_uint<8>, 210ul>::operator[](unsigned long)' into 'Concat<ap_uint<8> >::do_concat(hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 210ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 410ul>, 0>&)' (/data/home/songqiangxu/project/CNN/src/concat.h:66:0)
-INFO: [HLS 214-178] Inlining function 'std::array<ap_uint<8>, 410ul>::operator[](unsigned long)' into 'Concat<ap_uint<8> >::do_concat(hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 210ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 410ul>, 0>&)' (/data/home/songqiangxu/project/CNN/src/concat.h:66:0)
+INFO: [HLS 214-178] Inlining function 'std::array<ap_uint<8>, 195ul>::operator[](unsigned long)' into 'Concat<ap_uint<8> >::do_concat(hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 210ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 410ul>, 0>&)' (/data/home/songqiangxu/project/CNN/src/concat.h:47:0)
+INFO: [HLS 214-178] Inlining function 'std::array<ap_uint<8>, 210ul>::operator[](unsigned long)' into 'Concat<ap_uint<8> >::do_concat(hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 210ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 410ul>, 0>&)' (/data/home/songqiangxu/project/CNN/src/concat.h:47:0)
+INFO: [HLS 214-178] Inlining function 'std::array<ap_uint<8>, 410ul>::operator[](unsigned long)' into 'Concat<ap_uint<8> >::do_concat(hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 210ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 410ul>, 0>&)' (/data/home/songqiangxu/project/CNN/src/concat.h:47:0)
 INFO: [HLS 214-241] Aggregating axis (hls::stream) variable 'i_stream_0' with compact=bit mode in 1560-bits (case/CONCAT.cpp:57:0)
 INFO: [HLS 214-241] Aggregating axis (hls::stream) variable 'i_stream_1' with compact=bit mode in 1560-bits (case/CONCAT.cpp:57:0)
 INFO: [HLS 214-241] Aggregating axis (hls::stream) variable 'i_stream_2' with compact=bit mode in 1680-bits (case/CONCAT.cpp:57:0)
 INFO: [HLS 214-241] Aggregating axis (hls::stream) variable 'o_stream' with compact=bit mode in 3280-bits (case/CONCAT.cpp:57:0)
-INFO: [HLS 214-241] Aggregating scalar variable 'out_vec205' with compact=bit mode in 3280-bits (/data/home/songqiangxu/project/CNN/src/concat.h:129:54)
-INFO: [HLS 214-241] Aggregating scalar variable 'out_vec172' with compact=bit mode in 3280-bits (/data/home/songqiangxu/project/CNN/src/concat.h:118:54)
-INFO: [HLS 214-241] Aggregating scalar variable 'out_vec' with compact=bit mode in 3280-bits (/data/home/songqiangxu/project/CNN/src/concat.h:107:54)
+INFO: [HLS 214-241] Aggregating scalar variable 'out_vec211' with compact=bit mode in 3280-bits (/data/home/songqiangxu/project/CNN/src/concat.h:111:54)
+INFO: [HLS 214-241] Aggregating scalar variable 'out_vec178' with compact=bit mode in 3280-bits (/data/home/songqiangxu/project/CNN/src/concat.h:100:54)
+INFO: [HLS 214-241] Aggregating scalar variable 'out_vec' with compact=bit mode in 3280-bits (/data/home/songqiangxu/project/CNN/src/concat.h:89:54)
 INFO: [HLS 214-241] Aggregating scalar variable 'v0' with compact=bit mode in 1560-bits
 INFO: [HLS 214-241] Aggregating scalar variable 'v1' with compact=bit mode in 1560-bits
 INFO: [HLS 214-241] Aggregating scalar variable 'v2' with compact=bit mode in 1680-bits
-INFO: [HLS 214-270] Inferring pragma 'array_partition type=complete dim=1' for array 'buf0' due to pipeline pragma (/data/home/songqiangxu/project/CNN/src/concat.h:78:9)
-INFO: [HLS 214-270] Inferring pragma 'array_partition type=complete dim=2' for array 'buf0' due to pipeline pragma (/data/home/songqiangxu/project/CNN/src/concat.h:78:9)
-INFO: [HLS 214-270] Inferring pragma 'array_partition type=complete dim=1' for array 'buf1' due to pipeline pragma (/data/home/songqiangxu/project/CNN/src/concat.h:78:9)
-INFO: [HLS 214-270] Inferring pragma 'array_partition type=complete dim=2' for array 'buf1' due to pipeline pragma (/data/home/songqiangxu/project/CNN/src/concat.h:78:9)
-INFO: [HLS 214-270] Inferring pragma 'array_partition type=complete dim=1' for array 'buf2' due to pipeline pragma (/data/home/songqiangxu/project/CNN/src/concat.h:78:9)
-INFO: [HLS 214-270] Inferring pragma 'array_partition type=complete dim=2' for array 'buf2' due to pipeline pragma (/data/home/songqiangxu/project/CNN/src/concat.h:78:9)
-INFO: [HLS 214-248] Applying array_partition to 'buf0': Complete partitioning on dimension 1. Complete partitioning on dimension 2. (/data/home/songqiangxu/project/CNN/src/concat.h:67:16)
-INFO: [HLS 214-248] Applying array_partition to 'buf1': Complete partitioning on dimension 1. Complete partitioning on dimension 2. (/data/home/songqiangxu/project/CNN/src/concat.h:68:16)
-INFO: [HLS 214-248] Applying array_partition to 'buf2': Complete partitioning on dimension 1. Complete partitioning on dimension 2. (/data/home/songqiangxu/project/CNN/src/concat.h:69:16)
+INFO: [HLS 214-270] Inferring pragma 'array_partition type=complete dim=2' for array 'buf0' due to pipeline pragma (/data/home/songqiangxu/project/CNN/src/concat.h:66:9)
+INFO: [HLS 214-270] Inferring pragma 'array_partition type=complete dim=2' for array 'buf1' due to pipeline pragma (/data/home/songqiangxu/project/CNN/src/concat.h:72:9)
+INFO: [HLS 214-270] Inferring pragma 'array_partition type=complete dim=2' for array 'buf2' due to pipeline pragma (/data/home/songqiangxu/project/CNN/src/concat.h:79:9)
+INFO: [HLS 214-248] Applying array_partition to 'buf0': Complete partitioning on dimension 2. (/data/home/songqiangxu/project/CNN/src/concat.h:48:16)
+INFO: [HLS 214-248] Applying array_partition to 'buf1': Complete partitioning on dimension 2. (/data/home/songqiangxu/project/CNN/src/concat.h:49:16)
+INFO: [HLS 214-248] Applying array_partition to 'buf2': Complete partitioning on dimension 2. (/data/home/songqiangxu/project/CNN/src/concat.h:50:16)
 INFO: [HLS 214-131] Inlining function '_llvm.fpga.pack.none.i1560.a195s_struct.ap_uint<8>s' into '_llvm.fpga.unpack.bits.s_class.hls::vector<ap_uint<8>, 195>s.i1560.1'
 INFO: [HLS 214-131] Inlining function '_llvm.fpga.pack.none.i1680.a210s_struct.ap_uint<8>s' into '_llvm.fpga.unpack.bits.s_class.hls::vector<ap_uint<8>, 210>s.i1680.1'
-INFO: [HLS 214-131] Inlining function '_llvm.fpga.pack.none.i3280.s_class.hls::vector<ap_uint<8>, 410>s' into 'Concat<ap_uint<8> >::do_concat(hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 210ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 410ul>, 0>&) (.1)' (/data/home/songqiangxu/Xilinx/2022.1/Vitis_HLS/2022.1/common/technology/autopilot/hls_stream_39.h:174:9)
-INFO: [HLS 214-131] Inlining function '_llvm.fpga.pack.bits.i3280.s_class.hls::vector<ap_uint<8>, 410>s.1' into 'Concat<ap_uint<8> >::do_concat(hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 210ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 410ul>, 0>&) (.1)' (/data/home/songqiangxu/Xilinx/2022.1/Vitis_HLS/2022.1/common/technology/autopilot/hls_stream_39.h:174:9)
 INFO: [HLS 214-131] Inlining function '_llvm.fpga.unpack.bits.s_class.hls::vector<ap_uint<8>, 195>s.i1560.1' into 'Concat<ap_uint<8> >::do_concat(hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 210ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 410ul>, 0>&) (.1)' (/data/home/songqiangxu/Xilinx/2022.1/Vitis_HLS/2022.1/common/technology/autopilot/hls_stream_39.h:145:9)
+INFO: [HLS 214-131] Inlining function '_llvm.fpga.pack.bits.i3280.s_class.hls::vector<ap_uint<8>, 410>s.1' into 'Concat<ap_uint<8> >::do_concat(hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 210ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 410ul>, 0>&) (.1)' (/data/home/songqiangxu/Xilinx/2022.1/Vitis_HLS/2022.1/common/technology/autopilot/hls_stream_39.h:174:9)
 INFO: [HLS 214-131] Inlining function '_llvm.fpga.unpack.bits.s_class.hls::vector<ap_uint<8>, 210>s.i1680.1' into 'Concat<ap_uint<8> >::do_concat(hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 210ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 410ul>, 0>&) (.1)' (/data/home/songqiangxu/Xilinx/2022.1/Vitis_HLS/2022.1/common/technology/autopilot/hls_stream_39.h:145:9)
-INFO: [HLS 200-111] Finished Compiling Optimization and Transform: CPU user time: 66.88 seconds. CPU system time: 1.4 seconds. Elapsed time: 68.29 seconds; current allocated memory: 459.984 MB.
-INFO: [HLS 200-111] Finished Checking Pragmas: CPU user time: 0 seconds. CPU system time: 0 seconds. Elapsed time: 0 seconds; current allocated memory: 459.984 MB.
+INFO: [HLS 214-131] Inlining function '_llvm.fpga.pack.none.i3280.s_class.hls::vector<ap_uint<8>, 410>s' into 'Concat<ap_uint<8> >::do_concat(hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 195ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 210ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 410ul>, 0>&) (.1)' (/data/home/songqiangxu/Xilinx/2022.1/Vitis_HLS/2022.1/common/technology/autopilot/hls_stream_39.h:174:9)
+INFO: [HLS 200-111] Finished Compiling Optimization and Transform: CPU user time: 58.69 seconds. CPU system time: 1.49 seconds. Elapsed time: 60.18 seconds; current allocated memory: 462.363 MB.
+INFO: [HLS 200-111] Finished Checking Pragmas: CPU user time: 0 seconds. CPU system time: 0 seconds. Elapsed time: 0 seconds; current allocated memory: 462.363 MB.
 INFO: [HLS 200-10] Starting code transformations ...
-INFO: [HLS 200-111] Finished Standard Transforms: CPU user time: 31.86 seconds. CPU system time: 0.07 seconds. Elapsed time: 31.92 seconds; current allocated memory: 537.609 MB.
+INFO: [HLS 200-111] Finished Standard Transforms: CPU user time: 2.59 seconds. CPU system time: 0.03 seconds. Elapsed time: 2.61 seconds; current allocated memory: 513.234 MB.
 INFO: [HLS 200-10] Checking synthesizability ...
-INFO: [HLS 200-111] Finished Checking Synthesizability: CPU user time: 10.4 seconds. CPU system time: 0.04 seconds. Elapsed time: 10.44 seconds; current allocated memory: 576.438 MB.
-INFO: [XFORM 203-401] Performing if-conversion on hyperblock to (/data/home/songqiangxu/project/CNN/src/concat.h:59:5) in function 'Concat<ap_uint<8> >::requant_to_concat_domain'... converting 6 basic blocks.
-INFO: [XFORM 203-11] Balancing expressions in function 'Concat<ap_uint<8> >::do_concat' (/data/home/songqiangxu/project/CNN/src/concat.h:67:21)...2400 expression(s) balanced.
-INFO: [HLS 200-111] Finished Loop, function and other optimizations: CPU user time: 18.05 seconds. CPU system time: 0.1 seconds. Elapsed time: 18.17 seconds; current allocated memory: 778.875 MB.
-WARNING: [HLS 200-960] Cannot flatten loop 'Loop-2.1' (/data/home/songqiangxu/project/CNN/src/concat.h:105:17) in function 'Concat<ap_uint<8> >::do_concat' the outer loop is not a perfect loop because there is nontrivial logic in the loop latch.
+INFO: [HLS 200-111] Finished Checking Synthesizability: CPU user time: 10.75 seconds. CPU system time: 0.02 seconds. Elapsed time: 10.77 seconds; current allocated memory: 516.324 MB.
+INFO: [XFORM 203-11] Balancing expressions in function 'Concat<ap_uint<8> >::do_concat' (/data/home/songqiangxu/project/CNN/src/concat.h:48:17)...1812 expression(s) balanced.
+INFO: [HLS 200-111] Finished Loop, function and other optimizations: CPU user time: 15.17 seconds. CPU system time: 0.11 seconds. Elapsed time: 15.29 seconds; current allocated memory: 687.883 MB.
+WARNING: [HLS 200-960] Cannot flatten loop 'Loop-1' (/data/home/songqiangxu/project/CNN/src/concat.h:57:13) in function 'Concat<ap_uint<8> >::do_concat' more than one sub loop.
 Resolution: For help on HLS 200-960 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-960.html
-INFO: [XFORM 203-541] Flattening a loop nest 'Loop-2' (/data/home/songqiangxu/project/CNN/src/concat.h:103:13) in function 'Concat<ap_uint<8> >::do_concat'.
-WARNING: [HLS 200-960] Cannot flatten loop 'Loop-3.1' (/data/home/songqiangxu/project/CNN/src/concat.h:116:17) in function 'Concat<ap_uint<8> >::do_concat' the outer loop is not a perfect loop because there is nontrivial logic in the loop latch.
+WARNING: [HLS 200-960] Cannot flatten loop 'Loop-2.1' (/data/home/songqiangxu/project/CNN/src/concat.h:87:17) in function 'Concat<ap_uint<8> >::do_concat' the outer loop is not a perfect loop because there is nontrivial logic in the loop latch.
 Resolution: For help on HLS 200-960 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-960.html
-INFO: [XFORM 203-541] Flattening a loop nest 'Loop-3' (/data/home/songqiangxu/project/CNN/src/concat.h:114:13) in function 'Concat<ap_uint<8> >::do_concat'.
-WARNING: [HLS 200-960] Cannot flatten loop 'Loop-4.1' (/data/home/songqiangxu/project/CNN/src/concat.h:127:17) in function 'Concat<ap_uint<8> >::do_concat' the outer loop is not a perfect loop because there is nontrivial logic in the loop latch.
+INFO: [XFORM 203-541] Flattening a loop nest 'Loop-2' (/data/home/songqiangxu/project/CNN/src/concat.h:85:13) in function 'Concat<ap_uint<8> >::do_concat'.
+WARNING: [HLS 200-960] Cannot flatten loop 'Loop-3.1' (/data/home/songqiangxu/project/CNN/src/concat.h:98:17) in function 'Concat<ap_uint<8> >::do_concat' the outer loop is not a perfect loop because there is nontrivial logic in the loop latch.
 Resolution: For help on HLS 200-960 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-960.html
-INFO: [XFORM 203-541] Flattening a loop nest 'Loop-4' (/data/home/songqiangxu/project/CNN/src/concat.h:125:13) in function 'Concat<ap_uint<8> >::do_concat'.
-INFO: [HLS 200-472] Inferring partial write operation for 'buf0.V' (/data/home/songqiangxu/project/CNN/src/concat.h:86:40)
-INFO: [HLS 200-472] Inferring partial write operation for 'buf1.V' (/data/home/songqiangxu/project/CNN/src/concat.h:92:40)
-INFO: [HLS 200-472] Inferring partial write operation for 'buf2.V' (/data/home/songqiangxu/project/CNN/src/concat.h:98:40)
-INFO: [HLS 200-111] Finished Architecture Synthesis: CPU user time: 4.37 seconds. CPU system time: 0.05 seconds. Elapsed time: 4.42 seconds; current allocated memory: 859.340 MB.
+INFO: [XFORM 203-541] Flattening a loop nest 'Loop-3' (/data/home/songqiangxu/project/CNN/src/concat.h:96:13) in function 'Concat<ap_uint<8> >::do_concat'.
+WARNING: [HLS 200-960] Cannot flatten loop 'Loop-4.1' (/data/home/songqiangxu/project/CNN/src/concat.h:109:17) in function 'Concat<ap_uint<8> >::do_concat' the outer loop is not a perfect loop because there is nontrivial logic in the loop latch.
+Resolution: For help on HLS 200-960 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-960.html
+INFO: [XFORM 203-541] Flattening a loop nest 'Loop-4' (/data/home/songqiangxu/project/CNN/src/concat.h:107:13) in function 'Concat<ap_uint<8> >::do_concat'.
+INFO: [HLS 200-472] Inferring partial write operation for 'buf0.V' (/data/home/songqiangxu/project/CNN/src/concat.h:68:40)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf1.V' (/data/home/songqiangxu/project/CNN/src/concat.h:75:40)
+INFO: [HLS 200-472] Inferring partial write operation for 'buf2.V' (/data/home/songqiangxu/project/CNN/src/concat.h:81:40)
+INFO: [HLS 200-111] Finished Architecture Synthesis: CPU user time: 1.16 seconds. CPU system time: 0.02 seconds. Elapsed time: 1.18 seconds; current allocated memory: 737.758 MB.
 INFO: [HLS 200-10] Starting hardware synthesis ...
 INFO: [HLS 200-10] Synthesizing 'top' ...
-WARNING: [HLS 200-1842] Loop 'Loop 1' cannot be implemented as Flushable(/Unaligned) Pipeline as it did not meet the structural requirements. Changing pipeline style specification to 'style=stp'.
-INFO: [HLS 200-10] ----------------------------------------------------------------
-INFO: [HLS 200-42] -- Implementing module 'requant_to_concat_domain' 
-INFO: [HLS 200-10] ----------------------------------------------------------------
-INFO: [SCHED 204-11] Starting scheduling ...
-WARNING: [HLS 200-1015] Estimated delay Estimated delay (3.24ns)  of 'sitofp' operation ('conv2', /data/home/songqiangxu/project/CNN/src/concat.h:55) exceeds the target cycle time (target cycle time: 2.5ns, clock uncertainty: 0.675ns, effective cycle time: 1.83ns).
-
-Resolution: For help on HLS 200-1015 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-1015.html
-INFO: [SCHED 204-61] Pipelining function 'requant_to_concat_domain'.
-INFO: [HLS 200-1470] Pipelining result : Target II = 0, Final II = 1, Depth = 88, function 'requant_to_concat_domain'
-WARNING: [HLS 200-871] Estimated clock period (3.239ns) exceeds the target (target clock period: 2.5ns, clock uncertainty: 0.675ns, effective delay budget: 1.825ns).
-Resolution: For help on HLS 200-871 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-871.html
-WARNING: [HLS 200-1016] The critical path in module 'requant_to_concat_domain' consists of the following:	'sitofp' operation ('conv2', /data/home/songqiangxu/project/CNN/src/concat.h:55) [11]  (3.24 ns)
-
-Resolution: For help on HLS 200-1016 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-1016.html
-INFO: [SCHED 204-11] Finished scheduling.
-INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.46 seconds. CPU system time: 0.05 seconds. Elapsed time: 0.52 seconds; current allocated memory: 864.055 MB.
-INFO: [BIND 205-100] Starting micro-architecture generation ...
-INFO: [BIND 205-101] Performing variable lifetime analysis.
-INFO: [BIND 205-101] Exploring resource sharing.
-INFO: [BIND 205-101] Binding ...
-INFO: [BIND 205-100] Finished micro-architecture generation.
-INFO: [HLS 200-111] Finished Binding: CPU user time: 0.42 seconds. CPU system time: 0 seconds. Elapsed time: 0.41 seconds; current allocated memory: 864.055 MB.
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-42] -- Implementing module 'do_concat_Pipeline_1' 
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [SCHED 204-11] Starting scheduling ...
-WARNING: [HLS 200-1015] Estimated delay Estimated delay (3.24ns)  of 'call' operation ('ref_tmp_assign_s', /data/home/songqiangxu/project/CNN/src/concat.h:86) to 'requant_to_concat_domain' exceeds the target cycle time (target cycle time: 2.5ns, clock uncertainty: 0.675ns, effective cycle time: 1.83ns).
-
-Resolution: For help on HLS 200-1015 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-1015.html
 INFO: [SCHED 204-61] Pipelining loop 'Loop 1'.
-INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 91, loop 'Loop 1'
-WARNING: [HLS 200-871] Estimated clock period (3.239ns) exceeds the target (target clock period: 2.5ns, clock uncertainty: 0.675ns, effective delay budget: 1.825ns).
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 12, loop 'Loop 1'
+WARNING: [HLS 200-871] Estimated clock period (2.18312ns) exceeds the target (target clock period: 2.5ns, clock uncertainty: 0.675ns, effective delay budget: 1.825ns).
 Resolution: For help on HLS 200-871 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-871.html
-WARNING: [HLS 200-1016] The critical path in module 'do_concat_Pipeline_1' consists of the following:	'call' operation ('ref_tmp_assign_s', /data/home/songqiangxu/project/CNN/src/concat.h:86) to 'requant_to_concat_domain' [1822]  (3.24 ns)
+WARNING: [HLS 200-1016] The critical path in module 'do_concat_Pipeline_1' consists of the following:	'load' operation ('phi_mul_load', /data/home/songqiangxu/project/CNN/src/concat.h:68) on local variable 'phi_mul' [49]  (0 ns)
+	'add' operation ('add_ln68_15', /data/home/songqiangxu/project/CNN/src/concat.h:68) [50]  (1.35 ns)
+	'store' operation ('phi_mul_write_ln64', /data/home/songqiangxu/project/CNN/src/concat.h:64) of variable 'add_ln68_15', /data/home/songqiangxu/project/CNN/src/concat.h:68 on local variable 'phi_mul' [207]  (0.833 ns)
 
 Resolution: For help on HLS 200-1016 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-1016.html
 INFO: [SCHED 204-11] Finished scheduling.
-INFO: [HLS 200-111] Finished Scheduling: CPU user time: 3.06 seconds. CPU system time: 0.04 seconds. Elapsed time: 3.12 seconds; current allocated memory: 935.547 MB.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.18 seconds. CPU system time: 0.06 seconds. Elapsed time: 0.24 seconds; current allocated memory: 740.152 MB.
 INFO: [BIND 205-100] Starting micro-architecture generation ...
 INFO: [BIND 205-101] Performing variable lifetime analysis.
 INFO: [BIND 205-101] Exploring resource sharing.
 INFO: [BIND 205-101] Binding ...
 INFO: [BIND 205-100] Finished micro-architecture generation.
-INFO: [HLS 200-111] Finished Binding: CPU user time: 22.13 seconds. CPU system time: 0.11 seconds. Elapsed time: 22.23 seconds; current allocated memory: 1.004 GB.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.18 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.18 seconds; current allocated memory: 740.152 MB.
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-42] -- Implementing module 'do_concat_Pipeline_2' 
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [SCHED 204-11] Starting scheduling ...
 INFO: [SCHED 204-61] Pipelining loop 'Loop 1'.
-INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 8, loop 'Loop 1'
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 12, loop 'Loop 1'
+WARNING: [HLS 200-871] Estimated clock period (2.18312ns) exceeds the target (target clock period: 2.5ns, clock uncertainty: 0.675ns, effective delay budget: 1.825ns).
+Resolution: For help on HLS 200-871 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-871.html
+WARNING: [HLS 200-1016] The critical path in module 'do_concat_Pipeline_2' consists of the following:	'load' operation ('phi_mul822_load', /data/home/songqiangxu/project/CNN/src/concat.h:75) on local variable 'phi_mul822' [49]  (0 ns)
+	'add' operation ('add_ln75_15', /data/home/songqiangxu/project/CNN/src/concat.h:75) [50]  (1.35 ns)
+	'store' operation ('phi_mul822_write_ln70', /data/home/songqiangxu/project/CNN/src/concat.h:70) of variable 'add_ln75_15', /data/home/songqiangxu/project/CNN/src/concat.h:75 on local variable 'phi_mul822' [207]  (0.833 ns)
+
+Resolution: For help on HLS 200-1016 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-1016.html
 INFO: [SCHED 204-11] Finished scheduling.
-INFO: [HLS 200-111] Finished Scheduling: CPU user time: 59.82 seconds. CPU system time: 0.1 seconds. Elapsed time: 59.92 seconds; current allocated memory: 1.011 GB.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.29 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.31 seconds; current allocated memory: 741.531 MB.
 INFO: [BIND 205-100] Starting micro-architecture generation ...
 INFO: [BIND 205-101] Performing variable lifetime analysis.
 INFO: [BIND 205-101] Exploring resource sharing.
 INFO: [BIND 205-101] Binding ...
 INFO: [BIND 205-100] Finished micro-architecture generation.
-INFO: [HLS 200-111] Finished Binding: CPU user time: 0.24 seconds. CPU system time: 0 seconds. Elapsed time: 0.24 seconds; current allocated memory: 1.011 GB.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.19 seconds. CPU system time: 0 seconds. Elapsed time: 0.18 seconds; current allocated memory: 741.531 MB.
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-42] -- Implementing module 'do_concat_Pipeline_3' 
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [SCHED 204-11] Starting scheduling ...
 INFO: [SCHED 204-61] Pipelining loop 'Loop 1'.
-INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 8, loop 'Loop 1'
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 12, loop 'Loop 1'
+WARNING: [HLS 200-871] Estimated clock period (2.18312ns) exceeds the target (target clock period: 2.5ns, clock uncertainty: 0.675ns, effective delay budget: 1.825ns).
+Resolution: For help on HLS 200-871 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-871.html
+WARNING: [HLS 200-1016] The critical path in module 'do_concat_Pipeline_3' consists of the following:	'load' operation ('phi_mul824_load', /data/home/songqiangxu/project/CNN/src/concat.h:81) on local variable 'phi_mul824' [49]  (0 ns)
+	'add' operation ('add_ln81_15', /data/home/songqiangxu/project/CNN/src/concat.h:81) [50]  (1.35 ns)
+	'store' operation ('phi_mul824_write_ln77', /data/home/songqiangxu/project/CNN/src/concat.h:77) of variable 'add_ln81_15', /data/home/songqiangxu/project/CNN/src/concat.h:81 on local variable 'phi_mul824' [208]  (0.833 ns)
+
+Resolution: For help on HLS 200-1016 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-1016.html
 INFO: [SCHED 204-11] Finished scheduling.
-INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.56 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.57 seconds; current allocated memory: 1.016 GB.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.3 seconds. CPU system time: 0 seconds. Elapsed time: 0.3 seconds; current allocated memory: 743.203 MB.
 INFO: [BIND 205-100] Starting micro-architecture generation ...
 INFO: [BIND 205-101] Performing variable lifetime analysis.
 INFO: [BIND 205-101] Exploring resource sharing.
 INFO: [BIND 205-101] Binding ...
 INFO: [BIND 205-100] Finished micro-architecture generation.
-INFO: [HLS 200-111] Finished Binding: CPU user time: 0.2 seconds. CPU system time: 0 seconds. Elapsed time: 0.21 seconds; current allocated memory: 1.016 GB.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.19 seconds. CPU system time: 0 seconds. Elapsed time: 0.18 seconds; current allocated memory: 743.203 MB.
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-42] -- Implementing module 'do_concat_Pipeline_4' 
 INFO: [HLS 200-10] ----------------------------------------------------------------
@@ -199,90 +172,119 @@ INFO: [SCHED 204-11] Starting scheduling ...
 INFO: [SCHED 204-61] Pipelining loop 'Loop 1'.
 INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 8, loop 'Loop 1'
 INFO: [SCHED 204-11] Finished scheduling.
-INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.6 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.62 seconds; current allocated memory: 1.022 GB.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.24 seconds. CPU system time: 0 seconds. Elapsed time: 0.25 seconds; current allocated memory: 743.684 MB.
 INFO: [BIND 205-100] Starting micro-architecture generation ...
 INFO: [BIND 205-101] Performing variable lifetime analysis.
 INFO: [BIND 205-101] Exploring resource sharing.
 INFO: [BIND 205-101] Binding ...
 INFO: [BIND 205-100] Finished micro-architecture generation.
-INFO: [HLS 200-111] Finished Binding: CPU user time: 0.22 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.22 seconds; current allocated memory: 1.022 GB.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.06 seconds. CPU system time: 0 seconds. Elapsed time: 0.06 seconds; current allocated memory: 743.684 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'do_concat_Pipeline_5' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'Loop 1'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 8, loop 'Loop 1'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.09 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.11 seconds; current allocated memory: 745.070 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.06 seconds. CPU system time: 0 seconds. Elapsed time: 0.06 seconds; current allocated memory: 745.070 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'do_concat_Pipeline_6' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'Loop 1'.
+INFO: [HLS 200-1470] Pipelining result : Target II = NA, Final II = 1, Depth = 8, loop 'Loop 1'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.1 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.1 seconds; current allocated memory: 745.852 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.06 seconds. CPU system time: 0 seconds. Elapsed time: 0.06 seconds; current allocated memory: 745.852 MB.
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-42] -- Implementing module 'do_concat' 
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [SCHED 204-11] Starting scheduling ...
 INFO: [SCHED 204-11] Finished scheduling.
-INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.43 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.43 seconds; current allocated memory: 1.030 GB.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.15 seconds. CPU system time: 0 seconds. Elapsed time: 0.15 seconds; current allocated memory: 747.773 MB.
 INFO: [BIND 205-100] Starting micro-architecture generation ...
 INFO: [BIND 205-101] Performing variable lifetime analysis.
 INFO: [BIND 205-101] Exploring resource sharing.
 INFO: [BIND 205-101] Binding ...
 INFO: [BIND 205-100] Finished micro-architecture generation.
-INFO: [HLS 200-111] Finished Binding: CPU user time: 20.05 seconds. CPU system time: 0.01 seconds. Elapsed time: 20.07 seconds; current allocated memory: 1.030 GB.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.28 seconds. CPU system time: 0 seconds. Elapsed time: 0.28 seconds; current allocated memory: 747.773 MB.
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-42] -- Implementing module 'top' 
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [SCHED 204-11] Starting scheduling ...
 INFO: [SCHED 204-11] Finished scheduling.
-INFO: [HLS 200-111] Finished Scheduling: CPU user time: 59.26 seconds. CPU system time: 0.02 seconds. Elapsed time: 59.29 seconds; current allocated memory: 1.030 GB.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.44 seconds. CPU system time: 0 seconds. Elapsed time: 0.45 seconds; current allocated memory: 747.773 MB.
 INFO: [BIND 205-100] Starting micro-architecture generation ...
 INFO: [BIND 205-101] Performing variable lifetime analysis.
 INFO: [BIND 205-101] Exploring resource sharing.
 INFO: [BIND 205-101] Binding ...
 INFO: [BIND 205-100] Finished micro-architecture generation.
-INFO: [HLS 200-111] Finished Binding: CPU user time: 19.64 seconds. CPU system time: 0.01 seconds. Elapsed time: 19.65 seconds; current allocated memory: 1.030 GB.
-INFO: [HLS 200-10] ----------------------------------------------------------------
-INFO: [HLS 200-10] -- Generating RTL for module 'requant_to_concat_domain' 
-INFO: [HLS 200-10] ----------------------------------------------------------------
-INFO: [RTGEN 206-100] Generating core module 'fadd_32ns_32ns_32_12_no_dsp_0': 1 instance(s).
-INFO: [RTGEN 206-100] Generating core module 'fcmp_32ns_32ns_1_4_no_dsp_0': 4 instance(s).
-INFO: [RTGEN 206-100] Generating core module 'fdiv_32ns_32ns_32_30_no_dsp_0': 1 instance(s).
-INFO: [RTGEN 206-100] Generating core module 'fmul_32ns_32ns_32_8_max_dsp_0': 1 instance(s).
-INFO: [RTGEN 206-100] Generating core module 'fsub_32ns_32ns_32_12_no_dsp_0': 2 instance(s).
-INFO: [RTGEN 206-100] Generating core module 'lshr_79ns_32ns_79_4_0': 1 instance(s).
-INFO: [RTGEN 206-100] Generating core module 'shl_79ns_32ns_79_4_0': 1 instance(s).
-INFO: [RTGEN 206-100] Generating core module 'sitofp_32ns_32_7_no_dsp_0': 2 instance(s).
-INFO: [RTGEN 206-100] Generating core module 'sitofp_32s_32_7_no_dsp_0': 1 instance(s).
-INFO: [RTGEN 206-100] Finished creating RTL model for 'requant_to_concat_domain'.
-INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 58.88 seconds. CPU system time: 0.02 seconds. Elapsed time: 58.91 seconds; current allocated memory: 1.031 GB.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.15 seconds. CPU system time: 0 seconds. Elapsed time: 0.14 seconds; current allocated memory: 747.773 MB.
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-10] -- Generating RTL for module 'do_concat_Pipeline_1' 
 INFO: [HLS 200-10] ----------------------------------------------------------------
-INFO: [HLS 200-1030] Apply Unified Pipeline Control on module 'do_concat_Pipeline_1' pipeline 'Loop 1' pipeline type 'loop pipeline'
-INFO: [RTGEN 206-104] Estimated max fanout for 'do_concat_Pipeline_1' is 10200 from HDL expression: ((1'b0 == ap_block_pp0_stage0) & (ap_enable_reg_pp0_iter90 == 1'b1))
+INFO: [RTGEN 206-104] Estimated max fanout for 'do_concat_Pipeline_1' is 21842 from HDL expression: (1'b1 == ap_CS_iter2_fsm_state3)
+INFO: [RTGEN 206-100] Generating core module 'lshr_1560ns_11ns_1560_7_1': 3 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'lshr_1560ns_64ns_1560_7_1': 12 instance(s).
 INFO: [RTGEN 206-100] Finished creating RTL model for 'do_concat_Pipeline_1'.
-INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 7.72 seconds. CPU system time: 0.16 seconds. Elapsed time: 7.87 seconds; current allocated memory: 1.314 GB.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.54 seconds. CPU system time: 0 seconds. Elapsed time: 0.54 seconds; current allocated memory: 749.066 MB.
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-10] -- Generating RTL for module 'do_concat_Pipeline_2' 
 INFO: [HLS 200-10] ----------------------------------------------------------------
-INFO: [RTGEN 206-104] Estimated max fanout for 'do_concat_Pipeline_2' is 6560 from HDL expression: ((1'b1 == ap_CS_iter6_fsm_state7) & (icmp_ln108_reg_3600_pp0_iter5_reg == 1'd0))
-INFO: [RTGEN 206-100] Generating core module 'mux_134_8_1_1': 1 instance(s).
-INFO: [RTGEN 206-100] Generating core module 'mux_154_8_1_1': 13 instance(s).
-INFO: [RTGEN 206-100] Generating core module 'shl_3280ns_12ns_3280_2_1': 2 instance(s).
+INFO: [RTGEN 206-104] Estimated max fanout for 'do_concat_Pipeline_2' is 21842 from HDL expression: (1'b1 == ap_CS_iter2_fsm_state3)
+INFO: [RTGEN 206-100] Generating core module 'lshr_1560ns_11ns_1560_7_1': 3 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'lshr_1560ns_64ns_1560_7_1': 12 instance(s).
 INFO: [RTGEN 206-100] Finished creating RTL model for 'do_concat_Pipeline_2'.
-INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 63.99 seconds. CPU system time: 0.28 seconds. Elapsed time: 64.28 seconds; current allocated memory: 1.376 GB.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.53 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.55 seconds; current allocated memory: 754.195 MB.
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-10] -- Generating RTL for module 'do_concat_Pipeline_3' 
 INFO: [HLS 200-10] ----------------------------------------------------------------
-INFO: [RTGEN 206-104] Estimated max fanout for 'do_concat_Pipeline_3' is 6560 from HDL expression: ((1'b1 == ap_CS_iter6_fsm_state7) & (icmp_ln119_reg_3600_pp0_iter5_reg == 1'd0))
-INFO: [RTGEN 206-100] Generating core module 'mux_134_8_1_1': 1 instance(s).
-INFO: [RTGEN 206-100] Generating core module 'mux_154_8_1_1': 13 instance(s).
-INFO: [RTGEN 206-100] Generating core module 'shl_3280ns_12ns_3280_2_1': 2 instance(s).
+INFO: [RTGEN 206-104] Estimated max fanout for 'do_concat_Pipeline_3' is 23522 from HDL expression: (1'b1 == ap_CS_iter2_fsm_state3)
+INFO: [RTGEN 206-100] Generating core module 'lshr_1680ns_11ns_1680_7_1': 2 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'lshr_1680ns_64ns_1680_7_1': 13 instance(s).
 INFO: [RTGEN 206-100] Finished creating RTL model for 'do_concat_Pipeline_3'.
-INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.51 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.53 seconds; current allocated memory: 1.378 GB.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.56 seconds. CPU system time: 0 seconds. Elapsed time: 0.55 seconds; current allocated memory: 759.312 MB.
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-10] -- Generating RTL for module 'do_concat_Pipeline_4' 
 INFO: [HLS 200-10] ----------------------------------------------------------------
-INFO: [RTGEN 206-104] Estimated max fanout for 'do_concat_Pipeline_4' is 6560 from HDL expression: ((1'b1 == ap_CS_iter6_fsm_state7) & (icmp_ln130_reg_3862_pp0_iter5_reg == 1'd0))
-INFO: [RTGEN 206-100] Generating core module 'mux_144_8_1_1': 1 instance(s).
-INFO: [RTGEN 206-100] Generating core module 'mux_154_8_1_1': 14 instance(s).
+INFO: [RTGEN 206-104] Estimated max fanout for 'do_concat_Pipeline_4' is 6560 from HDL expression: ((1'b1 == ap_CS_iter6_fsm_state7) & (icmp_ln90_reg_454_pp0_iter5_reg == 1'd0))
+INFO: [RTGEN 206-100] Generating core module 'mux_154_8_1_1': 1 instance(s).
 INFO: [RTGEN 206-100] Generating core module 'shl_3280ns_12ns_3280_2_1': 2 instance(s).
 INFO: [RTGEN 206-100] Finished creating RTL model for 'do_concat_Pipeline_4'.
-INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.56 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.58 seconds; current allocated memory: 1.393 GB.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.44 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.45 seconds; current allocated memory: 763.324 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'do_concat_Pipeline_5' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-104] Estimated max fanout for 'do_concat_Pipeline_5' is 6560 from HDL expression: ((1'b1 == ap_CS_iter6_fsm_state7) & (icmp_ln101_reg_454_pp0_iter5_reg == 1'd0))
+INFO: [RTGEN 206-100] Generating core module 'mux_154_8_1_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'shl_3280ns_12ns_3280_2_1': 2 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'do_concat_Pipeline_5'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.15 seconds. CPU system time: 0 seconds. Elapsed time: 0.15 seconds; current allocated memory: 765.586 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'do_concat_Pipeline_6' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-104] Estimated max fanout for 'do_concat_Pipeline_6' is 6560 from HDL expression: ((1'b1 == ap_CS_iter6_fsm_state7) & (icmp_ln112_reg_454_pp0_iter5_reg == 1'd0))
+INFO: [RTGEN 206-100] Generating core module 'mux_154_8_1_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'shl_3280ns_12ns_3280_2_1': 2 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'do_concat_Pipeline_6'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.16 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.15 seconds; current allocated memory: 767.910 MB.
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-10] -- Generating RTL for module 'do_concat' 
 INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Generating core module 'mul_4ns_10ns_13_4_1': 3 instance(s).
 INFO: [RTGEN 206-100] Finished creating RTL model for 'do_concat'.
-INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.7 seconds. CPU system time: 0.05 seconds. Elapsed time: 0.75 seconds; current allocated memory: 1.436 GB.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.18 seconds. CPU system time: 0 seconds. Elapsed time: 0.19 seconds; current allocated memory: 773.008 MB.
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-10] -- Generating RTL for module 'top' 
 INFO: [HLS 200-10] ----------------------------------------------------------------
@@ -293,18 +295,24 @@ INFO: [RTGEN 206-500] Setting interface mode on port 'top/i_stream_2' to 'axis' 
 INFO: [RTGEN 206-500] Setting interface mode on port 'top/o_stream' to 'axis' (register, both mode).
 INFO: [RTGEN 206-500] Setting interface mode on function 'top' to 'ap_ctrl_chain'.
 INFO: [RTGEN 206-100] Finished creating RTL model for 'top'.
-INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 61.05 seconds. CPU system time: 0.09 seconds. Elapsed time: 61.15 seconds; current allocated memory: 1.457 GB.
-INFO: [RTMG 210-286] Generating pipelined shifter : 'top_lshr_79ns_32ns_79_4_0'
-INFO: [RTMG 210-286] Generating pipelined shifter : 'top_shl_79ns_32ns_79_4_0'
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.64 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.66 seconds; current allocated memory: 776.969 MB.
+INFO: [RTMG 210-286] Generating pipelined shifter : 'top_lshr_1560ns_64ns_1560_7_1'
+INFO: [RTMG 210-286] Generating pipelined shifter : 'top_lshr_1560ns_11ns_1560_7_1'
+INFO: [RTMG 210-279] Implementing memory 'top_do_concat_Pipeline_1_concat_lut0_V_ROM_AUTO_2R' using auto ROMs.
+INFO: [RTMG 210-279] Implementing memory 'top_do_concat_Pipeline_2_concat_lut1_V_ROM_AUTO_2R' using auto ROMs.
+INFO: [RTMG 210-286] Generating pipelined shifter : 'top_lshr_1680ns_64ns_1680_7_1'
+INFO: [RTMG 210-286] Generating pipelined shifter : 'top_lshr_1680ns_11ns_1680_7_1'
+INFO: [RTMG 210-279] Implementing memory 'top_do_concat_Pipeline_3_concat_lut2_V_ROM_AUTO_2R' using auto ROMs.
 INFO: [RTMG 210-286] Generating pipelined shifter : 'top_shl_3280ns_12ns_3280_2_1'
 INFO: [RTMG 210-278] Implementing memory 'top_do_concat_buf0_V_RAM_2P_BRAM_2R1W_ram (RAM_2P_BRAM)' using block RAMs.
-INFO: [HLS 200-111] Finished Generating all RTL models: CPU user time: 60.78 seconds. CPU system time: 0.12 seconds. Elapsed time: 60.89 seconds; current allocated memory: 1.462 GB.
-INFO: [HLS 200-111] Finished Updating report files: CPU user time: 2.75 seconds. CPU system time: 0.04 seconds. Elapsed time: 2.8 seconds; current allocated memory: 1.486 GB.
+INFO: [RTMG 210-278] Implementing memory 'top_do_concat_buf2_V_RAM_2P_BRAM_2R1W_ram (RAM_2P_BRAM)' using block RAMs.
+INFO: [HLS 200-111] Finished Generating all RTL models: CPU user time: 2.04 seconds. CPU system time: 0.04 seconds. Elapsed time: 2.08 seconds; current allocated memory: 781.246 MB.
+INFO: [HLS 200-111] Finished Updating report files: CPU user time: 0.34 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.35 seconds; current allocated memory: 785.891 MB.
 INFO: [VHDL 208-304] Generating VHDL RTL for top.
 INFO: [VLOG 209-307] Generating Verilog RTL for top.
 INFO: [HLS 200-790] **** Loop Constraint Status: All loop constraints were satisfied.
-INFO: [HLS 200-789] **** Estimated Fmax: 308.74 MHz
-INFO: [HLS 200-111] Finished Command csynth_design CPU user time: 651.82 seconds. CPU system time: 5.88 seconds. Elapsed time: 656.78 seconds; current allocated memory: 31.168 MB.
+INFO: [HLS 200-789] **** Estimated Fmax: 458.06 MHz
+INFO: [HLS 200-111] Finished Command csynth_design CPU user time: 170.52 seconds. CPU system time: 5.67 seconds. Elapsed time: 175.25 seconds; current allocated memory: -707.273 MB.
 INFO: [HLS 200-1510] Running: export_design -description CONCAT_DESC -display_name CONCAT_DISP -flow syn -library HLS -vendor PKU -version 1.0 -taxonomy IP Core -output export_ip/CONCAT -ipname CONCAT 
 INFO: [IMPL 213-8] Exporting RTL as a Vivado IP.
 
@@ -317,31 +325,7 @@ source run_ippack.tcl -notrace
 INFO: [IP_Flow 19-234] Refreshing IP repositories
 INFO: [IP_Flow 19-1704] No user IP repositories specified
 INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/data/home/songqiangxu/Xilinx/2022.1/Vivado/2022.1/data/ip'.
-WARNING: [IP_Flow 19-4832] The IP name 'top_fadd_32ns_32ns_32_12_no_dsp_0_ip' you have specified is long. The Windows operating system has path length limitations. It is recommended you use shorter names to reduce the likelihood of issues.
-INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'top_fadd_32ns_32ns_32_12_no_dsp_0_ip'...
-INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'top_fadd_32ns_32ns_32_12_no_dsp_0_ip'...
-WARNING: [IP_Flow 19-4832] The IP name 'top_fcmp_32ns_32ns_1_4_no_dsp_0_ip' you have specified is long. The Windows operating system has path length limitations. It is recommended you use shorter names to reduce the likelihood of issues.
-INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'top_fcmp_32ns_32ns_1_4_no_dsp_0_ip'...
-INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'top_fcmp_32ns_32ns_1_4_no_dsp_0_ip'...
-WARNING: [IP_Flow 19-4832] The IP name 'top_fdiv_32ns_32ns_32_30_no_dsp_0_ip' you have specified is long. The Windows operating system has path length limitations. It is recommended you use shorter names to reduce the likelihood of issues.
-INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'top_fdiv_32ns_32ns_32_30_no_dsp_0_ip'...
-INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'top_fdiv_32ns_32ns_32_30_no_dsp_0_ip'...
-WARNING: [IP_Flow 19-4832] The IP name 'top_fmul_32ns_32ns_32_8_max_dsp_0_ip' you have specified is long. The Windows operating system has path length limitations. It is recommended you use shorter names to reduce the likelihood of issues.
-INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'top_fmul_32ns_32ns_32_8_max_dsp_0_ip'...
-INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'top_fmul_32ns_32ns_32_8_max_dsp_0_ip'...
-WARNING: [IP_Flow 19-4832] The IP name 'top_fsub_32ns_32ns_32_12_no_dsp_0_ip' you have specified is long. The Windows operating system has path length limitations. It is recommended you use shorter names to reduce the likelihood of issues.
-INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'top_fsub_32ns_32ns_32_12_no_dsp_0_ip'...
-INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'top_fsub_32ns_32ns_32_12_no_dsp_0_ip'...
-WARNING: [IP_Flow 19-4832] The IP name 'top_sitofp_32ns_32_7_no_dsp_0_ip' you have specified is long. The Windows operating system has path length limitations. It is recommended you use shorter names to reduce the likelihood of issues.
-INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'top_sitofp_32ns_32_7_no_dsp_0_ip'...
-INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'top_sitofp_32ns_32_7_no_dsp_0_ip'...
-WARNING: [IP_Flow 19-4832] The IP name 'top_sitofp_32s_32_7_no_dsp_0_ip' you have specified is long. The Windows operating system has path length limitations. It is recommended you use shorter names to reduce the likelihood of issues.
-INFO: [IP_Flow 19-1686] Generating 'Synthesis' target for IP 'top_sitofp_32s_32_7_no_dsp_0_ip'...
-INFO: [IP_Flow 19-1686] Generating 'Simulation' target for IP 'top_sitofp_32s_32_7_no_dsp_0_ip'...
-INFO: [IP_Flow 19-234] Refreshing IP repositories
-INFO: [IP_Flow 19-1704] No user IP repositories specified
-INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/data/home/songqiangxu/Xilinx/2022.1/Vivado/2022.1/data/ip'.
-INFO: [Common 17-206] Exiting Vivado at Tue May  5 16:22:54 2026...
+INFO: [Common 17-206] Exiting Vivado at Wed May  6 12:37:27 2026...
 INFO: [IMPL 213-8] Starting RTL evaluation using Vivado ...
 
 ****** Vivado v2022.1 (64-bit)
@@ -395,8 +379,8 @@ source run_vivadosyn.tcl
 # dict set report_options language $language
 # dict set report_options clock_name $clock
 # dict set report_options error_if_impl_timing_fails false
-# dict set report_options bindmodules {top_fadd_32ns_32ns_32_12_no_dsp_0 top_fsub_32ns_32ns_32_12_no_dsp_0 top_fmul_32ns_32ns_32_8_max_dsp_0 top_fdiv_32ns_32ns_32_30_no_dsp_0 top_sitofp_32s_32_7_no_dsp_0 top_sitofp_32ns_32_7_no_dsp_0 top_fcmp_32ns_32ns_1_4_no_dsp_0 top_lshr_79ns_32ns_79_4_0 top_shl_79ns_32ns_79_4_0 top_flow_control_loop_pipe_sequential_init top_mux_154_8_1_1 top_mux_134_8_1_1 top_shl_3280ns_12ns_3280_2_1 top_mux_144_8_1_1 top_do_concat_buf0_V_RAM_2P_BRAM_2R1W top_regslice_both}
-# dict set report_options max_module_depth 8
+# dict set report_options bindmodules {top_lshr_1560ns_64ns_1560_7_1 top_lshr_1560ns_11ns_1560_7_1 top_do_concat_Pipeline_1_concat_lut0_V_ROM_AUTO_2R top_flow_control_loop_pipe_sequential_init top_do_concat_Pipeline_2_concat_lut1_V_ROM_AUTO_2R top_lshr_1680ns_64ns_1680_7_1 top_lshr_1680ns_11ns_1680_7_1 top_do_concat_Pipeline_3_concat_lut2_V_ROM_AUTO_2R top_mux_154_8_1_1 top_shl_3280ns_12ns_3280_2_1 top_mul_4ns_10ns_13_4_1 top_do_concat_buf0_V_RAM_2P_BRAM_2R1W top_do_concat_buf2_V_RAM_2P_BRAM_2R1W top_regslice_both}
+# dict set report_options max_module_depth 7
 # create_project $vivado_proj_name $vivado_proj_dir -part $target_device -force
 # set_property target_language $language [current_project]
 # if { ![file exists $ip_repo_path] } {
@@ -458,13 +442,13 @@ INFO: [BD 41-1029] Generation completed for the IP Integrator block hls_inst .
 Exporting to file /data/home/songqiangxu/project/CNN/instances_tp8_syn_kv260/proj_CONCAT/work/solution/impl/verilog/project.gen/sources_1/bd/bd_0/hw_handoff/bd_0.hwh
 Generated Hardware Definition File /data/home/songqiangxu/project/CNN/instances_tp8_syn_kv260/proj_CONCAT/work/solution/impl/verilog/project.gen/sources_1/bd/bd_0/synth/bd_0.hwdef
 WARNING: [Vivado 12-7122] Auto Incremental Compile:: No reference checkpoint was found in run synth_1. Auto-incremental flow will not be run, the standard flow will be run instead.
-launch_runs: Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 3041.730 ; gain = 72.035 ; free physical = 30438 ; free virtual = 103294
+launch_runs: Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 3040.707 ; gain = 72.035 ; free physical = 55472 ; free virtual = 127542
 # foreach run [get_runs -filter {IS_SYNTHESIS == 1}] {
 #   reset_run [get_runs $run]
 # }
 # set_property XPM_LIBRARIES {XPM_MEMORY XPM_FIFO} [current_project]
 # hls_vivado_reports_setup $report_options
-TIMESTAMP: HLS-REPORT: initialize report directories: 2026-05-05 16:23:19 CST
+TIMESTAMP: HLS-REPORT: initialize report directories: 2026-05-06 12:37:50 CST
 # if { $has_synth || $has_impl } {
 #   # synth properties setting
 #   set_property -name {STEPS.SYNTH_DESIGN.ARGS.MORE OPTIONS} -value {-mode out_of_context} -objects [get_runs synth_1]
@@ -498,26 +482,8 @@ TIMESTAMP: HLS-REPORT: initialize report directories: 2026-05-05 16:23:19 CST
 #   }
 # }
 WARNING: [Vivado 12-7122] Auto Incremental Compile:: No reference checkpoint was found in run synth_1. Auto-incremental flow will not be run, the standard flow will be run instead.
-[Tue May  5 16:23:20 2026] Launched bd_0_hls_inst_0_synth_1...
+[Wed May  6 12:37:51 2026] Launched bd_0_hls_inst_0_synth_1...
 Run output will be captured here: /data/home/songqiangxu/project/CNN/instances_tp8_syn_kv260/proj_CONCAT/work/solution/impl/verilog/project.runs/bd_0_hls_inst_0_synth_1/runme.log
-[Tue May  5 16:23:20 2026] Launched synth_1...
+[Wed May  6 12:37:51 2026] Launched synth_1...
 Run output will be captured here: /data/home/songqiangxu/project/CNN/instances_tp8_syn_kv260/proj_CONCAT/work/solution/impl/verilog/project.runs/synth_1/runme.log
-[Tue May  5 16:23:20 2026] Waiting for synth_1 to finish...
-[Tue May  5 18:29:07 2026] synth_1 finished
-WARNING: [Vivado 12-8222] Failed run(s) : 'bd_0_hls_inst_0_synth_1'
-wait_on_runs: Time (s): cpu = 02:15:33 ; elapsed = 02:05:48 . Memory (MB): peak = 3041.730 ; gain = 0.000 ; free physical = 29153 ; free virtual = 100923
-TIMESTAMP: HLS-REPORT: synthesis open_run: 2026-05-05 18:29:07 CST
-INFO: HLS-REPORT: Opening synthesis design database: open_run synth_1
-ERROR: [Common 17-69] Command failed: Run 'synth_1' has not been launched. Unable to open
-INFO: [Common 17-206] Exiting Vivado at Tue May  5 18:29:07 2026...
-ERROR: [HLS 200-478] vivado returned an error 
-INFO: [HLS 200-111] Finished Command export_design CPU user time: 8857.27 seconds. CPU system time: 445.22 seconds. Elapsed time: 8277.62 seconds; current allocated memory: 71.496 MB.
-command 'ap_source' returned error code
-    while executing
-"source run.tcl"
-    ("uplevel" body line 1)
-    invoked from within
-"uplevel \#0 [list source $arg] "
-
-INFO: [HLS 200-112] Total CPU user time: 9512.75 seconds. Total CPU system time: 452.19 seconds. Total elapsed time: 8937.65 seconds; peak allocated memory: 1.556 GB.
-INFO: [Common 17-206] Exiting vitis_hls at Tue May  5 18:29:12 2026...
+[Wed May  6 12:37:51 2026] Waiting for synth_1 to finish...
