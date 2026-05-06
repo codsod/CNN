@@ -25,7 +25,14 @@ public:
         hls::stream<hls::vector<X_T, IN_D>>& o_stream)
     {
         X_T line_buf[IN_D][BR0_KERNAL];  // max K=64 for branch0
-#pragma HLS ARRAY_PARTITION variable=line_buf complete dim=2  // line_buf优化
+#pragma HLS ARRAY_PARTITION variable = line_buf complete dim = 1
+#pragma HLS ARRAY_PARTITION variable = line_buf cyclic factor = 2 dim = 2
+
+        const float r_scale =
+            (float)QUANTSTUB_SCALE *
+            (float)CONV_BR0_WEIGHT_SCALES /
+            (float)CONV_BR0_OUTPUT_SCALE;
+        const ZP_T out_zp = CONV_BR0_OUTPUT_ZP;
 
         for (int n = 0; n < N; n++) {
             for (int c = 0; c < IN_D; c++) {
@@ -51,21 +58,18 @@ public:
                 if (t >= PAD ) {
                     for (int oc = 0; oc < OUT_CH; oc++) {
                         hls::vector<X_T, IN_D> o_vec;
+                        int32_t bias = CONV_BR0_BIAS[oc];
 
                         for (int c = 0; c < IN_D; c++) {
 
                             int32_t acc = 0;
                             for (int k = 0; k < K; k++) {
-#pragma HLS UNROLL factor=4
+#pragma HLS UNROLL factor=2
                                 int16_t x = (int16_t)(line_buf[c][k]) - (int16_t)QUANTSTUB_ZP;
                                 int8_t w = CONV_BR0_WEIGHT[oc][0][0][k];
                                 acc += (int32_t)x * (int32_t)w;
                             }
-                            int32_t bias = CONV_BR0_BIAS[oc];
-                            float w_scale = CONV_BR0_WEIGHT_SCALES;
-                            float out_scale = CONV_BR0_OUTPUT_SCALE;
-                            ZP_T out_zp = CONV_BR0_OUTPUT_ZP;
-                            float r_scale = (float)QUANTSTUB_SCALE * w_scale / out_scale;
+
                             float scaled = (float)(acc + bias) * r_scale + (float)out_zp;
                             int v = (int)(scaled + (scaled >= 0 ? 0.5f : -0.5f));
                             uint8_t idx = (uint8_t)clamp(v, 0, 255);
@@ -95,7 +99,13 @@ public:
         hls::stream<hls::vector<X_T, IN_D>>& o_stream)
     {
         X_T line_buf[IN_D][BR1_KERNAL];  // max K=64 for branch1
-#pragma HLS ARRAY_PARTITION variable=line_buf complete dim=1  // line_buf优化
+#pragma HLS ARRAY_PARTITION variable = line_buf complete dim = 1
+#pragma HLS ARRAY_PARTITION variable = line_buf cyclic factor = 4 dim = 2
+        const float r_scale =
+            (float)QUANTSTUB_SCALE *
+            (float)CONV_BR1_WEIGHT_SCALES /
+            (float)CONV_BR1_OUTPUT_SCALE;
+        const ZP_T out_zp = CONV_BR1_OUTPUT_ZP;
 
         for (int n = 0; n < N; n++) {
             for (int c = 0; c < IN_D; c++) {
@@ -121,6 +131,7 @@ public:
                 if (t >= PAD ) {
                     for (int oc = 0; oc < OUT_CH; oc++) {
                         hls::vector<X_T, IN_D> o_vec;
+                        int32_t bias = CONV_BR1_BIAS[oc];
 
                         for (int c = 0; c < IN_D; c++) {
 
@@ -131,11 +142,8 @@ public:
                                 int8_t w = CONV_BR1_WEIGHT[oc][0][0][k];
                                 acc += (int32_t)x * (int32_t)w;
                             }
-                            int32_t bias = CONV_BR1_BIAS[oc];
-                            float w_scale = CONV_BR1_WEIGHT_SCALES;
-                            float out_scale = CONV_BR1_OUTPUT_SCALE;
-                            ZP_T out_zp = CONV_BR1_OUTPUT_ZP;
-                            float r_scale = (float)QUANTSTUB_SCALE * w_scale / out_scale;
+                            
+
                             float scaled = (float)(acc + bias) * r_scale + (float)out_zp;
                             int v = (int)(scaled + (scaled >= 0 ? 0.5f : -0.5f));
                             uint8_t idx = (uint8_t)clamp(v, 0, 255);
@@ -166,7 +174,13 @@ public:
         hls::stream<hls::vector<X_T, IN_D>>& o_stream)
     {
         X_T line_buf[IN_D][BR2_KERNAL];  // max K=64 for branch2
-#pragma HLS ARRAY_PARTITION variable=line_buf complete dim=1  // line_buf优化
+#pragma HLS ARRAY_PARTITION variable = line_buf complete dim = 1
+#pragma HLS ARRAY_PARTITION variable = line_buf cyclic factor = 8 dim = 2
+        const float r_scale =
+            (float)QUANTSTUB_SCALE *
+            (float)CONV_BR2_WEIGHT_SCALES /
+            (float)CONV_BR2_OUTPUT_SCALE;
+        const ZP_T out_zp = CONV_BR2_OUTPUT_ZP;
 
         for (int n = 0; n < N; n++) {
             for (int c = 0; c < IN_D; c++) {
@@ -192,21 +206,17 @@ public:
                 if (t >= PAD ) {
                     for (int oc = 0; oc < OUT_CH; oc++) {
                         hls::vector<X_T, IN_D> o_vec;
+                        int32_t bias = CONV_BR2_BIAS[oc];
 
                         for (int c = 0; c < IN_D; c++) {
 
                             int32_t acc = 0;
                             for (int k = 0; k < K; k++) {
-#pragma HLS UNROLL factor=4
+#pragma HLS UNROLL factor=8
                                 int16_t x = (int16_t)(line_buf[c][k]) - (int16_t)QUANTSTUB_ZP;
                                 int8_t w = CONV_BR2_WEIGHT[oc][0][0][k];
                                 acc += (int32_t)x * (int32_t)w;
-                            }
-                            int32_t bias = CONV_BR2_BIAS[oc];
-                            float w_scale = CONV_BR2_WEIGHT_SCALES;
-                            float out_scale = CONV_BR2_OUTPUT_SCALE;
-                            ZP_T out_zp = CONV_BR2_OUTPUT_ZP;
-                            float r_scale = (float)QUANTSTUB_SCALE * w_scale / out_scale;
+                            }                            
                             float scaled = (float)(acc + bias) * r_scale + (float)out_zp;
                             int v = (int)(scaled + (scaled >= 0 ? 0.5f : -0.5f));
                             uint8_t idx = (uint8_t)clamp(v, 0, 255);
