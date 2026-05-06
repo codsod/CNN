@@ -50,7 +50,7 @@ public:
         hls::stream<hls::vector<X_T, IN_D>>& i_stream,
         hls::stream<hls::vector<X_T, IN_D>>& o_stream)
     {
-        X_T line_buf[IN_D][BR0_KERNAL];  // max K=64 for branch0
+        X_T line_buf[IN_D][BR0_KERNAL];  // 环形窗口，避免每拍整体移位
 #pragma HLS ARRAY_PARTITION variable = line_buf complete dim = 1
 #pragma HLS ARRAY_PARTITION variable = line_buf cyclic factor = 2 dim = 2
 
@@ -64,6 +64,7 @@ public:
                 }
             }
 
+            int wr = 0;
             for (int t = 0; t < T_len + PAD; t++) {
 
 
@@ -72,9 +73,7 @@ public:
 
                 for (int c = 0; c < IN_D; c++) {
 #pragma HLS UNROLL
-                    for (int k = 0; k < K - 1; k++)
-                        line_buf[c][k] = line_buf[c][k + 1];
-                    line_buf[c][K - 1] = (t < T_len) ? new_data[c] : (X_T)QUANTSTUB_ZP;
+                    line_buf[c][wr] = (t < T_len) ? new_data[c] : (X_T)QUANTSTUB_ZP;
                 }
 
                 if (t >= PAD ) {
@@ -88,7 +87,8 @@ public:
                             int32_t acc = 0;
                             for (int k = 0; k < K; k++) {
 #pragma HLS UNROLL factor=2
-                                int16_t x = (int16_t)(line_buf[c][k]) - (int16_t)QUANTSTUB_ZP;
+                                int idx = (wr + 1 + k) & (K - 1);
+                                int16_t x = (int16_t)(line_buf[c][idx]) - (int16_t)QUANTSTUB_ZP;
                                 int8_t w = CONV_BR0_WEIGHT[oc][0][0][k];
                                 acc += (int32_t)x * (int32_t)w;
                             }
@@ -101,6 +101,7 @@ public:
                         o_stream.write(o_vec);
                     }
                 }
+                wr = (wr + 1) & (K - 1);
             }
         }
     }
@@ -120,7 +121,7 @@ public:
         hls::stream<hls::vector<X_T, IN_D>>& i_stream,
         hls::stream<hls::vector<X_T, IN_D>>& o_stream)
     {
-        X_T line_buf[IN_D][BR1_KERNAL];  // max K=64 for branch1
+        X_T line_buf[IN_D][BR1_KERNAL];  // 环形窗口，避免每拍整体移位
 #pragma HLS ARRAY_PARTITION variable = line_buf complete dim = 1
 #pragma HLS ARRAY_PARTITION variable = line_buf cyclic factor = 4 dim = 2
         const ZP_T out_zp = CONV_BR1_OUTPUT_ZP;
@@ -133,6 +134,7 @@ public:
                 }
             }
 
+            int wr = 0;
             for (int t = 0; t < T_len + PAD; t++) {
 
                 hls::vector<X_T, IN_D> new_data;
@@ -140,9 +142,7 @@ public:
 
                 for (int c = 0; c < IN_D; c++) {
 #pragma HLS UNROLL
-                    for (int k = 0; k < K - 1; k++)
-                        line_buf[c][k] = line_buf[c][k + 1];
-                    line_buf[c][K - 1] = (t < T_len) ? new_data[c] : (X_T)QUANTSTUB_ZP;
+                    line_buf[c][wr] = (t < T_len) ? new_data[c] : (X_T)QUANTSTUB_ZP;
                 }
 
                 if (t >= PAD ) {
@@ -157,7 +157,8 @@ public:
                             int32_t acc = 0;
                             for (int k = 0; k < K; k++) {
 #pragma HLS UNROLL factor=4
-                                int16_t x = (int16_t)(line_buf[c][k]) - (int16_t)QUANTSTUB_ZP;
+                                int idx = (wr + 1 + k) & (K - 1);
+                                int16_t x = (int16_t)(line_buf[c][idx]) - (int16_t)QUANTSTUB_ZP;
                                 int8_t w = CONV_BR1_WEIGHT[oc][0][0][k];
                                 acc += (int32_t)x * (int32_t)w;
                             }
@@ -172,6 +173,7 @@ public:
                         o_stream.write(o_vec);
                     }
                 }
+                wr = (wr + 1) & (K - 1);
             }
         }
     }
@@ -191,7 +193,7 @@ public:
         hls::stream<hls::vector<X_T, IN_D>>& i_stream,
         hls::stream<hls::vector<X_T, IN_D>>& o_stream)
     {
-        X_T line_buf[IN_D][BR2_KERNAL];  // max K=64 for branch2
+        X_T line_buf[IN_D][BR2_KERNAL];  // 环形窗口，避免每拍整体移位
 #pragma HLS ARRAY_PARTITION variable = line_buf complete dim = 1
 #pragma HLS ARRAY_PARTITION variable = line_buf cyclic factor = 8 dim = 2
         const ZP_T out_zp = CONV_BR2_OUTPUT_ZP;
@@ -204,6 +206,7 @@ public:
                 }
             }
 
+            int wr = 0;
             for (int t = 0; t < T_len + PAD; t++) {
 
 
@@ -212,9 +215,7 @@ public:
 
                 for (int c = 0; c < IN_D; c++) {
 #pragma HLS UNROLL
-                    for (int k = 0; k < K - 1; k++)
-                        line_buf[c][k] = line_buf[c][k + 1];
-                    line_buf[c][K - 1] = (t < T_len) ? new_data[c] : (X_T)QUANTSTUB_ZP;
+                    line_buf[c][wr] = (t < T_len) ? new_data[c] : (X_T)QUANTSTUB_ZP;
                 }
 
                 if (t >= PAD ) {
@@ -228,7 +229,8 @@ public:
                             int32_t acc = 0;
                             for (int k = 0; k < K; k++) {
 #pragma HLS UNROLL factor=8
-                                int16_t x = (int16_t)(line_buf[c][k]) - (int16_t)QUANTSTUB_ZP;
+                                int idx = (wr + 1 + k) & (K - 1);
+                                int16_t x = (int16_t)(line_buf[c][idx]) - (int16_t)QUANTSTUB_ZP;
                                 int8_t w = CONV_BR2_WEIGHT[oc][0][0][k];
                                 acc += (int32_t)x * (int32_t)w;
                             }                            
@@ -240,6 +242,7 @@ public:
                         o_stream.write(o_vec);
                     }
                 }
+                wr = (wr + 1) & (K - 1);
             }
         }
     }
