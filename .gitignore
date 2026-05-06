@@ -1,7 +1,7 @@
 /instances_tp8_sim
 !/instances_tp8_syn_kv260/proj_*/
 /instances_tp8_syn_kv260/proj_*/**
-!/instances_tp8_syn_kv260/proj_*/vitis_hls.log
+# !/instances_tp8_syn_kv260/proj_*/vitis_hls.log
 /quant
 /__pycache__
 /chris_src

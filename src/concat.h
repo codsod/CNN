@@ -49,9 +49,9 @@ public:
         data_t buf0[BR0_CHANNELS][IN_D][BR_D];
         data_t buf1[BR1_CHANNELS][IN_D][BR_D];
         data_t buf2[BR2_CHANNELS][IN_D][BR_D];
-#pragma HLS BIND_STORAGE variable = buf0 type = ram_2p impl = bram
-#pragma HLS BIND_STORAGE variable = buf1 type = ram_2p impl = bram
-#pragma HLS BIND_STORAGE variable = buf2 type = ram_2p impl = bram
+#pragma HLS BIND_STORAGE variable = buf0 type = ram_1p impl = bram
+#pragma HLS BIND_STORAGE variable = buf1 type = ram_1p impl = bram
+#pragma HLS BIND_STORAGE variable = buf2 type = ram_1p impl = bram
 
         for (int n = 0; n < N; n++)
         {
@@ -64,21 +64,20 @@ public:
 
                 for (int oc = 0; oc < BR0_CHANNELS; oc++)
                 {
-#pragma HLS PIPELINE II=1
                     for (int c = 0; c < IN_D; c++)
+#pragma HLS PIPELINE II = 1
                         buf0[oc][c][t] = (data_t)concat_lut0[(ap_uint<8>)v0[oc * IN_D + c]];
                 }
                 for (int oc = 0; oc < BR1_CHANNELS; oc++)
                 {
-#pragma HLS PIPELINE II = 1
-
                     for (int c = 0; c < IN_D; c++)
+#pragma HLS PIPELINE II = 1
                         buf1[oc][c][t] = (data_t)concat_lut1[(ap_uint<8>)v1[oc * IN_D + c]];
                 }
                 for (int oc = 0; oc < BR2_CHANNELS; oc++)
                 {
-#pragma HLS PIPELINE II = 1
                     for (int c = 0; c < IN_D; c++)
+#pragma HLS PIPELINE II = 1
                         buf2[oc][c][t] = (data_t)concat_lut2[(ap_uint<8>)v2[oc * IN_D + c]];
                 }
             }
@@ -89,7 +88,7 @@ public:
                 {
                     hls::vector<data_t, OUT_VEC_LEN> out_vec;
                     for (int t = 0; t < BR_D; t++)
-#pragma HLS PIPELINE
+#pragma HLS PIPELINE II = 1
                         out_vec[t] = buf0[ch][r][t];
                     o_stream.write(out_vec);
                 }
@@ -100,7 +99,7 @@ public:
                 {
                     hls::vector<data_t, OUT_VEC_LEN> out_vec;
                     for (int t = 0; t < BR_D; t++)
-#pragma HLS PIPELINE
+#pragma HLS PIPELINE II = 1
                         out_vec[t] = buf1[ch][r][t];
                     o_stream.write(out_vec);
                 }
@@ -111,7 +110,7 @@ public:
                 {
                     hls::vector<data_t, OUT_VEC_LEN> out_vec;
                     for (int t = 0; t < BR_D; t++)
-#pragma HLS PIPELINE
+#pragma HLS PIPELINE II = 1
                         out_vec[t] = buf2[ch][r][t];
                     o_stream.write(out_vec);
                 }
