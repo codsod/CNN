@@ -5,6 +5,32 @@
 #include "conv2d.h"
 #include "gelu.h"
 
+static constexpr int CONV_BR_R_SHIFT = 26;
+static constexpr int64_t CONV_BR_R_ONE = 1LL << CONV_BR_R_SHIFT;
+
+static constexpr int64_t CONV_BR0_R_MULT =
+    (int64_t)((double)QUANTSTUB_SCALE * (double)CONV_BR0_WEIGHT_SCALES /
+                  (double)CONV_BR0_OUTPUT_SCALE * (double)CONV_BR_R_ONE +
+              0.5);
+static constexpr int64_t CONV_BR1_R_MULT =
+    (int64_t)((double)QUANTSTUB_SCALE * (double)CONV_BR1_WEIGHT_SCALES /
+                  (double)CONV_BR1_OUTPUT_SCALE * (double)CONV_BR_R_ONE +
+              0.5);
+static constexpr int64_t CONV_BR2_R_MULT =
+    (int64_t)((double)QUANTSTUB_SCALE * (double)CONV_BR2_WEIGHT_SCALES /
+                  (double)CONV_BR2_OUTPUT_SCALE * (double)CONV_BR_R_ONE +
+              0.5);
+
+static int conv_br_requant_fixed(int32_t acc, int32_t bias, int64_t mult, ZP_T out_zp)
+{
+#pragma HLS INLINE
+    int64_t prod = (int64_t)(acc + bias) * mult;
+    int64_t round = 1LL << (CONV_BR_R_SHIFT - 1);
+    int64_t abs_prod = (prod >= 0) ? prod : -prod;
+    int64_t q = (abs_prod + round) >> CONV_BR_R_SHIFT;
+    return (int)((prod >= 0) ? q : -q) + (int)out_zp;
+}
+
 // =============================================================================
 // 三路时序卷积分支 (Conv1d + 重量化 + GELU LUT)，每路独立权重/scale，输入共享
 // 输入: N*T 个 vector<X_T, IN_DIM>；输出: N*T*OUT_CH 个 vector<X_T, IN_DIM>
@@ -28,10 +54,6 @@ public:
 #pragma HLS ARRAY_PARTITION variable = line_buf complete dim = 1
 #pragma HLS ARRAY_PARTITION variable = line_buf cyclic factor = 2 dim = 2
 
-        const float r_scale =
-            (float)QUANTSTUB_SCALE *
-            (float)CONV_BR0_WEIGHT_SCALES /
-            (float)CONV_BR0_OUTPUT_SCALE;
         const ZP_T out_zp = CONV_BR0_OUTPUT_ZP;
 
         for (int n = 0; n < N; n++) {
@@ -70,8 +92,7 @@ public:
                                 acc += (int32_t)x * (int32_t)w;
                             }
 
-                            float scaled = (float)(acc + bias) * r_scale + (float)out_zp;
-                            int v = (int)(scaled + (scaled >= 0 ? 0.5f : -0.5f));
+                            int v = conv_br_requant_fixed(acc, bias, CONV_BR0_R_MULT, out_zp);
                             uint8_t idx = (uint8_t)clamp(v, 0, 255);
 
                             o_vec[c] = gelu_lut0[idx];
@@ -101,10 +122,6 @@ public:
         X_T line_buf[IN_D][BR1_KERNAL];  // max K=64 for branch1
 #pragma HLS ARRAY_PARTITION variable = line_buf complete dim = 1
 #pragma HLS ARRAY_PARTITION variable = line_buf cyclic factor = 4 dim = 2
-        const float r_scale =
-            (float)QUANTSTUB_SCALE *
-            (float)CONV_BR1_WEIGHT_SCALES /
-            (float)CONV_BR1_OUTPUT_SCALE;
         const ZP_T out_zp = CONV_BR1_OUTPUT_ZP;
 
         for (int n = 0; n < N; n++) {
@@ -144,8 +161,7 @@ public:
                             }
                             
 
-                            float scaled = (float)(acc + bias) * r_scale + (float)out_zp;
-                            int v = (int)(scaled + (scaled >= 0 ? 0.5f : -0.5f));
+                            int v = conv_br_requant_fixed(acc, bias, CONV_BR1_R_MULT, out_zp);
                             uint8_t idx = (uint8_t)clamp(v, 0, 255);
 
                             o_vec[c] = gelu_lut1[idx];
@@ -176,10 +192,6 @@ public:
         X_T line_buf[IN_D][BR2_KERNAL];  // max K=64 for branch2
 #pragma HLS ARRAY_PARTITION variable = line_buf complete dim = 1
 #pragma HLS ARRAY_PARTITION variable = line_buf cyclic factor = 8 dim = 2
-        const float r_scale =
-            (float)QUANTSTUB_SCALE *
-            (float)CONV_BR2_WEIGHT_SCALES /
-            (float)CONV_BR2_OUTPUT_SCALE;
         const ZP_T out_zp = CONV_BR2_OUTPUT_ZP;
 
         for (int n = 0; n < N; n++) {
@@ -217,8 +229,7 @@ public:
                                 int8_t w = CONV_BR2_WEIGHT[oc][0][0][k];
                                 acc += (int32_t)x * (int32_t)w;
                             }                            
-                            float scaled = (float)(acc + bias) * r_scale + (float)out_zp;
-                            int v = (int)(scaled + (scaled >= 0 ? 0.5f : -0.5f));
+                            int v = conv_br_requant_fixed(acc, bias, CONV_BR2_R_MULT, out_zp);
                             uint8_t idx = (uint8_t)clamp(v, 0, 255);
 
                             o_vec[c] = gelu_lut2[idx];
