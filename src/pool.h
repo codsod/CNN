@@ -32,7 +32,7 @@ public:
                     outdim_loop:for (int outdim = 0 ;outdim < OUTDIM ;outdim++){
                         uint16_t sum=0;
                         k_loop:for(int k = 0; k < K ; k++){
-                            #pragma HLS UNROLL factor=4
+                            #pragma HLS UNROLL 
                             sum += in[dim1 * DIM2 + outdim * S + k];
                         }
                         // 取整方式须与量化 trace 一致。当前 ref（quant/acc0304.ipynb VerificationProbe）
@@ -40,16 +40,18 @@ public:
                         // 若改用四舍五入与 pool1_meta（同 scale）对齐，可改为: (sum + K/2) / K
                         // 实际算法中采取的是银行家舍入，关键区别在于0.5的处理：银行家舍入在0.5时向最近的偶数舍入，而普通四舍五入在0.5时总是向上舍入。
                         uint16_t q = sum / K;
-                        uint16_t r = sum % K;
+                        uint16_t r = sum - q * K;
 
-                        if (r > K / 2) {
+
+                        if (2* r > K) {
                             out[dim1 * OUTDIM + outdim] = q + 1;
-                        } else if (r < K / 2) {
+                        } else if (2* r < K) {
                             out[dim1 * OUTDIM + outdim] = q;
                         } else {
                             out[dim1 * OUTDIM + outdim] = (q & 1) ? (q + 1) : q;
                         }
 
+                        // out[dim1 * OUTDIM + outdim] = sum/K;
                     }
                 }
                 o_stream.write(out);

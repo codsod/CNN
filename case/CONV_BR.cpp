@@ -9,9 +9,9 @@
 // 输入 (N,1,IN_DIM,T)；输出 (N, BRx_CHANNELS, IN_DIM, BR_DIM2)
 //===========================================================================================================================//
 
-ConvBrBranch<0> conv_br0_inst;
-ConvBrBranch<1> conv_br1_inst;
-ConvBrBranch<2> conv_br2_inst;
+ConvBrBranch0 conv_br0_inst;
+ConvBrBranch1 conv_br1_inst;
+ConvBrBranch2 conv_br2_inst;
 
 // 将 (N, IN_CHANNELS, IN_DIM, T) 按时间维写入 stream：每时刻一个 vector<X_T, IN_DIM>
 template<typename data_t, int NN, int C, int D, int TT>

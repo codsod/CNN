@@ -17,9 +17,9 @@
 
 // 模块实例
 QuantInput<X_T, IN_DIM> quant_input_inst;
-ConvBrBranch<0> conv_br0_inst;
-ConvBrBranch<1> conv_br1_inst;
-ConvBrBranch<2> conv_br2_inst;
+ConvBrBranch0 conv_br0_inst;
+ConvBrBranch1 conv_br1_inst;
+ConvBrBranch2 conv_br2_inst;
 Concat<X_T> concat_inst;
 ConvSpatial<X_T, X_T> conv_spatial_inst;
 SquareLUT<X_T, X_T, N, CONCAT_CHANNELS, LV_DIM1, BR_DIM2> square_inst;

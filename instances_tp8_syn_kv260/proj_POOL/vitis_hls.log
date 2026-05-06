@@ -6,7 +6,7 @@
 
 source /data/home/songqiangxu/Xilinx/2022.1/Vitis_HLS/2022.1/scripts/vitis_hls/hls.tcl -notrace
 INFO: [HLS 200-10] Running '/data/home/songqiangxu/Xilinx/2022.1/Vitis_HLS/2022.1/bin/unwrapped/lnx64.o/vitis_hls'
-INFO: [HLS 200-10] For user 'songqiangxu' on host 'dell-Precision-7920-Tower' (Linux_x86_64 version 5.15.0-139-generic) on Tue May 05 21:14:27 CST 2026
+INFO: [HLS 200-10] For user 'songqiangxu' on host 'dell-Precision-7920-Tower' (Linux_x86_64 version 5.15.0-139-generic) on Wed May 06 11:55:57 CST 2026
 INFO: [HLS 200-10] On os Ubuntu 20.04.6 LTS
 INFO: [HLS 200-10] In directory '/data/home/songqiangxu/project/CNN/instances_tp8_syn_kv260/proj_POOL'
 WARNING: [HLS 200-40] Environment variable 'CPLUS_INCLUDE_PATH' is set to /data/home/songqiangxu/project/CNN.
@@ -30,16 +30,16 @@ INFO: [SYN 201-201] Setting up clock 'default' with a period of 2.5ns.
 INFO: [HLS 200-1510] Running: config_export -format ip_catalog -rtl verilog -vivado_clock 2.5 -vivado_phys_opt none 
 INFO: [HLS 200-1510] Running: config_compile -pipeline_style flp 
 INFO: [HLS 200-1510] Running: csynth_design 
-INFO: [HLS 200-111] Finished File checks and directory preparation: CPU user time: 0.01 seconds. CPU system time: 0 seconds. Elapsed time: 0.01 seconds; current allocated memory: 1.459 GB.
+INFO: [HLS 200-111] Finished File checks and directory preparation: CPU user time: 0.01 seconds. CPU system time: 0 seconds. Elapsed time: 0 seconds; current allocated memory: 1.459 GB.
 INFO: [HLS 200-10] Analyzing design file 'case/POOL.cpp' ... 
-INFO: [HLS 200-111] Finished Source Code Analysis and Preprocessing: CPU user time: 10.53 seconds. CPU system time: 1.04 seconds. Elapsed time: 10.6 seconds; current allocated memory: 460.914 MB.
+INFO: [HLS 200-111] Finished Source Code Analysis and Preprocessing: CPU user time: 11.05 seconds. CPU system time: 1.05 seconds. Elapsed time: 11.15 seconds; current allocated memory: 460.914 MB.
 INFO: [HLS 200-777] Using interface defaults for 'Vivado' flow target.
 INFO: [HLS 214-131] Inlining function 'hls::vector<ap_uint<8>, 410ul>::pragma() const' into 'hls::vector<ap_uint<8>, 410ul>::operator[](unsigned long)' (/data/home/songqiangxu/Xilinx/2022.1/Vitis_HLS/2022.1/common/technology/autopilot/hls_vector.h:142:5)
 INFO: [HLS 214-131] Inlining function 'hls::vector<ap_uint<8>, 19ul>::pragma() const' into 'hls::vector<ap_uint<8>, 19ul>::operator[](unsigned long)' (/data/home/songqiangxu/Xilinx/2022.1/Vitis_HLS/2022.1/common/technology/autopilot/hls_vector.h:142:5)
-INFO: [HLS 214-131] Inlining function 'hls::vector<ap_uint<8>, 19ul>::operator[](unsigned long)' into 'POOL<ap_uint<8>, ap_uint<8>, 1, 40, 1, 410, 19, 40, 20>::do_pool_func(hls::stream<hls::vector<ap_uint<8>, 410ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 19ul>, 0>&)' (/data/home/songqiangxu/project/CNN/src/pool.h:50:29)
+INFO: [HLS 214-131] Inlining function 'hls::vector<ap_uint<8>, 19ul>::operator[](unsigned long)' into 'POOL<ap_uint<8>, ap_uint<8>, 1, 40, 1, 410, 19, 40, 20>::do_pool_func(hls::stream<hls::vector<ap_uint<8>, 410ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 19ul>, 0>&)' (/data/home/songqiangxu/project/CNN/src/pool.h:51:29)
 INFO: [HLS 214-131] Inlining function 'hls::vector<ap_uint<8>, 410ul>::operator[](unsigned long)' into 'POOL<ap_uint<8>, ap_uint<8>, 1, 40, 1, 410, 19, 40, 20>::do_pool_func(hls::stream<hls::vector<ap_uint<8>, 410ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 19ul>, 0>&)' (/data/home/songqiangxu/project/CNN/src/pool.h:36:9)
-INFO: [HLS 214-131] Inlining function 'hls::vector<ap_uint<8>, 19ul>::operator[](unsigned long)' into 'POOL<ap_uint<8>, ap_uint<8>, 1, 40, 1, 410, 19, 40, 20>::do_pool_func(hls::stream<hls::vector<ap_uint<8>, 410ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 19ul>, 0>&)' (/data/home/songqiangxu/project/CNN/src/pool.h:48:29)
-INFO: [HLS 214-131] Inlining function 'hls::vector<ap_uint<8>, 19ul>::operator[](unsigned long)' into 'POOL<ap_uint<8>, ap_uint<8>, 1, 40, 1, 410, 19, 40, 20>::do_pool_func(hls::stream<hls::vector<ap_uint<8>, 410ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 19ul>, 0>&)' (/data/home/songqiangxu/project/CNN/src/pool.h:46:29)
+INFO: [HLS 214-131] Inlining function 'hls::vector<ap_uint<8>, 19ul>::operator[](unsigned long)' into 'POOL<ap_uint<8>, ap_uint<8>, 1, 40, 1, 410, 19, 40, 20>::do_pool_func(hls::stream<hls::vector<ap_uint<8>, 410ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 19ul>, 0>&)' (/data/home/songqiangxu/project/CNN/src/pool.h:49:29)
+INFO: [HLS 214-131] Inlining function 'hls::vector<ap_uint<8>, 19ul>::operator[](unsigned long)' into 'POOL<ap_uint<8>, ap_uint<8>, 1, 40, 1, 410, 19, 40, 20>::do_pool_func(hls::stream<hls::vector<ap_uint<8>, 410ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 19ul>, 0>&)' (/data/home/songqiangxu/project/CNN/src/pool.h:47:29)
 INFO: [HLS 214-291] Loop 'dim1_loop' is marked as complete unroll implied by the pipeline pragma (/data/home/songqiangxu/project/CNN/src/pool.h:31:27)
 INFO: [HLS 214-291] Loop 'outdim_loop' is marked as complete unroll implied by the pipeline pragma (/data/home/songqiangxu/project/CNN/src/pool.h:32:33)
 INFO: [HLS 214-291] Loop 'k_loop' is marked as complete unroll implied by the pipeline pragma (/data/home/songqiangxu/project/CNN/src/pool.h:34:32)
@@ -58,18 +58,18 @@ INFO: [HLS 214-131] Inlining function '_llvm.fpga.pack.none.i3280.a410s_struct.a
 INFO: [HLS 214-131] Inlining function '_llvm.fpga.unpack.bits.s_class.hls::vector<ap_uint<8>, 410>s.i3280.1' into 'POOL<ap_uint<8>, ap_uint<8>, 1, 40, 1, 410, 19, 40, 20>::do_pool_func(hls::stream<hls::vector<ap_uint<8>, 410ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 19ul>, 0>&) (.1)' (/data/home/songqiangxu/Xilinx/2022.1/Vitis_HLS/2022.1/common/technology/autopilot/hls_stream_39.h:145:9)
 INFO: [HLS 214-131] Inlining function '_llvm.fpga.pack.bits.i152.s_class.hls::vector<ap_uint<8>, 19>s.1' into 'POOL<ap_uint<8>, ap_uint<8>, 1, 40, 1, 410, 19, 40, 20>::do_pool_func(hls::stream<hls::vector<ap_uint<8>, 410ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 19ul>, 0>&) (.1)' (/data/home/songqiangxu/Xilinx/2022.1/Vitis_HLS/2022.1/common/technology/autopilot/hls_stream_39.h:174:9)
 INFO: [HLS 214-131] Inlining function '_llvm.fpga.pack.none.i152.s_class.hls::vector<ap_uint<8>, 19>s' into 'POOL<ap_uint<8>, ap_uint<8>, 1, 40, 1, 410, 19, 40, 20>::do_pool_func(hls::stream<hls::vector<ap_uint<8>, 410ul>, 0>&, hls::stream<hls::vector<ap_uint<8>, 19ul>, 0>&) (.1)' (/data/home/songqiangxu/Xilinx/2022.1/Vitis_HLS/2022.1/common/technology/autopilot/hls_stream_39.h:174:9)
-INFO: [HLS 200-111] Finished Compiling Optimization and Transform: CPU user time: 35.54 seconds. CPU system time: 0.87 seconds. Elapsed time: 36.42 seconds; current allocated memory: 462.191 MB.
+INFO: [HLS 200-111] Finished Compiling Optimization and Transform: CPU user time: 34.64 seconds. CPU system time: 0.82 seconds. Elapsed time: 35.47 seconds; current allocated memory: 462.191 MB.
 INFO: [HLS 200-111] Finished Checking Pragmas: CPU user time: 0 seconds. CPU system time: 0 seconds. Elapsed time: 0 seconds; current allocated memory: 462.191 MB.
 INFO: [HLS 200-10] Starting code transformations ...
-INFO: [HLS 200-111] Finished Standard Transforms: CPU user time: 15.54 seconds. CPU system time: 0.01 seconds. Elapsed time: 15.55 seconds; current allocated memory: 483.957 MB.
+INFO: [HLS 200-111] Finished Standard Transforms: CPU user time: 14.99 seconds. CPU system time: 0.03 seconds. Elapsed time: 15.02 seconds; current allocated memory: 484.109 MB.
 INFO: [HLS 200-10] Checking synthesizability ...
-INFO: [HLS 200-111] Finished Checking Synthesizability: CPU user time: 0.35 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.37 seconds; current allocated memory: 495.715 MB.
+INFO: [HLS 200-111] Finished Checking Synthesizability: CPU user time: 0.36 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.37 seconds; current allocated memory: 496.082 MB.
 INFO: [XFORM 203-712] Applying dataflow to function 'top' (case/POOL.cpp:9:1), detected/extracted 1 process function(s): 
 	 'POOL<ap_uint<8>, ap_uint<8>, 1, 40, 1, 410, 19, 40, 20>::do_pool_func'.
-INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (/data/home/songqiangxu/project/CNN/src/pool.h:28:9) to (/data/home/songqiangxu/project/CNN/src/pool.h:27:27) in function 'POOL<ap_uint<8>, ap_uint<8>, 1, 40, 1, 410, 19, 40, 20>::do_pool_func'... converting 96 basic blocks.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (/data/home/songqiangxu/project/CNN/src/pool.h:28:9) to (/data/home/songqiangxu/project/CNN/src/pool.h:27:27) in function 'POOL<ap_uint<8>, ap_uint<8>, 1, 40, 1, 410, 19, 40, 20>::do_pool_func'... converting 77 basic blocks.
 INFO: [XFORM 203-11] Balancing expressions in function 'POOL<ap_uint<8>, ap_uint<8>, 1, 40, 1, 410, 19, 40, 20>::do_pool_func' (/data/home/songqiangxu/Xilinx/2022.1/Vitis_HLS/2022.1/common/technology/autopilot/hls_stream_39.h:0:9)...817 expression(s) balanced.
-INFO: [HLS 200-111] Finished Loop, function and other optimizations: CPU user time: 1.63 seconds. CPU system time: 0.06 seconds. Elapsed time: 1.69 seconds; current allocated memory: 594.164 MB.
-INFO: [HLS 200-111] Finished Architecture Synthesis: CPU user time: 0.44 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.45 seconds; current allocated memory: 614.879 MB.
+INFO: [HLS 200-111] Finished Loop, function and other optimizations: CPU user time: 1.59 seconds. CPU system time: 0.07 seconds. Elapsed time: 1.65 seconds; current allocated memory: 594.359 MB.
+INFO: [HLS 200-111] Finished Architecture Synthesis: CPU user time: 0.44 seconds. CPU system time: 0 seconds. Elapsed time: 0.45 seconds; current allocated memory: 614.359 MB.
 INFO: [HLS 200-10] Starting hardware synthesis ...
 INFO: [HLS 200-10] Synthesizing 'top' ...
 INFO: [HLS 200-10] ----------------------------------------------------------------
@@ -96,42 +96,38 @@ INFO: [HLS 200-486] Changing DSP latency (root=mul_ln42_2) to 3 in order to util
 INFO: [HLS 200-486] Changing DSP latency (root=mul_ln42_1) to 3 in order to utilize available DSP registers.
 INFO: [HLS 200-486] Changing DSP latency (root=mul_ln42) to 3 in order to utilize available DSP registers.
 INFO: [SCHED 204-61] Pipelining loop 'channels_loop'.
-INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 30, loop 'channels_loop'
-WARNING: [HLS 200-871] Estimated clock period (2.021ns) exceeds the target (target clock period: 2.5ns, clock uncertainty: 0.675ns, effective delay budget: 1.825ns).
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 19, loop 'channels_loop'
+WARNING: [HLS 200-871] Estimated clock period (2.03375ns) exceeds the target (target clock period: 2.5ns, clock uncertainty: 0.675ns, effective delay budget: 1.825ns).
 Resolution: For help on HLS 200-871 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-871.html
-WARNING: [HLS 200-1016] The critical path in module 'do_pool_func' consists of the following:	'alloca' operation ('chan') [3]  (0 ns)
-	'load' operation ('chan', /data/home/songqiangxu/project/CNN/src/pool.h:27) on local variable 'chan' [9]  (0 ns)
-	'add' operation ('chan', /data/home/songqiangxu/project/CNN/src/pool.h:27) [12]  (1.19 ns)
-	'store' operation ('chan_write_ln27', /data/home/songqiangxu/project/CNN/src/pool.h:27) of variable 'chan', /data/home/songqiangxu/project/CNN/src/pool.h:27 on local variable 'chan' [2560]  (0.833 ns)
+WARNING: [HLS 200-1016] The critical path in module 'do_pool_func' consists of the following:	'add' operation ('r', /data/home/songqiangxu/project/CNN/src/pool.h:43) [547]  (2.03 ns)
 
 Resolution: For help on HLS 200-1016 see www.xilinx.com/cgi-bin/docs/rdoc?v=2022.1;t=hls+guidance;d=200-1016.html
 INFO: [SCHED 204-11] Finished scheduling.
-INFO: [HLS 200-111] Finished Scheduling: CPU user time: 1.74 seconds. CPU system time: 0.07 seconds. Elapsed time: 1.81 seconds; current allocated memory: 637.250 MB.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 1.69 seconds. CPU system time: 0.07 seconds. Elapsed time: 1.76 seconds; current allocated memory: 637.363 MB.
 INFO: [BIND 205-100] Starting micro-architecture generation ...
 INFO: [BIND 205-101] Performing variable lifetime analysis.
 INFO: [BIND 205-101] Exploring resource sharing.
 INFO: [BIND 205-101] Binding ...
 INFO: [BIND 205-100] Finished micro-architecture generation.
-INFO: [HLS 200-111] Finished Binding: CPU user time: 2.19 seconds. CPU system time: 0.02 seconds. Elapsed time: 2.21 seconds; current allocated memory: 637.250 MB.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 2.18 seconds. CPU system time: 0.02 seconds. Elapsed time: 2.2 seconds; current allocated memory: 637.363 MB.
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-42] -- Implementing module 'top' 
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [SCHED 204-11] Starting scheduling ...
 INFO: [SCHED 204-11] Finished scheduling.
-INFO: [HLS 200-111] Finished Scheduling: CPU user time: 2.77 seconds. CPU system time: 0.03 seconds. Elapsed time: 2.8 seconds; current allocated memory: 637.250 MB.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 2.72 seconds. CPU system time: 0.04 seconds. Elapsed time: 2.76 seconds; current allocated memory: 637.363 MB.
 INFO: [BIND 205-100] Starting micro-architecture generation ...
 INFO: [BIND 205-101] Performing variable lifetime analysis.
 INFO: [BIND 205-101] Exploring resource sharing.
 INFO: [BIND 205-101] Binding ...
 INFO: [BIND 205-100] Finished micro-architecture generation.
-INFO: [HLS 200-111] Finished Binding: CPU user time: 0.7 seconds. CPU system time: 0 seconds. Elapsed time: 0.7 seconds; current allocated memory: 637.250 MB.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.71 seconds. CPU system time: 0 seconds. Elapsed time: 0.71 seconds; current allocated memory: 637.363 MB.
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-10] -- Generating RTL for module 'do_pool_func' 
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [RTGEN 206-100] Generating core module 'mul_mul_14ns_15ns_29_4_1': 19 instance(s).
-INFO: [RTGEN 206-100] Generating core module 'urem_14ns_7ns_6_18_1': 19 instance(s).
 INFO: [RTGEN 206-100] Finished creating RTL model for 'do_pool_func'.
-INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 2.8 seconds. CPU system time: 0.02 seconds. Elapsed time: 2.83 seconds; current allocated memory: 666.422 MB.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 3.16 seconds. CPU system time: 0.02 seconds. Elapsed time: 3.18 seconds; current allocated memory: 667.496 MB.
 INFO: [HLS 200-10] ----------------------------------------------------------------
 INFO: [HLS 200-10] -- Generating RTL for module 'top' 
 INFO: [HLS 200-10] ----------------------------------------------------------------
@@ -140,14 +136,14 @@ INFO: [RTGEN 206-500] Setting interface mode on port 'top/i_stream' to 'axis' (r
 INFO: [RTGEN 206-500] Setting interface mode on port 'top/o_stream' to 'axis' (register, both mode).
 INFO: [RTGEN 206-500] Setting interface mode on function 'top' to 'ap_ctrl_chain'.
 INFO: [RTGEN 206-100] Finished creating RTL model for 'top'.
-INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 7.63 seconds. CPU system time: 0.09 seconds. Elapsed time: 7.72 seconds; current allocated memory: 717.938 MB.
-INFO: [HLS 200-111] Finished Generating all RTL models: CPU user time: 3.71 seconds. CPU system time: 0.03 seconds. Elapsed time: 3.74 seconds; current allocated memory: 723.898 MB.
-INFO: [HLS 200-111] Finished Updating report files: CPU user time: 0.36 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.37 seconds; current allocated memory: 733.422 MB.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 7.66 seconds. CPU system time: 0.09 seconds. Elapsed time: 7.75 seconds; current allocated memory: 719.109 MB.
+INFO: [HLS 200-111] Finished Generating all RTL models: CPU user time: 3.79 seconds. CPU system time: 0.03 seconds. Elapsed time: 3.83 seconds; current allocated memory: 725.008 MB.
+INFO: [HLS 200-111] Finished Updating report files: CPU user time: 0.37 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.38 seconds; current allocated memory: 734.605 MB.
 INFO: [VHDL 208-304] Generating VHDL RTL for top.
 INFO: [VLOG 209-307] Generating Verilog RTL for top.
 INFO: [HLS 200-790] **** Loop Constraint Status: All loop constraints were satisfied.
-INFO: [HLS 200-789] **** Estimated Fmax: 494.80 MHz
-INFO: [HLS 200-111] Finished Command csynth_design CPU user time: 85.95 seconds. CPU system time: 2.3 seconds. Elapsed time: 87.29 seconds; current allocated memory: -760.277 MB.
+INFO: [HLS 200-789] **** Estimated Fmax: 491.70 MHz
+INFO: [HLS 200-111] Finished Command csynth_design CPU user time: 85.39 seconds. CPU system time: 2.27 seconds. Elapsed time: 86.7 seconds; current allocated memory: -759.094 MB.
 INFO: [HLS 200-1510] Running: export_design -description POOL_DESC -display_name POOL_DISP -flow syn -library HLS -vendor PKU -version 1.0 -taxonomy IP Core -output export_ip/POOL -ipname POOL 
 INFO: [IMPL 213-8] Exporting RTL as a Vivado IP.
 
@@ -160,7 +156,7 @@ source run_ippack.tcl -notrace
 INFO: [IP_Flow 19-234] Refreshing IP repositories
 INFO: [IP_Flow 19-1704] No user IP repositories specified
 INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/data/home/songqiangxu/Xilinx/2022.1/Vivado/2022.1/data/ip'.
-INFO: [Common 17-206] Exiting Vivado at Tue May  5 21:16:07 2026...
+INFO: [Common 17-206] Exiting Vivado at Wed May  6 11:57:36 2026...
 INFO: [IMPL 213-8] Starting RTL evaluation using Vivado ...
 
 ****** Vivado v2022.1 (64-bit)
@@ -214,7 +210,7 @@ source run_vivadosyn.tcl
 # dict set report_options language $language
 # dict set report_options clock_name $clock
 # dict set report_options error_if_impl_timing_fails false
-# dict set report_options bindmodules {top_urem_14ns_7ns_6_18_1 top_mul_mul_14ns_15ns_29_4_1 top_regslice_both top_flow_control_loop_pipe}
+# dict set report_options bindmodules {top_mul_mul_14ns_15ns_29_4_1 top_regslice_both top_flow_control_loop_pipe}
 # dict set report_options max_module_depth 6
 # create_project $vivado_proj_name $vivado_proj_dir -part $target_device -force
 # set_property target_language $language [current_project]
@@ -277,13 +273,13 @@ INFO: [BD 41-1029] Generation completed for the IP Integrator block hls_inst .
 Exporting to file /data/home/songqiangxu/project/CNN/instances_tp8_syn_kv260/proj_POOL/work/solution/impl/verilog/project.gen/sources_1/bd/bd_0/hw_handoff/bd_0.hwh
 Generated Hardware Definition File /data/home/songqiangxu/project/CNN/instances_tp8_syn_kv260/proj_POOL/work/solution/impl/verilog/project.gen/sources_1/bd/bd_0/synth/bd_0.hwdef
 WARNING: [Vivado 12-7122] Auto Incremental Compile:: No reference checkpoint was found in run synth_1. Auto-incremental flow will not be run, the standard flow will be run instead.
-launch_runs: Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 3041.730 ; gain = 72.035 ; free physical = 71398 ; free virtual = 129421
+launch_runs: Time (s): cpu = 00:00:05 ; elapsed = 00:00:06 . Memory (MB): peak = 3041.727 ; gain = 72.035 ; free physical = 56197 ; free virtual = 128053
 # foreach run [get_runs -filter {IS_SYNTHESIS == 1}] {
 #   reset_run [get_runs $run]
 # }
 # set_property XPM_LIBRARIES {XPM_MEMORY XPM_FIFO} [current_project]
 # hls_vivado_reports_setup $report_options
-TIMESTAMP: HLS-REPORT: initialize report directories: 2026-05-05 21:16:30 CST
+TIMESTAMP: HLS-REPORT: initialize report directories: 2026-05-06 11:57:59 CST
 # if { $has_synth || $has_impl } {
 #   # synth properties setting
 #   set_property -name {STEPS.SYNTH_DESIGN.ARGS.MORE OPTIONS} -value {-mode out_of_context} -objects [get_runs synth_1]
@@ -317,11 +313,11 @@ TIMESTAMP: HLS-REPORT: initialize report directories: 2026-05-05 21:16:30 CST
 #   }
 # }
 WARNING: [Vivado 12-7122] Auto Incremental Compile:: No reference checkpoint was found in run synth_1. Auto-incremental flow will not be run, the standard flow will be run instead.
-[Tue May  5 21:16:30 2026] Launched bd_0_hls_inst_0_synth_1...
+[Wed May  6 11:57:59 2026] Launched bd_0_hls_inst_0_synth_1...
 Run output will be captured here: /data/home/songqiangxu/project/CNN/instances_tp8_syn_kv260/proj_POOL/work/solution/impl/verilog/project.runs/bd_0_hls_inst_0_synth_1/runme.log
-[Tue May  5 21:16:30 2026] Launched synth_1...
+[Wed May  6 11:57:59 2026] Launched synth_1...
 Run output will be captured here: /data/home/songqiangxu/project/CNN/instances_tp8_syn_kv260/proj_POOL/work/solution/impl/verilog/project.runs/synth_1/runme.log
-[Tue May  5 21:16:30 2026] Waiting for synth_1 to finish...
+[Wed May  6 11:57:59 2026] Waiting for synth_1 to finish...
 
 *** Running vivado
     with args -log bd_0_wrapper.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source bd_0_wrapper.tcl
@@ -343,30 +339,30 @@ INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7k325
 INFO: [Device 21-403] Loading part xc7k325tffg900-2
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 4 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 996432
+INFO: [Synth 8-7075] Helper process launched with PID 1564552
 WARNING: [Synth 8-9501] generate block is allowed only inside loop and conditional generate in SystemVerilog mode [/data/home/songqiangxu/Xilinx/2022.1/Vivado/2022.1/data/ip/xpm/xpm_fifo/hdl/xpm_fifo.sv:4023]
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 2914.070 ; gain = 0.000 ; free physical = 68667 ; free virtual = 126785
+Starting RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 2914.074 ; gain = 0.000 ; free physical = 53411 ; free virtual = 125329
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-6157] synthesizing module 'bd_0_wrapper' [/data/home/songqiangxu/project/CNN/instances_tp8_syn_kv260/proj_POOL/work/solution/impl/verilog/project.gen/sources_1/bd/bd_0/hdl/bd_0_wrapper.v:12]
 INFO: [Synth 8-6157] synthesizing module 'bd_0' [/data/home/songqiangxu/project/CNN/instances_tp8_syn_kv260/proj_POOL/work/solution/impl/verilog/project.gen/sources_1/bd/bd_0/synth/bd_0.v:12]
-INFO: [Synth 8-6157] synthesizing module 'bd_0_hls_inst_0' [/data/home/songqiangxu/project/CNN/instances_tp8_syn_kv260/proj_POOL/work/solution/impl/verilog/project.runs/synth_1/.Xil/Vivado-996238-dell-Precision-7920-Tower/realtime/bd_0_hls_inst_0_stub.v:5]
-INFO: [Synth 8-6155] done synthesizing module 'bd_0_hls_inst_0' (0#1) [/data/home/songqiangxu/project/CNN/instances_tp8_syn_kv260/proj_POOL/work/solution/impl/verilog/project.runs/synth_1/.Xil/Vivado-996238-dell-Precision-7920-Tower/realtime/bd_0_hls_inst_0_stub.v:5]
+INFO: [Synth 8-6157] synthesizing module 'bd_0_hls_inst_0' [/data/home/songqiangxu/project/CNN/instances_tp8_syn_kv260/proj_POOL/work/solution/impl/verilog/project.runs/synth_1/.Xil/Vivado-1564053-dell-Precision-7920-Tower/realtime/bd_0_hls_inst_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'bd_0_hls_inst_0' (0#1) [/data/home/songqiangxu/project/CNN/instances_tp8_syn_kv260/proj_POOL/work/solution/impl/verilog/project.runs/synth_1/.Xil/Vivado-1564053-dell-Precision-7920-Tower/realtime/bd_0_hls_inst_0_stub.v:5]
 INFO: [Synth 8-6155] done synthesizing module 'bd_0' (0#1) [/data/home/songqiangxu/project/CNN/instances_tp8_syn_kv260/proj_POOL/work/solution/impl/verilog/project.gen/sources_1/bd/bd_0/synth/bd_0.v:12]
 INFO: [Synth 8-6155] done synthesizing module 'bd_0_wrapper' (0#1) [/data/home/songqiangxu/project/CNN/instances_tp8_syn_kv260/proj_POOL/work/solution/impl/verilog/project.gen/sources_1/bd/bd_0/hdl/bd_0_wrapper.v:12]
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 2914.070 ; gain = 0.000 ; free physical = 69738 ; free virtual = 127855
+Finished RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 2914.074 ; gain = 0.000 ; free physical = 54495 ; free virtual = 126414
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 2914.070 ; gain = 0.000 ; free physical = 69708 ; free virtual = 127825
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 2914.074 ; gain = 0.000 ; free physical = 54560 ; free virtual = 126478
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 2914.070 ; gain = 0.000 ; free physical = 69708 ; free virtual = 127825
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 2914.074 ; gain = 0.000 ; free physical = 54560 ; free virtual = 126478
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00.02 ; elapsed = 00:00:00.01 . Memory (MB): peak = 2914.070 ; gain = 0.000 ; free physical = 69769 ; free virtual = 127886
+Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.02 . Memory (MB): peak = 2914.074 ; gain = 0.000 ; free physical = 54554 ; free virtual = 126472
 INFO: [Project 1-570] Preparing netlist for logic optimization
 
 Processing XDC Constraints
@@ -379,20 +375,20 @@ Parsing XDC File [/data/home/songqiangxu/project/CNN/instances_tp8_syn_kv260/pro
 Finished Parsing XDC File [/data/home/songqiangxu/project/CNN/instances_tp8_syn_kv260/proj_POOL/work/solution/impl/verilog/project.runs/synth_1/dont_touch.xdc]
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2978.102 ; gain = 0.000 ; free physical = 69677 ; free virtual = 127793
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2978.105 ; gain = 0.000 ; free physical = 54505 ; free virtual = 126423
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00.12 ; elapsed = 00:00:00.06 . Memory (MB): peak = 2978.102 ; gain = 0.000 ; free physical = 69676 ; free virtual = 127793
+Constraint Validation Runtime : Time (s): cpu = 00:00:00.11 ; elapsed = 00:00:00.06 . Memory (MB): peak = 2978.105 ; gain = 0.000 ; free physical = 54505 ; free virtual = 126423
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:12 ; elapsed = 00:00:12 . Memory (MB): peak = 2978.102 ; gain = 64.031 ; free physical = 69745 ; free virtual = 127862
+Finished Constraint Validation : Time (s): cpu = 00:00:12 ; elapsed = 00:00:12 . Memory (MB): peak = 2978.105 ; gain = 64.031 ; free physical = 54580 ; free virtual = 126498
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7k325tffg900-2
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:12 ; elapsed = 00:00:12 . Memory (MB): peak = 2978.102 ; gain = 64.031 ; free physical = 69745 ; free virtual = 127862
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:12 ; elapsed = 00:00:12 . Memory (MB): peak = 2978.105 ; gain = 64.031 ; free physical = 54580 ; free virtual = 126498
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
@@ -400,10 +396,10 @@ Start Applying 'set_property' XDC Constraints
 Applied set_property KEEP_HIERARCHY = SOFT for bd_0_i. (constraint file  auto generated constraint).
 Applied set_property KEEP_HIERARCHY = SOFT for bd_0_i/hls_inst. (constraint file  auto generated constraint).
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:12 ; elapsed = 00:00:12 . Memory (MB): peak = 2978.102 ; gain = 64.031 ; free physical = 69745 ; free virtual = 127862
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:12 ; elapsed = 00:00:12 . Memory (MB): peak = 2978.105 ; gain = 64.031 ; free physical = 54580 ; free virtual = 126498
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:12 ; elapsed = 00:00:13 . Memory (MB): peak = 2978.102 ; gain = 64.031 ; free physical = 69747 ; free virtual = 127864
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:12 ; elapsed = 00:00:12 . Memory (MB): peak = 2978.105 ; gain = 64.031 ; free physical = 54580 ; free virtual = 126499
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
@@ -426,25 +422,25 @@ Start Cross Boundary and Area Optimization
 ---------------------------------------------------------------------------------
 WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:13 ; elapsed = 00:00:14 . Memory (MB): peak = 2978.102 ; gain = 64.031 ; free physical = 69738 ; free virtual = 127859
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:13 ; elapsed = 00:00:14 . Memory (MB): peak = 2978.105 ; gain = 64.031 ; free physical = 54578 ; free virtual = 126501
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:18 ; elapsed = 00:00:19 . Memory (MB): peak = 2978.102 ; gain = 64.031 ; free physical = 69629 ; free virtual = 127750
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:17 ; elapsed = 00:00:18 . Memory (MB): peak = 2978.105 ; gain = 64.031 ; free physical = 54381 ; free virtual = 126304
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:18 ; elapsed = 00:00:19 . Memory (MB): peak = 2978.102 ; gain = 64.031 ; free physical = 69629 ; free virtual = 127750
+Finished Timing Optimization : Time (s): cpu = 00:00:17 ; elapsed = 00:00:18 . Memory (MB): peak = 2978.105 ; gain = 64.031 ; free physical = 54381 ; free virtual = 126304
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:18 ; elapsed = 00:00:19 . Memory (MB): peak = 2978.102 ; gain = 64.031 ; free physical = 69627 ; free virtual = 127748
+Finished Technology Mapping : Time (s): cpu = 00:00:18 ; elapsed = 00:00:18 . Memory (MB): peak = 2978.105 ; gain = 64.031 ; free physical = 54381 ; free virtual = 126304
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -462,37 +458,37 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:22 ; elapsed = 00:00:23 . Memory (MB): peak = 2978.102 ; gain = 64.031 ; free physical = 69630 ; free virtual = 127752
+Finished IO Insertion : Time (s): cpu = 00:00:22 ; elapsed = 00:00:22 . Memory (MB): peak = 2978.105 ; gain = 64.031 ; free physical = 54384 ; free virtual = 126307
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:22 ; elapsed = 00:00:23 . Memory (MB): peak = 2978.102 ; gain = 64.031 ; free physical = 69630 ; free virtual = 127752
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:22 ; elapsed = 00:00:22 . Memory (MB): peak = 2978.105 ; gain = 64.031 ; free physical = 54384 ; free virtual = 126307
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:22 ; elapsed = 00:00:23 . Memory (MB): peak = 2978.102 ; gain = 64.031 ; free physical = 69631 ; free virtual = 127752
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:22 ; elapsed = 00:00:22 . Memory (MB): peak = 2978.105 ; gain = 64.031 ; free physical = 54384 ; free virtual = 126307
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:22 ; elapsed = 00:00:23 . Memory (MB): peak = 2978.102 ; gain = 64.031 ; free physical = 69631 ; free virtual = 127752
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:22 ; elapsed = 00:00:22 . Memory (MB): peak = 2978.105 ; gain = 64.031 ; free physical = 54384 ; free virtual = 126307
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:22 ; elapsed = 00:00:23 . Memory (MB): peak = 2978.102 ; gain = 64.031 ; free physical = 69631 ; free virtual = 127752
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:22 ; elapsed = 00:00:22 . Memory (MB): peak = 2978.105 ; gain = 64.031 ; free physical = 54384 ; free virtual = 126307
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:22 ; elapsed = 00:00:23 . Memory (MB): peak = 2978.102 ; gain = 64.031 ; free physical = 69631 ; free virtual = 127752
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:22 ; elapsed = 00:00:22 . Memory (MB): peak = 2978.105 ; gain = 64.031 ; free physical = 54384 ; free virtual = 126307
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -512,16 +508,16 @@ Report Cell Usage:
 |1     |bd_0_hls_inst |     1|
 +------+--------------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:22 ; elapsed = 00:00:23 . Memory (MB): peak = 2978.102 ; gain = 64.031 ; free physical = 69631 ; free virtual = 127752
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:22 ; elapsed = 00:00:22 . Memory (MB): peak = 2978.105 ; gain = 64.031 ; free physical = 54384 ; free virtual = 126307
 ---------------------------------------------------------------------------------
 Synthesis finished with 0 errors, 0 critical warnings and 1 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:20 ; elapsed = 00:00:21 . Memory (MB): peak = 2978.102 ; gain = 0.000 ; free physical = 69681 ; free virtual = 127802
-Synthesis Optimization Complete : Time (s): cpu = 00:00:22 ; elapsed = 00:00:23 . Memory (MB): peak = 2978.102 ; gain = 64.031 ; free physical = 69681 ; free virtual = 127802
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:19 ; elapsed = 00:00:20 . Memory (MB): peak = 2978.105 ; gain = 0.000 ; free physical = 54433 ; free virtual = 126356
+Synthesis Optimization Complete : Time (s): cpu = 00:00:22 ; elapsed = 00:00:23 . Memory (MB): peak = 2978.105 ; gain = 64.031 ; free physical = 54433 ; free virtual = 126356
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00.01 ; elapsed = 00:00:00.02 . Memory (MB): peak = 2978.102 ; gain = 0.000 ; free physical = 69771 ; free virtual = 127893
+Netlist sorting complete. Time (s): cpu = 00:00:00.02 ; elapsed = 00:00:00.02 . Memory (MB): peak = 2978.105 ; gain = 0.000 ; free physical = 54528 ; free virtual = 126451
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2978.102 ; gain = 0.000 ; free physical = 69702 ; free virtual = 127824
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2978.105 ; gain = 0.000 ; free physical = 54456 ; free virtual = 126379
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
@@ -529,32 +525,32 @@ Synth Design complete, checksum: 6f74cd3e
 INFO: [Common 17-83] Releasing license: Synthesis
 21 Infos, 2 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:31 ; elapsed = 00:00:28 . Memory (MB): peak = 2978.102 ; gain = 72.035 ; free physical = 69905 ; free virtual = 128026
+synth_design: Time (s): cpu = 00:00:31 ; elapsed = 00:00:28 . Memory (MB): peak = 2978.105 ; gain = 72.035 ; free physical = 54657 ; free virtual = 126580
 INFO: [Common 17-1381] The checkpoint '/data/home/songqiangxu/project/CNN/instances_tp8_syn_kv260/proj_POOL/work/solution/impl/verilog/project.runs/synth_1/bd_0_wrapper.dcp' has been generated.
 INFO: [runtcl-4] Executing : report_utilization -file bd_0_wrapper_utilization_synth.rpt -pb bd_0_wrapper_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Tue May  5 21:20:11 2026...
-[Tue May  5 21:20:15 2026] synth_1 finished
-wait_on_runs: Time (s): cpu = 00:03:48 ; elapsed = 00:03:44 . Memory (MB): peak = 3041.730 ; gain = 0.000 ; free physical = 71125 ; free virtual = 129241
-TIMESTAMP: HLS-REPORT: synthesis open_run: 2026-05-05 21:20:15 CST
+INFO: [Common 17-206] Exiting Vivado at Wed May  6 12:01:10 2026...
+[Wed May  6 12:01:14 2026] synth_1 finished
+wait_on_runs: Time (s): cpu = 00:03:19 ; elapsed = 00:03:14 . Memory (MB): peak = 3041.727 ; gain = 0.000 ; free physical = 55882 ; free virtual = 127798
+TIMESTAMP: HLS-REPORT: synthesis open_run: 2026-05-06 12:01:14 CST
 INFO: HLS-REPORT: Opening synthesis design database: open_run synth_1
 Design is defaulting to impl run constrset: constrs_1
 Design is defaulting to synth run part: xc7k325tffg900-2
 INFO: [Device 21-403] Loading part xc7k325tffg900-2
 INFO: [Project 1-454] Reading design checkpoint '/data/home/songqiangxu/project/CNN/instances_tp8_syn_kv260/proj_POOL/work/solution/impl/verilog/project.gen/sources_1/bd/bd_0/ip/bd_0_hls_inst_0/bd_0_hls_inst_0.dcp' for cell 'bd_0_i/hls_inst'
-Netlist sorting complete. Time (s): cpu = 00:00:00.17 ; elapsed = 00:00:00.17 . Memory (MB): peak = 3041.730 ; gain = 0.000 ; free physical = 70907 ; free virtual = 129023
-INFO: [Netlist 29-17] Analyzing 2565 Unisim elements for replacement
+Netlist sorting complete. Time (s): cpu = 00:00:00.14 ; elapsed = 00:00:00.15 . Memory (MB): peak = 3041.727 ; gain = 0.000 ; free physical = 55699 ; free virtual = 127615
+INFO: [Netlist 29-17] Analyzing 2102 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-479] Netlist was created with Vivado 2022.1
 INFO: [Project 1-570] Preparing netlist for logic optimization
 Parsing XDC File [/data/home/songqiangxu/project/CNN/instances_tp8_syn_kv260/proj_POOL/work/solution/impl/verilog/top.xdc]
 Finished Parsing XDC File [/data/home/songqiangxu/project/CNN/instances_tp8_syn_kv260/proj_POOL/work/solution/impl/verilog/top.xdc]
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3041.730 ; gain = 0.000 ; free physical = 70803 ; free virtual = 128920
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.01 . Memory (MB): peak = 3041.727 ; gain = 0.000 ; free physical = 55584 ; free virtual = 127500
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-open_run: Time (s): cpu = 00:00:09 ; elapsed = 00:00:09 . Memory (MB): peak = 3041.730 ; gain = 0.000 ; free physical = 70803 ; free virtual = 128920
-TIMESTAMP: HLS-REPORT: synthesis generate_reports_vivado: 2026-05-05 21:20:24 CST
+open_run: Time (s): cpu = 00:00:09 ; elapsed = 00:00:09 . Memory (MB): peak = 3041.727 ; gain = 0.000 ; free physical = 55584 ; free virtual = 127500
+TIMESTAMP: HLS-REPORT: synthesis generate_reports_vivado: 2026-05-06 12:01:22 CST
 INFO: HLS-REPORT: Running report: report_utilization -file ./report/top_utilization_synth.rpt
 INFO: HLS-REPORT: Running report: report_utilization -hierarchical -hierarchical_depth 6 -file ./report/top_utilization_hierarchical_synth.rpt
 INFO: HLS-REPORT: Running report: report_timing_summary -file ./report/top_timing_synth.rpt
@@ -563,7 +559,7 @@ INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Delay Type: min_max.
 INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 8 CPUs
 WARNING: [Timing 38-242] The property HD.CLK_SRC of clock port "ap_clk" is not set. In out-of-context mode, this prevents timing estimation for clock delay/skew
 Resolution: Set the HD.CLK_SRC property of the out-of-context port to the location of the clock buffer instance in the top-level design
-report_timing_summary: Time (s): cpu = 00:00:22 ; elapsed = 00:00:13 . Memory (MB): peak = 3325.750 ; gain = 284.020 ; free physical = 70214 ; free virtual = 128346
+report_timing_summary: Time (s): cpu = 00:00:20 ; elapsed = 00:00:12 . Memory (MB): peak = 3309.746 ; gain = 268.020 ; free physical = 55164 ; free virtual = 127080
 INFO: HLS-REPORT: Running report: report_timing -max_paths 10 -file ./report/top_timing_paths_synth.rpt
 INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -2, Delay Type: max.
 INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 8 CPUs
@@ -571,18 +567,15 @@ INFO: [Timing 38-78] ReportTimingParams: -max_paths 10 -nworst 1 -delay_type max
 INFO: HLS-REPORT: Running report: report_design_analysis -file ./report/top_design_analysis_synth.rpt
 INFO: [Implflow 30-839]  
 INFO: HLS-REPORT: Running report: ::tclapp::xilinx::designutils::report_failfast -detailed_report synth -file ./report/top_failfast_synth.rpt
- -I- design metrics completed in 1 seconds
+ -I- design metrics completed in 0 seconds
  -I- DONT_TOUCH metric completed in 0 seconds
  -I- MARK_DEBUG metric completed in 0 seconds
- -I- utilization metrics completed in 1 seconds
- -I- control set metrics completed in 1 seconds
- -I- methodology check metrics completed in 1 seconds
- -I- average fanout metrics completed in 2 seconds (0 modules)
+ -I- utilization metrics completed in 2 seconds
+ -I- control set metrics completed in 0 seconds
+ -I- methodology check metrics completed in 2 seconds
+ -I- average fanout metrics completed in 1 seconds (0 modules)
  -I- non-FD high fanout nets completed in 1 seconds
- -I- path budgeting metrics completed in 21 seconds
- -I- Generated file /data/home/songqiangxu/project/CNN/instances_tp8_syn_kv260/proj_POOL/work/solution/impl/verilog/report/synth.timing_budget_LUT.rpt
- -I- Generated file /data/home/songqiangxu/project/CNN/instances_tp8_syn_kv260/proj_POOL/work/solution/impl/verilog/report/synth.timing_budget_LUT.csv
- -I- Generated interactive report /data/home/songqiangxu/project/CNN/instances_tp8_syn_kv260/proj_POOL/work/solution/impl/verilog/report/synth.timing_budget_LUT.rpx
+ -I- path budgeting metrics completed in 1 seconds
 #  +-----------------------------------------------------------------------------------------+
 #  | Design Summary                                                                          |
 #  | design_1                                                                                |
@@ -590,9 +583,9 @@ INFO: HLS-REPORT: Running report: ::tclapp::xilinx::designutils::report_failfast
 #  +-----------------------------------------------------------+-----------+--------+--------+
 #  | Criteria                                                  | Guideline | Actual | Status |
 #  +-----------------------------------------------------------+-----------+--------+--------+
-#  | LUT                                                       | 70%       | 6.29%  | OK     |
-#  | FD                                                        | 50%       | 7.48%  | OK     |
-#  | LUTRAM+SRL                                                | 25%       | 0.42%  | OK     |
+#  | LUT                                                       | 70%       | 4.16%  | OK     |
+#  | FD                                                        | 50%       | 6.82%  | OK     |
+#  | LUTRAM+SRL                                                | 25%       | 0.00%  | OK     |
 #  | MUXF7                                                     | 15%       | 0.00%  | OK     |
 #  | DSP                                                       | 80%       | 2.26%  | OK     |
 #  | RAMB/FIFO                                                 | 80%       | 0.00%  | OK     |
@@ -600,7 +593,7 @@ INFO: HLS-REPORT: Running report: ::tclapp::xilinx::designutils::report_failfast
 #  | BUFGCE* + BUFGCTRL                                        | 24        | 0      | OK     |
 #  | DONT_TOUCH (cells/nets)                                   | 0         | 0      | OK     |
 #  | MARK_DEBUG (nets)                                         | 0         | 0      | OK     |
-#  | Control Sets                                              | 3821      | 40     | OK     |
+#  | Control Sets                                              | 3821      | 35     | OK     |
 #  | Average Fanout for modules > 100k cells                   | 4         | 0      | OK     |
 #  | Non-FD high fanout nets > 10k loads                       | 0         | 0      | OK     |
 #  +-----------------------------------------------------------+-----------+--------+--------+
@@ -610,23 +603,23 @@ INFO: HLS-REPORT: Running report: ::tclapp::xilinx::designutils::report_failfast
 #  | TIMING-14 (LUT on the clock tree)                         | 0         | 0      | OK     |
 #  | TIMING-35 (No common node in paths with the same clock)   | 0         | 0      | OK     |
 #  +-----------------------------------------------------------+-----------+--------+--------+
-#  | Number of paths above max LUT budgeting (0.500ns)         | 0         | 100    | REVIEW |
+#  | Number of paths above max LUT budgeting (0.500ns)         | 0         | 0      | OK     |
 #  | Number of paths above max Net budgeting (0.350ns)         | 0         | 0      | OK     |
 #  +-----------------------------------------------------------+-----------+--------+--------+
  -I- Generated file /data/home/songqiangxu/project/CNN/instances_tp8_syn_kv260/proj_POOL/work/solution/impl/verilog/report/top_failfast_synth.rpt
- -I- Number of criteria to review: 1
+ -I- Number of criteria to review: 0
  -I- This report should be run before placing the design and uses conservative guidelines beyond which runtime and timing closure will likely be more challenging
- -I- report_failfast completed in 29 seconds
-TIMESTAMP: HLS-REPORT: synthesis gen_data_dict_vivado: 2026-05-05 21:21:09 CST
-TIMESTAMP: HLS-REPORT: synth extract_util_hier: 2026-05-05 21:21:09 CST
-TIMESTAMP: HLS-REPORT: synth get_cell_hier_data: 2026-05-05 21:21:09 CST
-TIMESTAMP: HLS-REPORT: synth get_timing_paths: 2026-05-05 21:21:09 CST
-TIMESTAMP: HLS-REPORT: synth process timing paths: 2026-05-05 21:21:09 CST
-TIMESTAMP: HLS-REPORT: synth get_all_vv_rpt_files: 2026-05-05 21:21:09 CST
-TIMESTAMP: HLS-REPORT: synthesis write_reports_vivado: 2026-05-05 21:21:09 CST
+ -I- report_failfast completed in 7 seconds
+TIMESTAMP: HLS-REPORT: synthesis gen_data_dict_vivado: 2026-05-06 12:01:44 CST
+TIMESTAMP: HLS-REPORT: synth extract_util_hier: 2026-05-06 12:01:44 CST
+TIMESTAMP: HLS-REPORT: synth get_cell_hier_data: 2026-05-06 12:01:44 CST
+TIMESTAMP: HLS-REPORT: synth get_timing_paths: 2026-05-06 12:01:44 CST
+TIMESTAMP: HLS-REPORT: synth process timing paths: 2026-05-06 12:01:45 CST
+TIMESTAMP: HLS-REPORT: synth get_all_vv_rpt_files: 2026-05-06 12:01:45 CST
+TIMESTAMP: HLS-REPORT: synthesis write_reports_vivado: 2026-05-06 12:01:45 CST
 HLS EXTRACTION: synth area_totals:  0 203800 407600 840 890 0 0
-HLS EXTRACTION: synth area_current: 0 12811 30482 19 0 0 266 0 0 0
-HLS EXTRACTION: synth resources_dict: AVAIL_LUT 203800 LUT 12811 AVAIL_FF 407600 FF 30482 AVAIL_DSP 840 DSP 19 AVAIL_BRAM 890 BRAM 0 AVAIL_URAM 0 URAM 0 LATCH 0 SRL 266 AVAIL_CLB 0 CLB 0
+HLS EXTRACTION: synth area_current: 0 8488 27817 19 0 0 0 0 0 0
+HLS EXTRACTION: synth resources_dict: AVAIL_LUT 203800 LUT 8488 AVAIL_FF 407600 FF 27817 AVAIL_DSP 840 DSP 19 AVAIL_BRAM 890 BRAM 0 AVAIL_URAM 0 URAM 0 LATCH 0 SRL 0 AVAIL_CLB 0 CLB 0
 INFO: HLS-REPORT: generated /data/home/songqiangxu/project/CNN/instances_tp8_syn_kv260/proj_POOL/work/solution/impl/verilog/report/vivado_syn.xml
 INFO: HLS-REPORT: generated /data/home/songqiangxu/project/CNN/instances_tp8_syn_kv260/proj_POOL/work/solution/impl/report/verilog/top_export.rpt
 
@@ -635,25 +628,25 @@ Implementation tool: Xilinx Vivado v.2022.1
 Project:             work
 Solution:            solution
 Device target:       xc7k325t-ffg900-2
-Report date:         Tue May 05 21:21:09 CST 2026
+Report date:         Wed May 06 12:01:45 CST 2026
 
 #=== Post-Synthesis Resource usage ===
 SLICE:            0
-LUT:          12811
-FF:           30482
+LUT:           8488
+FF:           27817
 DSP:             19
 BRAM:             0
 URAM:             0
 LATCH:            0
-SRL:            266
+SRL:              0
 CLB:              0
 
 #=== Final timing ===
 CP required:                     2.500
-CP achieved post-synthesis:      2.939
+CP achieved post-synthesis:      2.682
 Timing not met
 
-TIMESTAMP: HLS-REPORT: synthesis end: 2026-05-05 21:21:09 CST
+TIMESTAMP: HLS-REPORT: synthesis end: 2026-05-06 12:01:45 CST
 # if { $has_impl } {
 #   # launch run impl
 #   if { [llength $impl_props] } {
@@ -665,9 +658,9 @@ TIMESTAMP: HLS-REPORT: synthesis end: 2026-05-05 21:21:09 CST
 #   hls_vivado_reports_impl impl_1 $report_options
 # }
 # hls_vivado_reports_finalize $report_options
-TIMESTAMP: HLS-REPORT: all reports complete: 2026-05-05 21:21:09 CST
-INFO: [Common 17-206] Exiting Vivado at Tue May  5 21:21:09 2026...
+TIMESTAMP: HLS-REPORT: all reports complete: 2026-05-06 12:01:45 CST
+INFO: [Common 17-206] Exiting Vivado at Wed May  6 12:01:45 2026...
 INFO: [HLS 200-802] Generated output file export_ip/POOL.zip
-INFO: [HLS 200-111] Finished Command export_design CPU user time: 324.27 seconds. CPU system time: 36.54 seconds. Elapsed time: 316.84 seconds; current allocated memory: 8.477 MB.
-INFO: [HLS 200-112] Total CPU user time: 412.97 seconds. Total CPU system time: 39.83 seconds. Total elapsed time: 406.4 seconds; peak allocated memory: 1.459 GB.
-INFO: [Common 17-206] Exiting vitis_hls at Tue May  5 21:21:13 2026...
+INFO: [HLS 200-111] Finished Command export_design CPU user time: 279.78 seconds. CPU system time: 21.85 seconds. Elapsed time: 262.76 seconds; current allocated memory: 8.363 MB.
+INFO: [HLS 200-112] Total CPU user time: 367.84 seconds. Total CPU system time: 25.04 seconds. Total elapsed time: 351.58 seconds; peak allocated memory: 1.459 GB.
+INFO: [Common 17-206] Exiting vitis_hls at Wed May  6 12:01:49 2026...

@@ -86,11 +86,11 @@ void test_layer()
             for (int r = 0; r < IN_DIM; r++) {
                 for (int t = 0; t < BR_DIM2; t++) {
                     if (ic < BR0_CHANNELS)
-                        CONCAT_REF[n][ic][r][t] = BR0_OUT[n][ic][r][t];
+                        CONCAT_REF[n][ic][r][t] = concat_lut0[(ap_uint<8>)BR0_OUT[n][ic][r][t]];
                     else if (ic < BR0_CHANNELS + BR1_CHANNELS)
-                        CONCAT_REF[n][ic][r][t] = BR1_OUT[n][ic - BR0_CHANNELS][r][t];
+                        CONCAT_REF[n][ic][r][t] = concat_lut1[(ap_uint<8>)BR1_OUT[n][ic - BR0_CHANNELS][r][t]];
                     else
-                        CONCAT_REF[n][ic][r][t] = BR2_OUT[n][ic - BR0_CHANNELS - BR1_CHANNELS][r][t];
+                        CONCAT_REF[n][ic][r][t] = concat_lut2[(ap_uint<8>)BR2_OUT[n][ic - BR0_CHANNELS - BR1_CHANNELS][r][t]];
                 }
             }
         }

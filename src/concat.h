@@ -15,25 +15,15 @@ constexpr ZP_T CONV_BR2_GELU_OUTPUT_ZP = 5;
 constexpr SCALE_T CONCAT_OUTPUT_SCALE = 0.034158173949;
 constexpr ZP_T CONCAT_OUTPUT_ZP = 5;
 
-// 银行家舍入
-inline int round_to_even_concat(float x)
-{
-    int base = (int)x;
-    float frac = x - (float)base;
-
-    if (x < 0 && frac != 0.0f)
-    {
-        base -= 1;
-        frac = x - (float)base;
-    }
-
-    if (frac < 0.5f)
-        return base;
-    if (frac > 0.5f)
-        return base + 1;
-
-    return (base & 1) ? (base + 1) : base;
-}
+const LUT_T concat_lut0[256] = {
+    #include "ref/concat/concat_branch0_requant_lut.txt"
+};
+const LUT_T concat_lut1[256] = {
+    #include "ref/concat/concat_branch1_requant_lut.txt"
+};
+const LUT_T concat_lut2[256] = {
+    #include "ref/concat/concat_branch2_requant_lut.txt"
+};
 
 // =============================================================================
 // Concat：三路 branch 输出先重标定到统一量化域，再按通道维拼成一路，供 CONV_SPATIAL 消费
@@ -48,15 +38,6 @@ public:
     static constexpr int BR_D = BR_DIM2;
     static constexpr int CH_OUT = CONCAT_CHANNELS;
     static constexpr int OUT_VEC_LEN = BR_D;
-
-    static data_t requant_to_concat_domain(data_t x, SCALE_T in_scale, ZP_T in_zp)
-    {
-        float scaled =
-            ((int)x - (int)in_zp) * ((float)in_scale / (float)CONCAT_OUTPUT_SCALE) +
-            (float)CONCAT_OUTPUT_ZP;
-        int v = round_to_even_concat(scaled);
-        return (data_t)clamp(v, 0, 255);
-    }
 
     void do_concat(
         hls::stream<hls::vector<data_t, BR0_CHANNELS * IN_D>> &i_stream_0,
@@ -75,28 +56,29 @@ public:
         {
             for (int t = 0; t < BR_D; t++)
             {
-#pragma HLS PIPELINE II = 1
+
                 hls::vector<data_t, BR0_CHANNELS * IN_D> v0 = i_stream_0.read();
                 hls::vector<data_t, BR1_CHANNELS * IN_D> v1 = i_stream_1.read();
                 hls::vector<data_t, BR2_CHANNELS * IN_D> v2 = i_stream_2.read();
 
                 for (int oc = 0; oc < BR0_CHANNELS; oc++)
                 {
+#pragma HLS PIPELINE II=1
                     for (int c = 0; c < IN_D; c++)
-                        buf0[oc][c][t] = requant_to_concat_domain(
-                            v0[oc * IN_D + c], CONV_BR0_GELU_OUTPUT_SCALE, CONV_BR0_GELU_OUTPUT_ZP);
+                        buf0[oc][c][t] = (data_t)concat_lut0[(ap_uint<8>)v0[oc * IN_D + c]];
                 }
                 for (int oc = 0; oc < BR1_CHANNELS; oc++)
                 {
+#pragma HLS PIPELINE II = 1
+
                     for (int c = 0; c < IN_D; c++)
-                        buf1[oc][c][t] = requant_to_concat_domain(
-                            v1[oc * IN_D + c], CONV_BR1_GELU_OUTPUT_SCALE, CONV_BR1_GELU_OUTPUT_ZP);
+                        buf1[oc][c][t] = (data_t)concat_lut1[(ap_uint<8>)v1[oc * IN_D + c]];
                 }
                 for (int oc = 0; oc < BR2_CHANNELS; oc++)
                 {
+#pragma HLS PIPELINE II = 1
                     for (int c = 0; c < IN_D; c++)
-                        buf2[oc][c][t] = requant_to_concat_domain(
-                            v2[oc * IN_D + c], CONV_BR2_GELU_OUTPUT_SCALE, CONV_BR2_GELU_OUTPUT_ZP);
+                        buf2[oc][c][t] = (data_t)concat_lut2[(ap_uint<8>)v2[oc * IN_D + c]];
                 }
             }
 
