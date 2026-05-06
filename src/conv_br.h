@@ -61,7 +61,6 @@ public:
         for (int n = 0; n < N; n++) {
             for (int c = 0; c < IN_D; c++) {
                 for (int k = 0; k < K; k++) {
-#pragma HLS UNROLL
                     line_buf[c][k] = (X_T)QUANTSTUB_ZP;
                 }
             }
@@ -84,21 +83,29 @@ public:
                         int32_t bias = CONV_BR0_BIAS[oc];
 
                         for (int c0 = 0; c0 < IN_D; c0 += CONV_BR_C_TILE) {
+                            int32_t acc[CONV_BR_C_TILE] = {0};
+#pragma HLS ARRAY_PARTITION variable = acc complete
+
+                            for (int k0 = 0; k0 < K; k0 += 2) {
 #pragma HLS PIPELINE II=1
+                                for (int ct = 0; ct < CONV_BR_C_TILE; ct++) {
+#pragma HLS UNROLL
+                                    int c = c0 + ct;
+                                    for (int kt = 0; kt < 2; kt++) {
+#pragma HLS UNROLL
+                                    int k = k0 + kt;
+                                    int idx = (wr + 1 + k) & (K - 1);
+                                    int16_t x = (int16_t)(line_buf[c][idx]) - (int16_t)QUANTSTUB_ZP;
+                                    int8_t w = CONV_BR0_WEIGHT[oc][0][0][k];
+                                        acc[ct] += (int32_t)x * (int32_t)w;
+                                    }
+                                }
+                            }
 
                             for (int ct = 0; ct < CONV_BR_C_TILE; ct++) {
 #pragma HLS UNROLL
                                 int c = c0 + ct;
-                                int32_t acc = 0;
-                                for (int k = 0; k < K; k++) {
-#pragma HLS UNROLL factor=2
-                                    int idx = (wr + 1 + k) & (K - 1);
-                                    int16_t x = (int16_t)(line_buf[c][idx]) - (int16_t)QUANTSTUB_ZP;
-                                    int8_t w = CONV_BR0_WEIGHT[oc][0][0][k];
-                                    acc += (int32_t)x * (int32_t)w;
-                                }
-
-                                int v = conv_br_requant_fixed(acc, bias, CONV_BR0_R_MULT, out_zp);
+                                int v = conv_br_requant_fixed(acc[ct], bias, CONV_BR0_R_MULT, out_zp);
                                 uint8_t idx = (uint8_t)clamp(v, 0, 255);
 
                                 o_vec[c] = gelu_lut0[idx];
@@ -135,7 +142,6 @@ public:
         for (int n = 0; n < N; n++) {
             for (int c = 0; c < IN_D; c++) {
                 for (int k = 0; k < K; k++) {
-#pragma HLS UNROLL
                     line_buf[c][k] = (X_T)QUANTSTUB_ZP;
                 }
             }
@@ -157,21 +163,29 @@ public:
                         int32_t bias = CONV_BR1_BIAS[oc];
 
                         for (int c0 = 0; c0 < IN_D; c0 += CONV_BR_C_TILE) {
+                            int32_t acc[CONV_BR_C_TILE] = {0};
+#pragma HLS ARRAY_PARTITION variable = acc complete
+
+                            for (int k0 = 0; k0 < K; k0 += 2) {
 #pragma HLS PIPELINE II=1
+                                for (int ct = 0; ct < CONV_BR_C_TILE; ct++) {
+#pragma HLS UNROLL
+                                    int c = c0 + ct;
+                                    for (int kt = 0; kt < 2; kt++) {
+#pragma HLS UNROLL
+                                    int k = k0 + kt;
+                                    int idx = (wr + 1 + k) & (K - 1);
+                                    int16_t x = (int16_t)(line_buf[c][idx]) - (int16_t)QUANTSTUB_ZP;
+                                    int8_t w = CONV_BR1_WEIGHT[oc][0][0][k];
+                                        acc[ct] += (int32_t)x * (int32_t)w;
+                                    }
+                                }
+                            }
 
                             for (int ct = 0; ct < CONV_BR_C_TILE; ct++) {
 #pragma HLS UNROLL
                                 int c = c0 + ct;
-                                int32_t acc = 0;
-                                for (int k = 0; k < K; k++) {
-#pragma HLS UNROLL factor=2
-                                    int idx = (wr + 1 + k) & (K - 1);
-                                    int16_t x = (int16_t)(line_buf[c][idx]) - (int16_t)QUANTSTUB_ZP;
-                                    int8_t w = CONV_BR1_WEIGHT[oc][0][0][k];
-                                    acc += (int32_t)x * (int32_t)w;
-                                }
-
-                                int v = conv_br_requant_fixed(acc, bias, CONV_BR1_R_MULT, out_zp);
+                                int v = conv_br_requant_fixed(acc[ct], bias, CONV_BR1_R_MULT, out_zp);
                                 uint8_t idx = (uint8_t)clamp(v, 0, 255);
 
                                 o_vec[c] = gelu_lut1[idx];
@@ -209,7 +223,6 @@ public:
         for (int n = 0; n < N; n++) {
             for (int c = 0; c < IN_D; c++) {
                 for (int k = 0; k < K; k++) {
-#pragma HLS UNROLL
                     line_buf[c][k] = (X_T)QUANTSTUB_ZP;
                 }
             }
@@ -232,20 +245,29 @@ public:
                         int32_t bias = CONV_BR2_BIAS[oc];
 
                         for (int c0 = 0; c0 < IN_D; c0 += CONV_BR_C_TILE) {
+                            int32_t acc[CONV_BR_C_TILE] = {0};
+#pragma HLS ARRAY_PARTITION variable = acc complete
+
+                            for (int k0 = 0; k0 < K; k0 += 4) {
 #pragma HLS PIPELINE II=1
+                                for (int ct = 0; ct < CONV_BR_C_TILE; ct++) {
+#pragma HLS UNROLL
+                                    int c = c0 + ct;
+                                    for (int kt = 0; kt < 4; kt++) {
+#pragma HLS UNROLL
+                                    int k = k0 + kt;
+                                    int idx = (wr + 1 + k) & (K - 1);
+                                    int16_t x = (int16_t)(line_buf[c][idx]) - (int16_t)QUANTSTUB_ZP;
+                                    int8_t w = CONV_BR2_WEIGHT[oc][0][0][k];
+                                        acc[ct] += (int32_t)x * (int32_t)w;
+                                    }
+                                }
+                            }
 
                             for (int ct = 0; ct < CONV_BR_C_TILE; ct++) {
 #pragma HLS UNROLL
                                 int c = c0 + ct;
-                                int32_t acc = 0;
-                                for (int k = 0; k < K; k++) {
-#pragma HLS UNROLL factor=4
-                                    int idx = (wr + 1 + k) & (K - 1);
-                                    int16_t x = (int16_t)(line_buf[c][idx]) - (int16_t)QUANTSTUB_ZP;
-                                    int8_t w = CONV_BR2_WEIGHT[oc][0][0][k];
-                                    acc += (int32_t)x * (int32_t)w;
-                                }
-                                int v = conv_br_requant_fixed(acc, bias, CONV_BR2_R_MULT, out_zp);
+                                int v = conv_br_requant_fixed(acc[ct], bias, CONV_BR2_R_MULT, out_zp);
                                 uint8_t idx = (uint8_t)clamp(v, 0, 255);
 
                                 o_vec[c] = gelu_lut2[idx];
