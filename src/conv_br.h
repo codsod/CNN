@@ -65,7 +65,7 @@ public:
             }
 
             for (int t = 0; t < T_len + PAD; t++) {
-#pragma HLS PIPELINE 
+
 
                 hls::vector<X_T, IN_D> new_data;
                 if (t < T_len) new_data = i_stream.read();
@@ -79,6 +79,7 @@ public:
 
                 if (t >= PAD ) {
                     for (int oc = 0; oc < OUT_CH; oc++) {
+                        #pragma HLS PIPELINE 
                         hls::vector<X_T, IN_D> o_vec;
                         int32_t bias = CONV_BR0_BIAS[oc];
 
@@ -133,7 +134,6 @@ public:
             }
 
             for (int t = 0; t < T_len + PAD; t++) {
-#pragma HLS PIPELINE 
 
                 hls::vector<X_T, IN_D> new_data;
                 if (t < T_len) new_data = i_stream.read();
@@ -147,6 +147,8 @@ public:
 
                 if (t >= PAD ) {
                     for (int oc = 0; oc < OUT_CH; oc++) {
+                        #pragma HLS PIPELINE 
+
                         hls::vector<X_T, IN_D> o_vec;
                         int32_t bias = CONV_BR1_BIAS[oc];
 
@@ -203,7 +205,7 @@ public:
             }
 
             for (int t = 0; t < T_len + PAD; t++) {
-#pragma HLS PIPELINE 
+
 
                 hls::vector<X_T, IN_D> new_data;
                 if (t < T_len) new_data = i_stream.read();
@@ -217,6 +219,7 @@ public:
 
                 if (t >= PAD ) {
                     for (int oc = 0; oc < OUT_CH; oc++) {
+                        #pragma HLS PIPELINE 
                         hls::vector<X_T, IN_D> o_vec;
                         int32_t bias = CONV_BR2_BIAS[oc];
 
