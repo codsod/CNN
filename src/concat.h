@@ -16,13 +16,13 @@ constexpr SCALE_T CONCAT_OUTPUT_SCALE = 0.034158173949;
 constexpr ZP_T CONCAT_OUTPUT_ZP = 5;
 
 const LUT_T concat_lut0[256] = {
-    #include "ref/concat/concat_branch0_requant_lut.txt"
+#include "ref/concat/concat_branch0_requant_lut.txt"
 };
 const LUT_T concat_lut1[256] = {
-    #include "ref/concat/concat_branch1_requant_lut.txt"
+#include "ref/concat/concat_branch1_requant_lut.txt"
 };
 const LUT_T concat_lut2[256] = {
-    #include "ref/concat/concat_branch2_requant_lut.txt"
+#include "ref/concat/concat_branch2_requant_lut.txt"
 };
 
 // =============================================================================
@@ -40,6 +40,7 @@ public:
     static constexpr int OUT_VEC_LEN = BR_D;
     static constexpr int OUT_TP = SPATIAL_VEC;
     static constexpr int OUT_TT = SPATIAL_CHUNKS;
+    static constexpr int LAST_VALID = BR_D - (OUT_TT - 1) * OUT_TP;
 
     void do_concat(
         hls::stream<hls::vector<data_t, IN_D>> &i_stream_0,
@@ -99,11 +100,16 @@ public:
                         o_stream.write(out_vec);
                     }
                     hls::vector<data_t, OUT_TP> out_vec;
-                    for (int t = 0; t < OUT_TP; t++)
+                    for (int t = 0; t < LAST_VALID; t++)
                     {
 #pragma HLS UNROLL
-                        int t_idx = (OUT_TT - 1) * OUT_TP + t;
-                        out_vec[t] = (t_idx < BR_D) ? buf0[ch][r][t_idx] : (data_t)0;
+                        out_vec[t] = buf0[ch][r][(OUT_TT - 1) * OUT_TP + t];
+                    }
+
+                    for (int t = LAST_VALID; t < OUT_TP; t++)
+                    {
+#pragma HLS UNROLL
+                        out_vec[t] = 0;
                     }
                     o_stream.write(out_vec);
                 }
@@ -112,23 +118,29 @@ public:
             {
                 for (int r = 0; r < IN_D; r++)
                 {
-                    for (int ck = 0; ck < OUT_TT-1; ck++)
+                    for (int ck = 0; ck < OUT_TT - 1; ck++)
                     {
 #pragma HLS PIPELINE II = 1
                         hls::vector<data_t, OUT_TP> out_vec;
                         for (int t = 0; t < OUT_TP; t++)
                         {
-                            #pragma HLS UNROLL
+#pragma HLS UNROLL
                             int t_idx = ck * OUT_TP + t;
                             out_vec[t] = buf1[ch][r][t_idx];
                         }
                         o_stream.write(out_vec);
                     }
                     hls::vector<data_t, OUT_TP> out_vec;
-                    for (int t = 0; t < OUT_TP; t++){
-                        #pragma HLS UNROLL
-                        int t_idx = (OUT_TT-1 ) * OUT_TP + t;
-                        out_vec[t] = (t_idx < BR_D) ? buf1[ch][r][t_idx] : (data_t)0;
+                    for (int t = 0; t < LAST_VALID; t++)
+                    {
+#pragma HLS UNROLL
+                        out_vec[t] = buf1[ch][r][(OUT_TT - 1) * OUT_TP + t];
+                    }
+
+                    for (int t = LAST_VALID; t < OUT_TP; t++)
+                    {
+#pragma HLS UNROLL
+                        out_vec[t] = 0;
                     }
                     o_stream.write(out_vec);
                 }
@@ -150,11 +162,16 @@ public:
                         o_stream.write(out_vec);
                     }
                     hls::vector<data_t, OUT_TP> out_vec;
-                    for (int t = 0; t < OUT_TP; t++)
+                    for (int t = 0; t < LAST_VALID; t++)
                     {
 #pragma HLS UNROLL
-                        int t_idx = (OUT_TT - 1) * OUT_TP + t;
-                        out_vec[t] = (t_idx < BR_D) ? buf2[ch][r][t_idx] : (data_t)0;
+                        out_vec[t] = buf2[ch][r][(OUT_TT - 1) * OUT_TP + t];
+                    }
+
+                    for (int t = LAST_VALID; t < OUT_TP; t++)
+                    {
+#pragma HLS UNROLL
+                        out_vec[t] = 0;
                     }
                     o_stream.write(out_vec);
                 }
