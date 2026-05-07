@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>CNN 量化网络可视化</title>
+<style>
+  :root {
+    --bg: #0e1117;
+    --panel: #161b22;
+    --panel2: #1c2230;
+    --line: #30363d;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --accent: #58a6ff;
+    --green: #3fb950;
+    --orange: #d29922;
+    --red: #f85149;
+    --purple: #bc8cff;
+    --pink: #ff7b72;
+    --teal: #39d0d8;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    font-size: 14px;
+  }
+  header {
+    padding: 20px 32px;
+    border-bottom: 1px solid var(--line);
+    background: linear-gradient(135deg, #1f6feb22, #bc8cff11);
+  }
+  header h1 { margin: 0 0 6px 0; font-size: 22px; letter-spacing: 0.5px; }
+  header p { margin: 0; color: var(--muted); font-size: 13px; }
+  .layout {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 0;
+    height: calc(100vh - 78px);
+  }
+  .canvas-wrap {
+    overflow: auto;
+    padding: 24px;
+    position: relative;
+  }
+  .stage {
+    position: relative;
+    width: 980px;
+    margin: 0 auto;
+  }
+  svg.connectors {
+    position: absolute; top:0; left:0; width:100%; height:100%;
+    pointer-events: none; z-index: 0;
+  }
+  .node {
+    position: absolute;
+    width: 200px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 10px 12px;
+    cursor: pointer;
+    transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+    z-index: 1;
+  }
+  .node:hover { transform: translateY(-2px); box-shadow: 0 6px 24px #0008; border-color: var(--accent); }
+  .node.selected { border-color: var(--accent); box-shadow: 0 0 0 2px #58a6ff44; }
+  .node .title {
+    font-weight: 600; font-size: 13px; margin-bottom: 4px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .node .sub { color: var(--muted); font-size: 11px; line-height: 1.45; }
+  .node .badge {
+    display:inline-block; font-size: 10px; padding: 1px 6px; border-radius: 99px;
+    background: #30363d; color: var(--muted);
+  }
+  .tag-quant   { color: var(--orange); }
+  .tag-conv    { color: var(--accent); }
+  .tag-act     { color: var(--purple); }
+  .tag-pool    { color: var(--teal); }
+  .tag-fc      { color: var(--green); }
+  .tag-flow    { color: var(--muted); }
+
+  .node.quant { border-left: 3px solid var(--orange); }
+  .node.conv  { border-left: 3px solid var(--accent); }
+  .node.act   { border-left: 3px solid var(--purple); }
+  .node.pool  { border-left: 3px solid var(--teal); }
+  .node.fc    { border-left: 3px solid var(--green); }
+  .node.flow  { border-left: 3px solid var(--muted); }
+
+  .edge-label {
+    position: absolute;
+    background: #1c2230cc;
+    color: var(--muted);
+    font-size: 11px;
+    padding: 1px 6px;
+    border-radius: 4px;
+    border: 1px solid var(--line);
+    white-space: nowrap;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  aside {
+    border-left: 1px solid var(--line);
+    background: var(--panel);
+    overflow: auto;
+    padding: 20px 22px;
+  }
+  aside h2 {
+    margin: 0 0 4px 0; font-size: 16px;
+  }
+  aside .sub-title { color: var(--muted); font-size: 12px; margin-bottom: 14px; }
+  aside .section {
+    margin-bottom: 16px;
+    padding: 12px 14px;
+    background: var(--panel2);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+  }
+  aside .section h3 {
+    margin: 0 0 8px 0; font-size: 12px; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 1px; font-weight: 600;
+  }
+  aside table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  aside td { padding: 4px 0; vertical-align: top; }
+  aside td:first-child { color: var(--muted); width: 42%; }
+  aside td:last-child  { color: var(--text); font-family: ui-monospace, "SF Mono", Consolas, monospace; word-break: break-all; }
+  aside p { color: var(--text); line-height: 1.55; font-size: 13px; margin: 0 0 8px 0; }
+  aside .formula {
+    background: #0d1117;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 8px 10px;
+    font-family: ui-monospace, Consolas, monospace;
+    color: var(--teal);
+    font-size: 12px;
+    overflow-x: auto;
+  }
+  .legend {
+    display: flex; gap: 12px; flex-wrap: wrap;
+    padding: 10px 24px; border-bottom: 1px solid var(--line);
+    background: var(--panel);
+    font-size: 12px;
+  }
+  .legend span { display: inline-flex; align-items: center; gap: 4px; color: var(--muted); }
+  .legend i { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+  .pill {
+    display:inline-block; padding: 1px 7px; border-radius: 99px;
+    border: 1px solid var(--line); color: var(--muted); font-size: 11px;
+    margin-right: 6px;
+  }
+  .file-link { color: var(--accent); text-decoration: none; }
+  .file-link:hover { text-decoration: underline; }
+  .arrowhead { fill: #58a6ff; }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>CNN 量化推理网络可视化</h1>
+  <p>EEG 信号 → 7 类分类 + 2 维 cos/sin 角度回归 · PyTorch QNNPACK PTQ → Vitis HLS C++ → KV260 FPGA</p>
+</header>
+
+<div class="legend">
+  <span><i style="background:var(--orange)"></i>量化 / 重标定</span>
+  <span><i style="background:var(--accent)"></i>卷积</span>
+  <span><i style="background:var(--purple)"></i>激活 (LUT)</span>
+  <span><i style="background:var(--teal)"></i>池化</span>
+  <span><i style="background:var(--green)"></i>全连接</span>
+  <span><i style="background:var(--muted)"></i>数据流</span>
+  <span style="margin-left:auto; color: var(--muted)">点击任意模块查看详情 →</span>
+</div>
+
+<div class="layout">
+  <div class="canvas-wrap">
+    <div class="stage" id="stage" style="height: 1620px;">
+      <svg class="connectors" id="svg" viewBox="0 0 980 1620" preserveAspectRatio="none">
+        <defs>
+          <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" class="arrowhead"/>
+          </marker>
+        </defs>
+      </svg>
+    </div>
+  </div>
+
+  <aside id="info">
+    <h2 id="info-title">概览</h2>
+    <div class="sub-title" id="info-sub">点击左侧任意模块查看实现细节</div>
+
+    <div class="section">
+      <h3>网络数据维度</h3>
+      <table>
+        <tr><td>Batch (N)</td><td>1</td></tr>
+        <tr><td>输入空间维 (IN_DIM)</td><td>15</td></tr>
+        <tr><td>时间维 (T)</td><td>410</td></tr>
+        <tr><td>三路通道</td><td>13 / 13 / 14 → 拼接 40</td></tr>
+        <tr><td>Pool 输出 T_pool</td><td>19 (K=40, S=20)</td></tr>
+        <tr><td>FlatDim → FC</td><td>40 × 1 × 19 = 760</td></tr>
+        <tr><td>输出</td><td>CLS=7  /  HUE=2</td></tr>
+      </table>
+    </div>
+
+    <div class="section">
+      <h3>数据类型</h3>
+      <table>
+        <tr><td>激活 X_T</td><td>ap_uint&lt;8&gt;</td></tr>
+        <tr><td>权重 W_T</td><td>int8</td></tr>
+        <tr><td>Bias B_T</td><td>int32</td></tr>
+        <tr><td>Scale</td><td>float32</td></tr>
+        <tr><td>Requant 移位</td><td>2^26 (定点)</td></tr>
+      </table>
+    </div>
+
+    <div class="section">
+      <h3>定点重量化公式</h3>
+      <div class="formula">prod = (acc + bias) × R_MULT</div>
+      <div class="formula">R_MULT = round(S_in · S_w / S_out · 2^26)</div>
+      <div class="formula">out = clamp((prod >> 26) + ZP_out, 0, 255)</div>
+    </div>
+  </aside>
+</div>
+
+<script>
+const NODES = [
+  // x, y 是节点左上角；width 默认 200
+  { id:"input",    x:390, y:10,    w:200, type:"flow",  title:"fp32 input",
+    sub:"shape (N=1, 1, IN_DIM=15, T=410)",
+    detail:{
+      desc:"原始 fp32 EEG 输入。15 通道 × 410 个时间点。",
+      file:"case/CNN_top.cpp",
+      table:[["来源","quant/acc0304.py 导出 trace_input_0_fp32.txt"],
+             ["shape","(1, 1, 15, 410)"]]
+    } },
+
+  { id:"quant",    x:390, y:110,   w:200, type:"quant", title:"QuantInput",
+    sub:"fp32 → uint8 · QuantStub",
+    detail:{
+      desc:"对应 PyTorch QuantStub。逐元素四舍五入到 uint8。",
+      file:"src/quant_input.h",
+      formula:"q = clamp(round(x / scale) + zp, 0, 255)",
+      table:[["scale","3.542000532150"],["zp","106"],["输出","uint8 (1,1,15,410)"]]
+    } },
+
+  { id:"tee",      x:390, y:215,   w:200, type:"flow",  title:"tee × 3",
+    sub:"一路输入复制成三路",
+    detail:{
+      desc:"将量化后的输入复制三份，分别送进三路并行 1D 卷积分支。",
+      file:"case/CNN_top.cpp:tee3_quant_to_conv_br",
+      table:[["复制份数","3"],["每份 shape","(1,1,15,410)"]]
+    } },
+
+  // 三路分支
+  { id:"br0", x:80,  y:340, w:220, type:"conv", title:"ConvBrBranch0",
+    sub:"K=16, OutCh=13 + GELU LUT",
+    detail:{
+      desc:"1D 时序卷积分支 0。环形 line-buffer + tile 分块流水。卷积后做 INT 重量化，再以结果为索引查 GELU LUT 得到激活输出。",
+      file:"src/conv_br.h · ConvBrBranch0",
+      formula:"out = gelu_lut0[ clamp((acc+bias)·R_MULT >> 26 + zp_o, 0, 255) ]",
+      table:[
+        ["kernel","16"],["输出通道","13"],
+        ["weight 来源","ms_conv1_branch0_conv_weight_int8.txt"],
+        ["weight scale","CONV_BR0_WEIGHT_SCALES"],
+        ["output_scale","0.057105172426"],
+        ["output_zp","130"],
+        ["GELU LUT","gelu_lut0[256] (UINT8)"]
+      ]
+    } },
+
+  { id:"br1", x:380, y:340, w:220, type:"conv", title:"ConvBrBranch1",
+    sub:"K=32, OutCh=13 + GELU LUT",
+    detail:{
+      desc:"1D 时序卷积分支 1，参数与分支 0 同结构但更大感受野。",
+      file:"src/conv_br.h · ConvBrBranch1",
+      table:[
+        ["kernel","32"],["输出通道","13"],
+        ["output_scale","0.061033196747"],
+        ["output_zp","125"],
+        ["GELU LUT","gelu_lut1[256]"]
+      ]
+    } },
+
+  { id:"br2", x:680, y:340, w:220, type:"conv", title:"ConvBrBranch2",
+    sub:"K=64, OutCh=14 + GELU LUT",
+    detail:{
+      desc:"1D 时序卷积分支 2，最大感受野。注：当前源码 output_scale 与 meta 文件略有偏差（见 check_ques.md 第 3 条）。",
+      file:"src/conv_br.h · ConvBrBranch2",
+      table:[
+        ["kernel","64"],["输出通道","14"],
+        ["output_scale","0.064764507115"],
+        ["output_zp","127"],
+        ["GELU LUT","gelu_lut2[256]"]
+      ]
+    } },
+
+  { id:"concat", x:340, y:490, w:300, type:"quant", title:"Concat (重标定 + 通道拼接)",
+    sub:"3 路独立量化域 → 统一 concat 域 → 40 ch",
+    detail:{
+      desc:"三路 GELU 输出位于各自的量化域，先用预先生成的 256 项 LUT (concat_branch{0,1,2}_requant_lut) 重标定到统一 concat 域，再按 (br0→br1→br2)×通道×IN_DIM×T 顺序拼成 40 通道写出。",
+      file:"src/concat.h · Concat",
+      formula:"x' = concat_lut_i[x]   (重标定到统一域 (S, ZP))",
+      table:[
+        ["统一 scale","0.034158173949"],
+        ["统一 zp","5"],
+        ["输出 shape","(1, 40, 15, 410)"]
+      ]
+    } },
+
+  { id:"convs",  x:340, y:610, w:300, type:"conv", title:"ConvSpatial",
+    sub:"15×1 spatial conv · 40→40 ch · 银行家舍入",
+    detail:{
+      desc:"在 IN_DIM=15 维上做 15×1 卷积，把 (40,15,T) 压成 (40,1,T)。重量化使用银行家舍入 (round-half-to-even) 与 PyTorch 量化算子对齐。input scale/zp 历史上曾错误沿用最后一支分支，已用 infer_conv2_input_qparams.py 反推修正。",
+      file:"src/conv2d.h · ConvSpatial",
+      formula:"acc = Σ(x - ZP_in) · w + bias  →  banker_round(acc · R_MULT / 2^26) + ZP_out",
+      table:[
+        ["kernel","15 × 1"],
+        ["input_scale","0.034158173949"],
+        ["input_zp","5"],
+        ["output_scale","0.059495572001"],
+        ["output_zp","132"],
+        ["row tile","5"]
+      ]
+    } },
+
+  { id:"square", x:390, y:730, w:200, type:"act", title:"SquareLUT",
+    sub:"x² (查表)",
+    detail:{
+      desc:"非线性激活 x²，由于输入是 uint8，直接用 256 项 LUT 实现。LUT 在量化域内预先把平方后的值算好。",
+      file:"src/square.h · SquareLUT",
+      formula:"out[k] = square_lut[ in[k] ]",
+      table:[["LUT 大小","256 entries"],["输出 dtype","uint8"]]
+    } },
+
+  { id:"pool",   x:390, y:830, w:200, type:"pool", title:"AvgPool",
+    sub:"K=40, S=20 · 银行家舍入",
+    detail:{
+      desc:"窗口 K=40，步长 S=20。利用 K=2S 把每段 20 个元素累加成 seg_sum，再相邻段相加得窗口和。除以 40 用魔数乘 ×3277 >> 17 实现整除，舍入按银行家舍入与 PyTorch trace 对齐。",
+      file:"src/pool.h · POOL",
+      formula:"q = (sum × 3277) >> 17 ;  r = sum - 40q ;  banker_round on (r vs K/2)",
+      table:[["输入 T","410"],["输出 T_pool","19"],["K","40"],["S","20"]]
+    } },
+
+  { id:"log",    x:390, y:930, w:200, type:"act", title:"LogLUT",
+    sub:"log(x) (查表)",
+    detail:{
+      desc:"对数激活，由于输入是 uint8，直接用 256 项 LUT 实现。",
+      file:"src/log.h · LogLUT",
+      formula:"out[k] = log_lut[ in[k] ]",
+      table:[["LUT 大小","256 entries"]]
+    } },
+
+  { id:"split",  x:390, y:1030, w:200, type:"flow", title:"Split × 2",
+    sub:"复制为分类头 / 回归头两路",
+    detail:{
+      desc:"将 (40, 1, 19) 的 log 输出复制成两路，分别喂给 LinearCLS 和 LinearHue。",
+      file:"src/split.h · Split",
+      table:[["输出 1","→ LinearCLS"],["输出 2","→ LinearHue"]]
+    } },
+
+  { id:"fc_cls", x:120, y:1180, w:280, type:"fc", title:"LinearCLS (分类头)",
+    sub:"FlatDim=760 → 7 logits · 显式四舍五入",
+    detail:{
+      desc:"760 维输入 → 7 维分类 logits。最后一步 requant 显式做 round(x+0.5) 四舍五入，保证与 PyTorch 量化 trace 对齐。",
+      file:"src/linear_cls.h · LinearCLS",
+      formula:"out = clamp(round(acc·S_in·S_w / S_out) + ZP_out, 0, 255)",
+      table:[
+        ["FlatDim","40 × 1 × 19 = 760"],
+        ["输出维度","7"],
+        ["input_scale","0.033854458481 (FC_INPUT_SCALE)"],
+        ["input_zp","162"],
+        ["output_scale","0.060974508524"],
+        ["output_zp","102"],
+        ["舍入","round(x + 0.5)"]
+      ]
+    } },
+
+  { id:"fc_hue", x:580, y:1180, w:280, type:"fc", title:"LinearHue (回归头)",
+    sub:"FlatDim=760 → 2 维 cos/sin · 截断",
+    detail:{
+      desc:"760 维输入 → 2 维 (cos, sin) 角度回归。当前 requant 用截断（无 round），check_ques.md 第 2 条记录了与 trace 的差异。",
+      file:"src/linear_hue.h · LinearHue",
+      formula:"out = (acc · S_in · S_w / S_out) + ZP_out   (截断)",
+      table:[
+        ["FlatDim","760"],
+        ["输出维度","2"],
+        ["output_scale","0.040061067790"],
+        ["output_zp","120"],
+        ["舍入","截断 (truncate)"]
+      ]
+    } },
+
+  { id:"out_cls", x:155, y:1340, w:210, type:"flow", title:"cls_stream",
+    sub:"7 类 logits (uint8)",
+    detail:{
+      desc:"分类头输出。验证时与 trace_fc_cls.txt 对比。",
+      file:"src/ref/trace/trace_fc_cls.txt",
+      table:[["dtype","uint8"],["维度","7"]]
+    } },
+  { id:"out_hue", x:615, y:1340, w:210, type:"flow", title:"hue_stream",
+    sub:"2 维 cos/sin (uint8)",
+    detail:{
+      desc:"回归头输出。验证时与 trace_fc_hue.txt 对比，反量化后用 atan2 还原角度。",
+      file:"src/ref/trace/trace_fc_hue.txt",
+      table:[["dtype","uint8"],["维度","2"]]
+    } },
+];
+
+// 边：from -> to ，可选 label
+const EDGES = [
+  { from:"input",  to:"quant",  label:"fp32 (1,1,15,410)" },
+  { from:"quant",  to:"tee",    label:"uint8" },
+  { from:"tee",    to:"br0",    label:"copy 0", side:"left" },
+  { from:"tee",    to:"br1",    label:"copy 1" },
+  { from:"tee",    to:"br2",    label:"copy 2", side:"right" },
+  { from:"br0",    to:"concat", label:"(13,15,T)", side:"left" },
+  { from:"br1",    to:"concat", label:"(13,15,T)" },
+  { from:"br2",    to:"concat", label:"(14,15,T)", side:"right" },
+  { from:"concat", to:"convs",  label:"(40,15,410)" },
+  { from:"convs",  to:"square", label:"(40,1,410)" },
+  { from:"square", to:"pool",   label:"(40,1,410)" },
+  { from:"pool",   to:"log",    label:"(40,1,19)" },
+  { from:"log",    to:"split",  label:"(40,1,19)" },
+  { from:"split",  to:"fc_cls", label:"FlatDim=760", side:"left" },
+  { from:"split",  to:"fc_hue", label:"FlatDim=760", side:"right" },
+  { from:"fc_cls", to:"out_cls" },
+  { from:"fc_hue", to:"out_hue" },
+];
+
+const TYPE_TAG = { quant:"量化", conv:"卷积", act:"激活", pool:"池化", fc:"全连接", flow:"数据流" };
+
+const stage = document.getElementById("stage");
+const svg   = document.getElementById("svg");
+const NODE_H = 64;
+
+const nodeMap = {};
+NODES.forEach(n => {
+  const el = document.createElement("div");
+  el.className = "node " + n.type;
+  el.style.left = n.x + "px";
+  el.style.top  = n.y + "px";
+  el.style.width = (n.w || 200) + "px";
+  el.dataset.id = n.id;
+  el.innerHTML = `
+    <div class="title"><span class="tag-${n.type}">●</span>${n.title}<span class="badge" style="margin-left:auto">${TYPE_TAG[n.type]}</span></div>
+    <div class="sub">${n.sub || ""}</div>`;
+  el.addEventListener("click", () => selectNode(n.id));
+  stage.appendChild(el);
+  nodeMap[n.id] = { ...n, el };
+});
+
+function getRect(n){
+  const w = n.w || 200;
+  const h = NODE_H;
+  return { left: n.x, top: n.y, right: n.x + w, bottom: n.y + h, cx: n.x + w/2, cy: n.y + h/2, w, h };
+}
+
+EDGES.forEach((e, i) => {
+  const a = getRect(nodeMap[e.from]);
+  const b = getRect(nodeMap[e.to]);
+
+  // 起点：from 节点底部中心或侧边；终点：to 节点顶部中心或侧边
+  let x1, y1, x2, y2;
+  if (e.side === "left") { x1 = a.left + a.w*0.25; x2 = b.right - b.w*0.15; }
+  else if (e.side === "right") { x1 = a.left + a.w*0.75; x2 = b.left + b.w*0.15; }
+  else { x1 = a.cx; x2 = b.cx; }
+  y1 = a.bottom;
+  y2 = b.top;
+
+  const midY = (y1 + y2) / 2;
+  const path = `M ${x1} ${y1} C ${x1} ${midY}, ${x2} ${midY}, ${x2} ${y2}`;
+  const p = document.createElementNS("http://www.w3.org/2000/svg", "path");
+  p.setAttribute("d", path);
+  p.setAttribute("fill", "none");
+  p.setAttribute("stroke", "#58a6ff");
+  p.setAttribute("stroke-width", "1.5");
+  p.setAttribute("stroke-opacity", "0.55");
+  p.setAttribute("marker-end", "url(#ah)");
+  svg.appendChild(p);
+
+  if (e.label) {
+    const lbl = document.createElement("div");
+    lbl.className = "edge-label";
+    lbl.textContent = e.label;
+    lbl.style.left = ((x1 + x2)/2) + "px";
+    lbl.style.top  = (midY - 8) + "px";
+    lbl.style.transform = "translate(-50%, -50%)";
+    stage.appendChild(lbl);
+  }
+});
+
+function selectNode(id) {
+  Object.values(nodeMap).forEach(n => n.el.classList.remove("selected"));
+  const n = nodeMap[id];
+  n.el.classList.add("selected");
+  renderInfo(n);
+}
+
+function renderInfo(n) {
+  const d = n.detail || {};
+  const aside = document.getElementById("info");
+  let html = `
+    <h2 id="info-title"><span class="tag-${n.type}">●</span> ${n.title}</h2>
+    <div class="sub-title">${n.sub || ""}${d.file ? ' · <span class="pill">' + d.file + '</span>' : ''}</div>
+  `;
+  if (d.desc) {
+    html += `<div class="section"><h3>说明</h3><p>${d.desc}</p></div>`;
+  }
+  if (d.formula) {
+    html += `<div class="section"><h3>核心公式</h3><div class="formula">${d.formula}</div></div>`;
+  }
+  if (d.table && d.table.length) {
+    html += `<div class="section"><h3>关键参数</h3><table>` +
+      d.table.map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join("") +
+      `</table></div>`;
+  }
+  // 通用：把全局信息放下面
+  html += `
+    <div class="section">
+      <h3>HLS 工程化</h3>
+      <p style="margin:0; color: var(--muted); font-size:12px; line-height:1.55;">
+        本模块在 <span class="pill">case/${n.id.toUpperCase()}.cpp</span> 中有独立 testbench，<br>
+        可单独跑 csim/csynth；在 <span class="pill">case/CNN_top.cpp</span> 中以 dataflow 串入整网。
+      </p>
+    </div>`;
+  aside.innerHTML = html;
+}
+</script>
+</body>
+</html>
