@@ -26,6 +26,7 @@ public:
     void do_pool_func(hls::stream<hls::vector<if_t, VEC> >& i_stream,hls::stream<hls::vector<of_t, DIM1 * OUTDIM>>& o_stream){
         if_t in_buf[DIM1][DIM2];
 #pragma HLS ARRAY_PARTITION variable = in_buf complete dim = 2
+#pragma HLS RESET variable=in_buf off
         
         n_loop:for(int n = 0 ; n < N ; n++){
             channels_loop:for(int chan = 0 ;chan < CHANNELS ; chan ++){
@@ -42,6 +43,7 @@ public:
                     }
                 }
                 hls::vector<of_t, DIM1 * OUTDIM> out;
+                #pragma HLS RESET variable=out off
                 dim1_loop:for (int dim1 = 0; dim1 < DIM1; dim1++) {
                     outdim_loop:for (int outdim = 0 ;outdim < OUTDIM ;outdim++){
                         uint16_t sum=0;
@@ -53,8 +55,8 @@ public:
                         // 导出 trace_pool1 时 PyTorch 量化 AvgPool 实际为截断，故用 sum/K。
                         // 若改用四舍五入与 pool1_meta（同 scale）对齐，可改为: (sum + K/2) / K
                         // 实际算法中采取的是银行家舍入，关键区别在于0.5的处理：银行家舍入在0.5时向最近的偶数舍入，而普通四舍五入在0.5时总是向上舍入。
-                        uint16_t q = sum / K;
-                        uint16_t r = sum - q * K;
+                        uint16_t q = ((uint32_t)sum * 3277) >> 17; // exact floor(sum / 40) for sum <= 10200
+                        uint16_t r = sum - ((q << 5) + (q << 3));
 
 
                         if (2* r > K) {
