@@ -101,33 +101,30 @@ public:
 #pragma HLS BIND_STORAGE variable = buf1 type = ram_1p impl = bram
 #pragma HLS BIND_STORAGE variable = buf2 type = ram_1p impl = bram
 
-        constexpr int MAX_CH = BR2_CHANNELS;
-
         for (int n = 0; n < N; n++)
         {
             for (int t = 0; t < BR_D; t++)
             {
-                for (int oc = 0; oc < MAX_CH; oc++)
+                for (int oc = 0; oc < BR0_CHANNELS; oc++)
                 {
+                    hls::vector<data_t, IN_D> v0 = i_stream_0.read();
+                    for (int c = 0; c < IN_D; c++)
 #pragma HLS PIPELINE II = 1
-                    if (oc < BR0_CHANNELS) {
-                        hls::vector<data_t, IN_D> v0 = i_stream_0.read();
-                        for (int c = 0; c < IN_D; c++)
-#pragma HLS UNROLL
-                            buf0[oc][c][t] = (data_t)concat_lut0[(ap_uint<8>)v0[c]];
-                    }
-                    if (oc < BR1_CHANNELS) {
-                        hls::vector<data_t, IN_D> v1 = i_stream_1.read();
-                        for (int c = 0; c < IN_D; c++)
-#pragma HLS UNROLL
-                            buf1[oc][c][t] = (data_t)concat_lut1[(ap_uint<8>)v1[c]];
-                    }
-                    if (oc < BR2_CHANNELS) {
-                        hls::vector<data_t, IN_D> v2 = i_stream_2.read();
-                        for (int c = 0; c < IN_D; c++)
-#pragma HLS UNROLL
-                            buf2[oc][c][t] = (data_t)concat_lut2[(ap_uint<8>)v2[c]];
-                    }
+                        buf0[oc][c][t] = (data_t)concat_lut0[(ap_uint<8>)v0[c]];
+                }
+                for (int oc = 0; oc < BR1_CHANNELS; oc++)
+                {
+                    hls::vector<data_t, IN_D> v1 = i_stream_1.read();
+                    for (int c = 0; c < IN_D; c++)
+#pragma HLS PIPELINE II = 1
+                        buf1[oc][c][t] = (data_t)concat_lut1[(ap_uint<8>)v1[c]];
+                }
+                for (int oc = 0; oc < BR2_CHANNELS; oc++)
+                {
+                    hls::vector<data_t, IN_D> v2 = i_stream_2.read();
+                    for (int c = 0; c < IN_D; c++)
+#pragma HLS PIPELINE II = 1
+                        buf2[oc][c][t] = (data_t)concat_lut2[(ap_uint<8>)v2[c]];
                 }
             }
 
