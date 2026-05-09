@@ -64,6 +64,17 @@ void top(hls::stream<hls::vector<float, IN_DIM>>& i_stream,
     hls::stream<hls::vector<X_T, IN_DIM>> concat_i0;
     hls::stream<hls::vector<X_T, IN_DIM>> concat_i1;
     hls::stream<hls::vector<X_T, IN_DIM>> concat_i2;
+#pragma HLS STREAM variable=quant_out depth=64
+
+#pragma HLS STREAM variable=conv_br_i0 depth=128
+#pragma HLS STREAM variable=conv_br_i1 depth=128
+#pragma HLS STREAM variable=conv_br_i2 depth=128
+
+#pragma HLS STREAM variable=concat_i0 depth=512
+#pragma HLS STREAM variable=concat_i1 depth=512
+#pragma HLS STREAM variable=concat_i2 depth=128
+
+
     hls::stream<hls::vector<X_T, SPATIAL_VEC>> conv_spatial_i;
     hls::stream<hls::vector<X_T, SPATIAL_VEC>> conv_spatial_o;
     hls::stream<hls::vector<X_T, SPATIAL_VEC>> square_o;
