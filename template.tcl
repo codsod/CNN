@@ -27,6 +27,8 @@ add_files       case/${case_name}.cpp
 add_files -tb   case/${case_name}.cpp
 open_solution "solution"
 
+
+# set_part xc7a200tfbg484-2
 set_part xc7k325tffg900-2
 # use VCK190
 # set_part xcvc1902-vsva2197-2MP-e-S 

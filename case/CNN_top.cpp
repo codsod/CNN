@@ -30,32 +30,17 @@ LinearCLS<X_T, X_T, I_DEQUAN_T, O_QUAN_T, N, CONCAT_CHANNELS, LV_DIM1, T_pool> l
 LinearHue<X_T, X_T, I_DEQUAN_T, O_QUAN_T, N, CONCAT_CHANNELS, LV_DIM1, T_pool> linear_hue_inst;
 
 // 量化输出 1->3 复制，供三路 conv_br 使用
-// Cascade tee: stage1 → out0 + interm, stage2 → out1 + out2
-// Decouples backpressure — full out0 won't block out1/out2 and vice versa
 static void tee3_quant_to_conv_br(
     hls::stream<hls::vector<X_T, IN_DIM>>& in,
     hls::stream<hls::vector<X_T, IN_DIM>>& out0,
-    hls::stream<hls::vector<X_T, IN_DIM>>& interm)
-{
-    for (int n = 0; n < N; n++) {
-        for (int t = 0; t < T; t++) {
-#pragma HLS PIPELINE II=1
-            hls::vector<X_T, IN_DIM> v = in.read();
-            out0.write(v);
-            interm.write(v);
-        }
-    }
-}
-
-static void tee3_stage2(
-    hls::stream<hls::vector<X_T, IN_DIM>>& interm,
     hls::stream<hls::vector<X_T, IN_DIM>>& out1,
     hls::stream<hls::vector<X_T, IN_DIM>>& out2)
 {
     for (int n = 0; n < N; n++) {
         for (int t = 0; t < T; t++) {
 #pragma HLS PIPELINE II=1
-            hls::vector<X_T, IN_DIM> v = interm.read();
+            hls::vector<X_T, IN_DIM> v = in.read();
+            out0.write(v);
             out1.write(v);
             out2.write(v);
         }
@@ -76,20 +61,18 @@ void top(hls::stream<hls::vector<float, IN_DIM>>& i_stream,
 
     hls::stream<hls::vector<X_T, IN_DIM>> quant_out;
     hls::stream<hls::vector<X_T, IN_DIM>> conv_br_i0, conv_br_i1, conv_br_i2;
-    hls::stream<hls::vector<X_T, IN_DIM>> tee3_interm;
     hls::stream<hls::vector<X_T, IN_DIM>> concat_i0;
     hls::stream<hls::vector<X_T, IN_DIM>> concat_i1;
     hls::stream<hls::vector<X_T, IN_DIM>> concat_i2;
-#pragma HLS STREAM variable=quant_out depth=64
+#pragma HLS STREAM variable=quant_out depth=128   // 64 0
 
-#pragma HLS STREAM variable=conv_br_i0 depth=128
-#pragma HLS STREAM variable=conv_br_i1 depth=128
-#pragma HLS STREAM variable=conv_br_i2 depth=128
-#pragma HLS STREAM variable=tee3_interm depth=128
+#pragma HLS STREAM variable=conv_br_i0 depth=128  // 128 0
+#pragma HLS STREAM variable=conv_br_i1 depth=128  // 128 0 
+#pragma HLS STREAM variable=conv_br_i2 depth=128  // 128 0
 
-#pragma HLS STREAM variable=concat_i0 depth=512
-#pragma HLS STREAM variable=concat_i1 depth=512
-#pragma HLS STREAM variable=concat_i2 depth=128
+#pragma HLS STREAM variable=concat_i0 depth=1024  // 512 512
+#pragma HLS STREAM variable=concat_i1 depth=512   // 512 256
+#pragma HLS STREAM variable=concat_i2 depth=256   // 128 128
 
 
     hls::stream<hls::vector<X_T, SPATIAL_VEC>> conv_spatial_i;
@@ -101,8 +84,7 @@ void top(hls::stream<hls::vector<float, IN_DIM>>& i_stream,
 
 #pragma HLS dataflow
     quant_input_inst.do_quantize(i_stream, quant_out);
-    tee3_quant_to_conv_br(quant_out, conv_br_i0, tee3_interm);
-    tee3_stage2(tee3_interm, conv_br_i1, conv_br_i2);
+    tee3_quant_to_conv_br(quant_out, conv_br_i0, conv_br_i1, conv_br_i2);
     conv_br0_inst.do_conv_br(conv_br_i0, concat_i0);
     conv_br1_inst.do_conv_br(conv_br_i1, concat_i1);
     conv_br2_inst.do_conv_br(conv_br_i2, concat_i2);
