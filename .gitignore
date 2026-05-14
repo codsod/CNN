@@ -5,6 +5,7 @@
 /quant
 /__pycache__
 /chris_src
+/detest
 /.DS_store
 /color_cross_subjects_data_code
 step1_simulation.py
